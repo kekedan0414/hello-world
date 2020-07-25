@@ -86,6 +86,8 @@
       https://www.cnblogs.com/jack1995/p/10908809.html
 ----------------------------------------
 15、什么是一致性Hash
+
+https://baijiahao.baidu.com/s?id=1667846581124648589&wfr=spider&for=pc
 ----------------------------------------
 16、HashMap中hash冲突了怎么办？还有没有其他方法？
      Java中是用的数组+链表的形式
