@@ -423,9 +423,7 @@ es每个文档都有唯一的id,这个id可以由我们自己指定，也可以由es自动生成。
 
 1、当集群 master 候选数量不小于 3 个时，可以通过设置最少投票通过数量
 
-（discovery.zen.minimum_master_nodes）超过所有候选节点一半以上来解
-
-决脑裂问题；
+（discovery.zen.minimum_master_nodes）超过所有候选节点一半以上来解决脑裂问题；
 
 
 2、当候选数量为两个时，只能修改为唯一的一个 master 候选，其他作为 data
@@ -552,20 +550,12 @@ Elasticsearch有四类API：
 ES访问接口：9200/TCP，它是HTTP请求，我们可以通过curl命令访问，例如查看集状态：
     curl -X GET 'http://node101.yinzhengjie.org.cn:9200/_cat/health?v'
 
-17、
-
 18、ElasticSearch中9200端口与9300端口的区别？
 9200作为Http协议Restful接口，主要用于外部通讯。
 
 9300作为Tcp协议，jar之间就是通过tcp协议通讯
 
 ES集群之间是通过9300进行通讯，集群间和 TCPClient 都走的该端口。
-
-19、Elasticsearch 7有哪些新特性？
-
-20、
-
-
 
 
 
