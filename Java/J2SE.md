@@ -1,9 +1,10 @@
-¡¾ExceptionÓëRuntimeExceptionÇø±ð¡¿
-    Exception£ºÔÚ³ÌÐòÖÐ±ØÐëÊ¹ÓÃtry...catch½øÐÐ´¦Àí¡£
-               ²»ÓÃtrycatch»òÕßthrowsÅ×³öµÄ»°£¬±àÒë²»Í¨¹ý¡£
-    RuntimeException£º¿ÉÒÔ²»Ê¹ÓÃtry...catch½øÐÐ´¦Àí£¬µ«ÊÇÈç¹ûÓÐÒì³£²úÉú£¬ÔòÒì³£½«ÓÉJVM½øÐÐ´¦Àí¡£
-                      ²»ÓÃtrycatchµÄ»°£¬³ö´íÖ±½ÓÖÕÖ¹³ÌÐò¡£Ò»°ã½¨ÒéÓÃtrycatch²¶»ñ¡£
+# JAVA
 
+### ExceptionÓëRuntimeExceptionÇø±ð
+
++ **Exception**£ºÔÚ³ÌÐòÖÐ±ØÐëÊ¹ÓÃtry...catch½øÐÐ´¦Àí¡£ ²»ÓÃtrycatch»òÕßthrowsÅ×³öµÄ»°£¬±àÒë²»Í¨¹ý¡£
++ **RuntimeException**£º¿ÉÒÔ²»Ê¹ÓÃtry...catch½øÐÐ´¦Àí£¬µ«ÊÇÈç¹ûÓÐÒì³£²úÉú£¬ÔòÒì³£½«ÓÉJVM½øÐÐ´¦Àí¡£
+                        ²»ÓÃtrycatchµÄ»°£¬³ö´íÖ±½ÓÖÕÖ¹³ÌÐò¡£Ò»°ã½¨ÒéÓÃtrycatch²¶»ñ¡£
 
 ¼Ì³ÐException»¹ÊÇ¼Ì³ÐRuntimeExceptionÊÇÓÉÒì³£±¾ÉíµÄÌØµã¾ö¶¨µÄ£¬¶ø²»ÊÇÓÉÊÇ·ñÊÇ×Ô¶¨ÒåµÄÒì³£¾ö¶¨µÄ¡£
 ÀýÈçÎÒÒªÐ´Ò»¸öjava api£¬Õâ¸öapiÖÐ»áµ÷ÓÃÒ»¸ö¼«Æä²Ùµ°µÄÔ¶¶Ë·þÎñ£¬Õâ¸öÔ¶¶Ë·þÎñ¾­³£³¬Ê±ºÍ²»¿ÉÓÃ¡£
@@ -11,9 +12,11 @@
 ´ËÊ±×Ô¶¨ÒåµÄÒì³£Àà¾ÍÓ¦¼Ì³ÐException£¬ÕâÑùÆäËû¿ª·¢ÈËÔ±ÔÚµ÷ÓÃÕâ¸öapiÊ±¾Í»áÊÕµ½±àÒëÆ÷´ó´óµÄºìÉ«±¨´í£º¡¾ÄãÃ»´¦ÀíÕâ¸öÒì³££¡¡¿£¬Ç¿ÆÈËûÃÇ´¦Àí¡£ÓÖÈç£¬ÎÒÒªÐ´ÁíÒ»¸öapi£¬
 Õâ¸öapi»á·ÃÎÊÒ»¸ö·Ç³£·Ç³£ÎÈ¶¨µÄÔ¶¶Ë·þÎñ£¬³ý·ÇÓÐÈË°ÑÔ¶¶Ë·þÎñµÄ»ú·¿Õ¨ÁË£¬·ñÔòÕâ¸ö·þÎñ²»»á³öÏÖ²»¿ÉÓÃµÄÇé¿ö¡£
 ¶øÇÒ¼´±ãÍòÒ»ÕâÖÖÇé¿ö·¢ÉúÁË£¬apiµÄµ÷ÓÃÕß³ýÁË¼ÇÂ¼ºÍÌáÊ¾´íÎóÖ®ÍâÒ²Ã»ÓÐ±ðµÄÊÂÇéºÃ×ö¡£µ«³öÓÚÄ³ÖÖ²»¿ÉÃèÊöµÄµ°ÌÛÔ­Òò£¬ÎÒ»¹ÊÇ¾ö¶¨Òª¶¨ÒåÒ»¸öÒì³£¶ÔÏóÃèÊö¡°»ú·¿±»Õ¨¡±ÕâÒ»Çé¿ö£¬
+
 ÄÇÃ´´ËÊ±¶¨ÒåµÄÒì³£Àà¾ÍÓ¦¼Ì³ÐRuntimeException£¬ÒòÎªÎÒµÄapiµÄµ÷ÓÃÕßÃÇÃ»±ØÒªÁË½âÕâÒ»Ï¸Î¢µÄÏ¸½Ú£¬°ÑÕâÒ»Òì³£½»¸øÍ³Ò»µÄÒì³£´¦Àí²ãÈ¥´¦Àí¾ÍºÃÁË¡£
---------------------------------------------------------------------------------------------------------------------
-¡¾HashMap¡¿
+
+### HashMap
+
 hashmapÏàµ±ÓÚÊý×éºÍÁ´±íµÄÒ»¸ö½áºÏ·½°¸¡£
 Êý×é²åÈëºÍÉ¾³ýÊý¾ÝÉæ¼°ÒÆ¶¯Êý¾Ý£¬µ«Ëü¿Õ¼äÕ¼ÓÃÉÙ¡£
 Á´±íÐÂÔöÉ¾³ýÊý¾ÝºÜ·½±ã£¬µ«¿Õ¼äÕ¼ÓÃ¶à¡£
@@ -22,14 +25,15 @@ hashmapÖ÷¸ÉÊ¹ÓÃÊý×é£¬Í¨¹ýkeyºÍÓ³Éä¹ØÏµÖ±½ÓÕÒµ½Êý×éµÄÎ»ÖÃ£¬Ê±¼ä¸´ÔÓ¶ÈÎª0(1)
 µ«ÊÇÓ³Éä¹ØÏµ¿ÉÄÜ»áµ¼ÖÂ²»Í¬µÄkeyÕÒµ½Í¬Ò»¸öÎ»ÖÃ£¬Õâ¾ÍÊÇhash³åÍ»£¬ÎªÁË½â¾öÕâ¸öÎÊÌâ£¬ÒýÈëÁËÁ´±í£¬Èç¹ûÓöµ½³åÍ»£¬
 ¾ÍÒÔÁ´±íÐÎÊ½¼ÓÔÚËüÎ»ÖÃµÄºóÃæ¡£
 
-¡¾HashMapµÄÈÝÁ¿£¬refactor¼ÓÔØÒò×Ó¡¿
+### HashMapµÄÈÝÁ¿£¬refactor¼ÓÔØÒò×Ó
+
 HashMapÈÝÁ¿£¨capacity£©¾ÍÊÇÊý×éµÄ´óÐ¡£¬Ä¬ÈÏÊÇ16£¬rehashµÄÊ±ºòÒ²»áÉèÖÃÎª2µÄÃÝ´Î·½¡£
 ¶ø×÷ÎªÄ¬ÈÏÈÝÁ¿£¬Ì«´óºÍÌ«Ð¡¶¼²»ºÏÊÊ£¬ËùÒÔ16¾Í×÷ÎªÒ»¸ö±È½ÏºÏÊÊµÄ¾­ÑéÖµ±»²ÉÓÃÁË¡£
 refactor¼ÓÔØÒò×Ó0.75 £¬È¡0.5µ½1µÄÕÛÖÐÖµ¡£
 Èç¹ûÌ«´óµÄ»°£¬ËùÓÐÊý×é¶¼¿ÉÒÔ±»ÌîÂú£¬¿Õ¼äÀûÓÃÂÊÌá¸ßÁË£¬µ«hash³åÍ»¼¸ÂÊ±ä´ó£¬²éÑ¯»á±äÂý¡£  
 Ì«µÍµÄ»°£¬ÓÃ²»ÁË¶à¾Ã¾Írehash£¬rehashÌ«Æµ·±¡£
 
-¡¾hashmapËÀÑ­»·¡¿
+### hashmapËÀÑ­»·
 
 jdk1.6¡¢1.7´æÔÚÕâ¸öÎÊÌâ£¬1.8²»´æÔÚ
 Ö÷ÒªÔ­Òò£ºhashmapÊÇÏß³Ì²»°²È«µÄ£¬ÔÚ¶àÏß³ÌµÄÇé¿öÏÂ£¬¼ÙÈçÁ½¸öÏß³ÌÍ¬Ê±´¥·¢ÁËresize¡£
@@ -39,34 +43,40 @@ jdk1.6¡¢1.7´æÔÚÕâ¸öÎÊÌâ£¬1.8²»´æÔÚ
 ½¨ÒéÓÃConcurrentHashMap
 
 https://www.cnblogs.com/jing99/p/11319175.html
--------------------------------------------------------------------------------------------------------------------
-¡¾hashcode Óë equal¡¿
+
+### hashcode Óë equal
+
 https://blog.csdn.net/lijiecao0226/article/details/24609559
--------------------------------------------------------------------------------------------------------------------
-¡¾ÐòÁÐ»¯Óë·´ÐòÁÐ»¯¡¿
+
+### ÐòÁÐ»¯Óë·´ÐòÁÐ»¯
+
 ÍøÂçÖÐ´«ÊäÊÇÒÔ¶þ½øÖÆÁ÷µÄÐÎÊ½´«ÊäµÄ£¬ÐòÁÐ»¯¾ÍÊÇ°Ñjava¶ÔÏó×ª»»³É×Ö½ÚÐò£¬·½±ãÔÚÍøÂçÖÐ´«Êä¡£
 ·´ÐòÁÐ»¯¾ÍÊÇ°ÑÊÕµ½µÄ×Ö½ÚÐò×ª»»Îªjava¶ÔÏó¡£
--------------------------------------------------------------------------------------------------------------------
-¡¾RPC¡¿
+
+### RPC
+
 RPC(Remote Procedure Call)£ºÔ¶³Ì¹ý³Ìµ÷ÓÃ£¬ËüÊÇÒ»ÖÖÍ¨¹ýÍøÂç´Ó½ÚµãÓë½ÚµãÖ±½ÓÇëÇó·þÎñ£¬¾ÍÏñÊÇÔÚ±¾µØµ÷ÓÃ½Ó¿Ú·þÎñÒ»Ñù¡£
 RPC ÊÇÒ»ÖÖ¼¼ÊõË¼Ïë£¬²¢²»ÊÇÒ»ÖÖ¹æ·¶£¬ÊµÏÖËüµÄ¿ò¼Ü±ÈÈçdubbo£¬springcloud£¬netty
 ÔÚ RPC ÖÐ¿ÉÑ¡µÄÍøÂç´«Êä·½Ê½ÓÐ¶àÖÖ£¬¿ÉÒÔÑ¡Ôñ TCP Ð­Òé¡¢UDP Ð­Òé¡¢HTTP Ð­Òé¡£±ÈÈçspringcloudÊÇhttp¡£
 tcpÐ­ÒéµÄrpc¸üÄÜ¼õÉÙÍøÂç¿ªÏú£¬ÊµÏÖ¸ü´óµÄÍÌÍÂÁ¿ºÍ²¢·¢Êý¡£µ«¿ª·¢ÄÑ¶È½Ï´ó¡£
 httpÐ­ÒéËäÈ»ÍøÂç¿ªÏú¸ü´ó£¬µ«ÊÇ´¦ÓÚÉÏ²ã£¬½øÐÐ¶þ´Î¿ª·¢·Ç³£·½±ã¡£
--------------------------------------------------------------------------------------------------------------------
-¡¾Netty¡¿
+
+### Netty
+
 NettyÊÇÒ»¿î»ùÓÚNIO¿ª·¢µÄÍøÂçÍ¨ÐÅ¿ò¼Ü£¬¶Ô±ÈÓÚBIO£¬ËûµÄ²¢·¢ÐÔÄÜµÃµ½ÁËºÜ´óÌá¸ß¡£
 Ëµ°×ÁË¾ÍÊÇÓÐÒ»¸öselectorÂÖÑ¯Æ÷ÊµÏÖ¶àÂ·¸´ÓÃ Ò²½ÐÊÂ¼þÇý¶¯¡£µ×²ãÓÃµÄ²Ù×÷ÏµÍ³µÄselect(windows)ºÍepoll(linux)ÂÖÑ¯
--------------------------------------------------------------------------------------------------------------------
-¡¾epollÓëselectÇø±ð¡¿
+
+### epollÓëselectÇø±ð
+
 selectÂÖÑ¯Ð§ÂÊµÍ£¬Ö÷Òª±íÏÖÔÚselectÂÖÑ¯µ½ÓÐsocketÊý¾ÝÊ±£¬»¹ÐèÒª±éÀúÒ»´ÎsocketÁÐ±íÀ´È·¶¨¾ßÌåÄÇÒ»¸ösocketÊÕµ½ÁËÊý¾Ý¡£
 ÒòÎªÃ¿´Î¶¼Òª±éÀú£¬ËùÒÔselectÓÐÏÞÖÆ×î¶à¼àÌýsocket1024.
 epoll¾ÍÃ»ÓÐÕâ¸öÏÞÖÆ¡£epoll²»½öÎ¬»¤ÁËsocket¼àÌýÁÐ±í£¬»¹Î¬»¤ÁËÒ»¸ösocket¾ÍÐ÷ÁÐ±í¡£ÕâÑùÒ»µ©ÓÐsocketÊÕµ½Êý¾Ý£¬Ö±½Ó½«socket
 Ð´Èëµ½¾ÍÐ÷ÁÐ±íÖÐ£¬²»ÐèÒª±éÀú¼àÌýÁÐ±íÁË¡£
 https://www.cnblogs.com/shijianchuzhenzhi/p/12346318.html
 https://www.jianshu.com/p/dfd940e7fca2
--------------------------------------------------------------------------------------------------------------------
-¡¾ÊÂ¼þÇý¶¯Ä£ÐÍ¡¿
+
+### ÊÂ¼þÇý¶¯Ä£ÐÍ
+
 Í¨³££¬ÎÒÃÇÉè¼ÆÒ»¸öÊÂ¼þ´¦ÀíÄ£ÐÍµÄ³ÌÐòÓÐÁ½ÖÖË¼Â·
 
     ÂÖÑ¯·½Ê½
@@ -77,37 +87,43 @@ https://www.jianshu.com/p/dfd940e7fca2
 
 ·¢ÉúÊÂ¼þ£¬Ö÷Ïß³Ì°ÑÊÂ¼þ·ÅÈëÊÂ¼þ¶ÓÁÐ£¬ÔÚÁíÍâÏß³Ì²»¶ÏÑ­»·Ïû·ÑÊÂ¼þÁÐ±íÖÐµÄÊÂ¼þ£¬µ÷ÓÃÊÂ¼þ¶ÔÓ¦µÄ´¦ÀíÂß¼­´¦ÀíÊÂ¼þ¡£
 ÊÂ¼þÇý¶¯·½Ê½Ò²±»³ÆÎªÏûÏ¢Í¨Öª·½Ê½£¬ÆäÊµÊÇÉè¼ÆÄ£Ê½ÖÐ¹Û²ìÕßÄ£Ê½µÄË¼Â·¡£
--------------------------------------------------------------------------------------------------------------------
-¡¾Ïß³Ì³Ø²ÎÊý¡¿
+
+### Ïß³Ì³Ø²ÎÊý
+
 ºËÐÄÏß³ÌÊý
 ×î´ó²¢·¢Ïß³ÌÊý
 ÆÕÍ¨Ïß³ÌµÄ¿ÕÏÐ³¬Ê±Ê±¼ä¡£
 »º´æ¶ÓÁÐ£¬³¬¹ý³£×¤µÄÏß³ÌÊýµÄÏß³Ì»á½øÈëµ½»º´æ¶ÓÁÐ£¬¶ÓÁÐÂúÁË¾Í»á´´½¨ÐÂµÄÏß³ÌÖ±µ½max×î´óÏß³ÌÊý¡£
 ¾Ü¾ø²ßÂÔ£¬¶ÓÁÐÂúÁËÖ®ºó£¬Ïß³Ì³Øµ½ÁËmax£¬ÄÇÃ´ÐÂµÄÈÎÎñÊÇ·ñ¶ªÆú»¹ÊÇµÈ´ý¡£
--------------------------------------------------------------------------------------------------------------------
-¡¾1¡¿postÓëgetµÄÇø±ð
+
+### postÓëgetµÄÇø±ð
+
 post¸ü°²È«£¬°ÑÊý¾Ý×°µ½request bodyÖÐ£¬µ«ºÄÊ±¸ü¾Ã¡£
 get²»°²È«£¬urlÖÐÖ±½Ó°üº¬ÁËÓÃ»§µÈÐÅÏ¢£¬µ«Ð§ÂÊ¸ü¸ß£¬Óë·þÎñ¶ËÖ»½»»¥Ò»´Î¡£¶øpostÐèÒªÀ´»Ø½»»¥Á½´Î£¬µÚÒ»´Î·¢ËÍpostÍ·£¬È»ºóµÚ¶þ´Î²Å·¢ËÍÄÚÈÝ¡£
 
-¡¾2¡¿cookieÓësessionµÄÇø±ð
+### cookieÓësessionµÄÇø±ð
+
 cookie±£´æÔÚ¿Í»§¶Ë£¬sessionÊÇ·þÎñ¶ËµÄ¸ÅÄî¡£
 cookieÏàµ±ÓÚ·þÎñ¶Ë¸ø¿Í»§¶ËµÄÒ»¸öÍ¨ÐÐÖ¤£¬È»ºó¿Í»§¶Ë±£´æÔÚ×Ô¼ºµÄä¯ÀÀÆ÷ÖÐ£¬Ã¿´Î·ÃÎÊ·þÎñÆ÷Ê±£¬»áÁ¬Í¬cookieÒ»ÆðÌá½»¸ø·þÎñÆ÷¡£
 ÒòÎªhttpÊÇÎÞ×´Ì¬Ð­Òé£¬Òò´ËÒ»´ÎÁ¬½ÓµÄÊý¾Ý´«ÊäÍê³Éºó£¬Á¬½Ó¾Í¶Ï¿ª¡£ÏÂ´ÎÔÙÁ¬½ÓµÄÊ±ºò£¬·þÎñÆ÷ÎÞ·¨ÅÐ¶ÏÄãÊÇÄÄ¸öÓÃ»§¡£
 Òò´Ë·þÎñÆ÷¾ÍÐèÒªÒ»ÖÖ»úÖÆÀ´±£´æÓÃ»§µÄÐÅÏ¢£¬Õâ¾ÍÊÇsession¡£µÚÒ»´Î´´½¨sessionÊ±£¬¾Í»áÔÚcookieÀï¼ÇÂ¼Ò»¸ösession id£¬·¢¸ø¿Í»§¶Ë£¬
 ÒÔºó¿Í»§¶ËÃ¿´Î·¢ËÍÇëÇóµÄÊ±ºò¾Í»á°Ñsid·¢¸ø·þÎñÆ÷£¬·þÎñÆ÷¾ÍÄÜÕÒµ½¶ÔÓ¦µÄsession¡£
 sessionµÚ¶þ¸öÖ÷Òª×÷ÓÃÊÇ£¬·þÎñÆ÷Ò»°ã°ÑSession·ÅÔÚÄÚ´æÖÐ£¬×ösession»º´æ£¬¼õÉÙÓÃ»§ÓëÊý¾Ý¿âµÄÆµ·±½»»¥£¬ÀýÈçµçÉÌ¹ºÎï³µ¡£ 
--------------------------------------------------------------------------------------------------------------------
-¡¾3¡¿×ª·¢ÓëÖØ¶¨Ïò
+
+### ×ª·¢ÓëÖØ¶¨Ïò
+
 ÖØ¶¨Ïò£ºä¯ÀÀÆ÷ÐÐÎª£¬ä¯ÀÀÆ÷·¢ËÍÁ½´ÎÇëÇó£¬µÃµ½Á½´ÎÏìÓ¦£¬response.sendRedirect
 ×ª·¢£º·þÎñÆ÷ÐÐÎª£¬·¢³öÒ»´ÎÇëÇó£¬µÃµ½Ò»´Î»ØÓ¦£¬µØÖ·À¸²»»á±ä»¯¡£request.getRequestDispatcher
--------------------------------------------------------------------------------------------------------------------
-¡¾·½·¨ÇøÓëÓÀ¾Ã´úÓëÔªÊý¾Ý¿Õ¼äMetaSpace¡¿
+
+### ·½·¨ÇøÓëÓÀ¾Ã´úÓëÔªÊý¾Ý¿Õ¼äMetaSpace
+
 ·½·¨ÇøºÍÓÀ¾Ã´úµÄ¹ØÏµºÜÏñJavaÖÐ½Ó¿ÚºÍÀàµÄ¹ØÏµ£¬ÀàÊµÏÖÁË½Ó¿Ú£¬¶øÓÀ¾Ã´ú¾ÍÊÇHotSpotÐéÄâ»ú¶ÔÐéÄâ»ú¹æ·¶ÖÐ·½·¨ÇøµÄÒ»ÖÖÊµÏÖ·½Ê½¡£
 ÔÚjava1.7¿ªÊ¼ÒÆ³ýÀÏÄê´ú£¬1.8³¹µ×ÒÆ³ýÁËÀÏÄê´ú£¬È¡¶ø´úÖ®µÄÊÇMetaSpace¡£Ö÷ÒªÇø±ðÊÇMetaSpace·ÅÔÚ±¾µØÄÚ´æ£¬¾Í²»»á³öÏÖÓÀ¾Ã´úOOMÄÚ´æÒç³öÎÊÌâ¡£
 
 ·½·¨Çø´æ·ÅÊ²Ã´¶«Î÷£ºÀàÐÅÏ¢£¬classÎÄ¼þ£¬static±äÁ¿Óë·½·¨£¬final³£Á¿
--------------------------------------------------------------------------------------------------------------------
-¡¾Éè¼ÆÄ£Ê½¡¿
+
+### Éè¼ÆÄ£Ê½
+
 spring IOC£¬¿ØÖÆ·´×ª£ºÊ¹ÓÃÒÀÀµ×¢Èë
 http://www.mamicode.com/info-detail-2691212.html
 ¹¤³§Éè¼ÆÄ£Ê½ : SpringÊ¹ÓÃ¹¤³§Ä£Ê½Í¨¹ý BeanFactory¡¢ApplicationContext ´´½¨ bean ¶ÔÏó¡£
@@ -125,39 +141,46 @@ http://www.mamicode.com/info-detail-2691212.html
 ÊÊÅäÆ÷Ä£Ê½ :Spring AOP µÄÔöÇ¿»òÍ¨Öª(Advice)Ê¹ÓÃµ½ÁËÊÊÅäÆ÷Ä£Ê½¡¢spring MVC ÖÐÒ²ÊÇÓÃµ½ÁËÊÊÅäÆ÷Ä£Ê½ÊÊÅäController¡£
 
 JDBC ÇÅ½ÓÄ£Ê½¡£
--------------------------------------------------------------------------------------------------------------------
-¡¾IOC AOP¡¿
+
+### IOC AOP
+
 IoC£¨·´Ïò¿ØÖÆ£©£¬½µµÍÁËÒµÎñÂß¼­ÖÐ¸÷¸öÀàµÄÏà»¥ÒÀÀµ¡£
 ÒÔÇ°ÐèÒª×Ô¼ºnewÒ»¸öÀà£¬ÏÖÔÚÍ¨¹ýioc spring°ïÎÒÃÇ´´½¨ºÍ¹ÜÀí£¬ÎÒÃÇÖ±½ÓÊ¹ÓÃ¾ÍÐÐÁË¡£Èç¹ûºóÐø´úÂëÉý¼¶ÐèÒª¸Ä¶¯£¬Ö»ÐèÒª¸ÄÅäÖÃÎÄ¼þ£¬½µµÍñîºÏ£¬Ìá¸ßÖØÓÃÐÔ¡£
 ¼ÙÈçÀàAÒòÎªÐèÒª¹¦ÄÜF¶øµ÷ÓÃÀàB£¬ÔÚÍ¨³£µÄÇé¿öÏÂÀàAÐèÒªÒýÓÃÀàB£¬Òò¶øÀàA¾ÍÒÀÀµÓÚÀàBÁË£¬Ò²¾ÍÊÇËµµ±ÀàB²»´æÔÚµÄÊ±ºòÀàA¾ÍÎÞ·¨Ê¹ÓÃÁË¡£
 Ê¹ÓÃÁËIoC£¬ÀàAµ÷ÓÃµÄ½ö½öÊÇÊµÏÖÁË¹¦ÄÜFµÄ½Ó¿ÚµÄÄ³¸öÀà£¬Õâ¸öÀà¿ÉÄÜÊÇÀàB£¬Ò²¿ÉÄÜÊÇÁíÒ»¸öÀàC£¬ÓÉspringµÄÅäÖÃÎÄ¼þÀ´¾ö¶¨¡£ÕâÑù£¬ÀàA¾Í²»ÔÙÒÀÀµÓÚÀàBÁË£¬ñîºÏ¶È½µµÍ£¬ÖØÓÃÐÔÌá¸ßÁË¡£
 
--------------------------------------------------------------------------------------------------------------------
-¡¾µ¥ÀýÄ£Ê½¡¿
+### µ¥ÀýÄ£Ê½
+
 µ¥ÀýµÄ×÷ÓÃ£ºÈ·±£Ò»¸öÀàÖ»ÓÐÒ»¸öÊµÀý£¬ÔÚÕû¸öjvmÖÐ±£³ÖÎ¨Ò»ÐÔ£¬Î¨Ò»µÄÒ»Ð©×ÊÔ´£¬±ÈÈçÏß³Ì³Ø¿ÉÒÔÓÃµ¥Àý¡£ÓÅµãÊÇÎ¨Ò»ÐÔ£¬²¢ÇÒ¿ÉÒÔÊ¡È¥¶ÔÏó·´¸´µÄ´´½¨ÓëÏú»ÙµÄ¹ý³Ì£¬½ÚÊ¡×ÊÔ´¡£
 ÀÁººÊ½£ºÖ»ÓÐÔÚµ÷ÓÃµÄÊ±ºò²Å³õÊ¼»¯£¬ÕâÑù±È½Ï½ÚÊ¡×ÊÔ´£¬µ«ÊÇµ÷ÓÃµÄÊ±ºòÃ¿´Î¶¼ÒªÅÐ¶ÏÊÇ·ñÒÑ¾­´´½¨¹ýµ¥ÀýÁË¡£
 ¶öººÊ½£º³ÌÐòÒ»Æô¶¯¾Í´´½¨ÊµÀý¡£ÕâÑù»á±È½ÏÕ¼×ÊÔ´£¬µ«ÊÇµ÷ÓÃµÄÊ±ºò²»ÐèÒªÅÐ¶ÏÊÇ·ñ´´½¨¹ýµ¥Àý¡£
--------------------------------------------------------------------------------------------------------------------
-¡¾¹¤³§Ä£Ê½¡¿
+
+### ¹¤³§Ä£Ê½
+
 ¹¤³§Ä£Ê½µÄ×÷ÓÃ£ºÒ»ÊÇ·½±ãÎ¬»¤¡£Èç¹ûÒ»·Ý´úÂëÀïÓÐºÜ¶ànew²Ù×÷£¬Òª½øÐÐÐÞ¸ÄµÄÊ±ºò£¬´úÂëµÄÃ¿Ò»¸öµØ·½¶¼ÒªÐÞ¸Ä¡£¶ø°Ñnew²Ù×÷·â×°ÔÚ¹¤³§Àï£¬¾ÍÖ»Òª¸ÄÒ»¸öµØ·½ÁË¡£
                 ¶þÊÇ·ûºÏµÍñîºÏµÄÒ»¸ö±à³ÌË¼Ïë£¬±ÈÈçÓÐÁ½·Ý´úÂëAºÍB£¬BÏëµ÷ÓÃAµÄÀà£¬¾ÍÐèÒªnewÒ»¸öA£¬ÕâÑù¾Í»áñîºÏÔÚÒ»Æð¡£µ«ÊÇÈç¹ûÊ¹ÓÃ¹¤³§µÄ»°£¬¶Ôµ÷ÓÃ¹¤³§²¢´«²Î¾Í¿ÉÒÔµÃµ½¾ßÌåµÄ¶ÔÏó¡£
--------------------------------------------------------------------------------------------------------------------
-¡¾´úÀíÄ£Ê½¡¿
+
+### ´úÀíÄ£Ê½
+
 ±ÈÈçÎÒ²»Ïë»òÕß²»ÄÜÖ±½Óµ÷ÓÃÄ³¸öÀà£¬¾Í¸øËû·â×°Ò»²ã´úÀí£¬ÎÒÖ±½Óµ÷ÓÃÕâ¸ö´úÀíÀàÀ´ÊµÏÖÏìÓ¦µÄ¹¦ÄÜ¡£ºÃ´¦ÊÇËûÊÇÒ»¸öÖÐ½é£¬ÆÁ±ÎÁËÎ¯ÍÐÀàµÄÏ¸½Ú¡£
 ÁíÍâÈç¹ûÏëÔö¼ÓµãÐÂ¹¦ÄÜ£¬µ«²»ÏëÖ±½ÓÐÞ¸ÄÎ¯ÍÐÀà£¬¿ÉÒÔÔÚ´úÀíÀàÉÏÊµÏÖ¡£
--------------------------------------------------------------------------------------------------------------------
-¡¾Ç°ºó¶Ë·ÖÀë¡¿
+
+### Ç°ºó¶Ë·ÖÀë
+
 Ç°ºó¶Ë²»·ÖÀëµÄÇé¿ö¾ÍÊÇ£¬¿Í»§¶Ë·¢Ò»¸öÇëÇó£¬·þÎñ¶Ë×¼±¸ºÃÍêÕûµÄÒ³ÃæºÍÊý¾Ý·¢¸ø¿Í»§¶Ë¡£Ã¿´ÎÒ³ÃæºÍÊý¾Ý¶¼»á·¢¹ýÀ´£¬´«ÊäµÄÄÚÈÝºÜ¶à¡£
 Ç°ºó¶Ë·ÖÀëµÄÇé¿ö¾ÍÊÇ·þÎñ¶ËÖ»Ìá¹©Êý¾Ý£¬Ò»°ãµÄ×ö·¨¾ÍÊÇÇ°¶ËÊ¹ÓÃajax£¬ºó¶ËÌá¹©restfulµÄ½Ó¿Ú£¬Êý¾ÝÒÔjson¸ñÊ½´«Êä¡£
--------------------------------------------------------------------------------------------------------------------
-¡¾¶¯¾²·ÖÀë¡¿
+
+### ¶¯¾²·ÖÀë
+
 ËùÎ½µÄ¶¯¾²·ÖÀë¾ÍÊÇÖ¸Í¼Æ¬£¬css, jsÖ®ÀàµÄ¶¼½»¸ønginxÀ´´¦Àí£¬nginx´¦Àí²»ÁËµÄ£¬±ÈÈçjsp ¾Í½»¸øtomcatÀ´´¦Àí
 ºÃ´¦ÊÇnginx´¦Àí¾²Ì¬ÄÚÈÝµÄÍÌÍÂÁ¿ºÜ¸ß£¬±Ètomcat¸ß¶àÁË£¬ÕâÑùÎÞÐÎÖÐÌáÉýÁËÐÔÄÜ¡£ 
--------------------------------------------------------------------------------------------------------------------
-¡¾Springboot¡¿
+
+### Springboot
+
 SpringbootÊ¡È¥ÁËSpringMVC·±ËöµÄÅäÖÃ£¬²¢ÇÒÄÚÖÃÁËtomcat£¬Ïàµ±ÓÚÒ»¸ö¼ò»¯¿ª·¢µÄ¿ª·¢»·¾³¡£
--------------------------------------------------------------------------------------------------------------------
-¡¾SpringMVC¡¿
+
+### SpringMVC
+
  javaÀà¼ÓÔØÆ÷ÓÖ·Ö£º
 
 1£©Bootstrap ClassLoader
@@ -189,4 +212,3 @@ SpringbootÊ¡È¥ÁËSpringMVC·±ËöµÄÅäÖÃ£¬²¢ÇÒÄÚÖÃÁËtomcat£¬Ïàµ±ÓÚÒ»¸ö¼ò»¯¿ª·¢µÄ¿ª·¢»
 ÖØµã£ºfinalÊÇÔÚ×¼±¸½×¶ÎÊ±¾Í¸³ÖµÁË£¬static×¼±¸½×¶ÎÊ±Êý¾ÝÊÇÁãÖµ£¬ÔÚ³õÊ¼»¯½×¶Î²Å»á¸³Öµ¡£
 
 ²Î¿¼£ºhttps://blog.csdn.net/noaman_wgs/article/details/74489549?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control
--------------------------------------------------------------------------------------------------------------------

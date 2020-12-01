@@ -1,67 +1,63 @@
-1¡¢ËÑË÷Ê¹ÓÃESµÄÓÅÊÆ£¿
+**1ã€æœç´¢ä½¿ç”¨ESçš„ä¼˜åŠ¿ï¼Ÿ**
 
-2¡¢ES IK·Ö´ÊÆ÷Á½ÖÖ·½Ê½£¿
+**2ã€ES IKåˆ†è¯å™¨ä¸¤ç§æ–¹å¼ï¼Ÿ**
 
+**3ã€ElasticSearchä¸­çš„å¸¸ç”¨ç®—æ³•æœ‰å“ªäº›ï¼Ÿ**
 
-3¡¢ElasticSearchÖÐµÄ³£ÓÃËã·¨ÓÐÄÄÐ©£¿
+ESä¸­æœ€å¸¸ç”¨çš„ç®—æ³•æ˜¯TF/IDFç›¸å…³åº¦è¯„åˆ†ç®—æ³•ï¼Œå¦‚ä¸‹å®šä¹‰ï¼š
 
-ESÖÐ×î³£ÓÃµÄËã·¨ÊÇTF/IDFÏà¹Ø¶ÈÆÀ·ÖËã·¨£¬ÈçÏÂ¶¨Òå£º
+TFï¼šTerm Frequencyï¼Œå³è¯é¢‘ã€‚å®ƒè¡¨ç¤ºä¸€ä¸ªè¯åœ¨å†…å®¹(å¦‚æŸæ–‡ç« )ä¸­å‡ºçŽ°çš„æ¬¡æ•°ã€‚é€šå¸¸ï¼Œå®ƒçš„å®šä¹‰æ˜¯ï¼š
+TF ï¼ æŸä¸ªè¯åœ¨æ–‡æ¡£ä¸­å‡ºçŽ°çš„æ¬¡æ•° ï¼ æ–‡æ¡£çš„æ€»è¯æ•°
+æŸä¸ªè¯å‡ºçŽ°è¶Šå¤šï¼Œè¡¨ç¤ºå®ƒè¶Šé‡è¦ã€‚
 
-TF£ºTerm Frequency£¬¼´´ÊÆµ¡£Ëü±íÊ¾Ò»¸ö´ÊÔÚÄÚÈÝ(ÈçÄ³ÎÄÕÂ)ÖÐ³öÏÖµÄ´ÎÊý¡£Í¨³££¬ËüµÄ¶¨ÒåÊÇ£º
-TF £½ Ä³¸ö´ÊÔÚÎÄµµÖÐ³öÏÖµÄ´ÎÊý £¯ ÎÄµµµÄ×Ü´ÊÊý
-Ä³¸ö´Ê³öÏÖÔ½¶à£¬±íÊ¾ËüÔ½ÖØÒª¡£
-
-IDF£¨Inverse Document Frequency£©£¬¼´ÄæÎÄµµÆµÂÊ£¬ËüÊÇÒ»¸ö±í´ï´ÊÓïÖØÒªÐÔµÄÖ¸±ê¡£Í¨³££¬ËüµÄ¼ÆËã·½·¨ÊÇ£º
-IDF£½log(ÓïÁÏ¿âÖÐµÄÎÄµµÊý£¯(°üº¬¸Ã´ÊµÄÎÄµµÊý+1))
-Èç¹ûËùÓÐÎÄÕÂ¶¼°üº­Ä³¸ö´Ê£¬ÄÇ¸ö´ÊµÄIDF£½log(1)=0, ¼´ÖØÒªÐÔÎªÁã¡£Í£ÓÃ´ÊµÄIDFÔ¼µÈÓÚ0¡£Èç¹ûÄ³¸ö´ÊÖ»ÔÚºÜÉÙµÄÎÄÕÂÖÐ³öÏÖ£¬ÔòIDFºÜ´ó£¬ÆäÖØÒªÐÔÒ²Ô½¸ß¡£
-ElasticSearchµÄÏà¹ØÐÔ¼ÆËã¹«Ê½Îª£º
+IDFï¼ˆInverse Document Frequencyï¼‰ï¼Œå³é€†æ–‡æ¡£é¢‘çŽ‡ï¼Œå®ƒæ˜¯ä¸€ä¸ªè¡¨è¾¾è¯è¯­é‡è¦æ€§çš„æŒ‡æ ‡ã€‚é€šå¸¸ï¼Œå®ƒçš„è®¡ç®—æ–¹æ³•æ˜¯ï¼š
+IDFï¼log(è¯­æ–™åº“ä¸­çš„æ–‡æ¡£æ•°ï¼(åŒ…å«è¯¥è¯çš„æ–‡æ¡£æ•°+1))
+å¦‚æžœæ‰€æœ‰æ–‡ç« éƒ½åŒ…æ¶µæŸä¸ªè¯ï¼Œé‚£ä¸ªè¯çš„IDFï¼log(1)=0, å³é‡è¦æ€§ä¸ºé›¶ã€‚åœç”¨è¯çš„IDFçº¦ç­‰äºŽ0ã€‚å¦‚æžœæŸä¸ªè¯åªåœ¨å¾ˆå°‘çš„æ–‡ç« ä¸­å‡ºçŽ°ï¼Œåˆ™IDFå¾ˆå¤§ï¼Œå…¶é‡è¦æ€§ä¹Ÿè¶Šé«˜ã€‚
+ElasticSearchçš„ç›¸å…³æ€§è®¡ç®—å…¬å¼ä¸ºï¼š
 TF-IDF = TF * IDF
 
-4¡¢ESÖÐÊÇÈçºÎ´æ´¢Êý¾ÝµÄ£¿
+**4ã€ESä¸­æ˜¯å¦‚ä½•å­˜å‚¨æ•°æ®çš„ï¼Ÿ**
 
-ÎÄµµ(Document)
+æ–‡æ¡£(Document)
 
-esÊÇÃæÏòÎÄµµµÄ£¬ÎÄµµÊÇesÖÐ¿ÉËÑË÷µÄ×îÐ¡µ¥Î»£¬esµÄÎÄµµÓÉÒ»¸ö»ò¶à¸ö×Ö¶Î×é³É£¬ÀàËÆÓÚ¹ØÏµÐÍÊý¾Ý¿âÖÐµÄÒ»ÐÐ¼ÇÂ¼£¬µ«esµÄÎÄµµÊÇÒÔJSON½øÐÐÐòÁÐ»¯²¢±£´æµÄ£¬Ã¿¸öJSON¶ÔÏóÓÉÒ»¸ö»ò¶à¸ö×Ö¶Î×é³É£¬×Ö¶ÎÀàÐÍ¿ÉÒÔÊÇ²¼¶û£¬ÊýÖµ£¬×Ö·û´®¡¢¶þ½øÖÆ¡¢ÈÕÆÚµÈÊý¾ÝÀàÐÍ¡£
+esæ˜¯é¢å‘æ–‡æ¡£çš„ï¼Œæ–‡æ¡£æ˜¯esä¸­å¯æœç´¢çš„æœ€å°å•ä½ï¼Œesçš„æ–‡æ¡£ç”±ä¸€ä¸ªæˆ–å¤šä¸ªå­—æ®µç»„æˆï¼Œç±»ä¼¼äºŽå…³ç³»åž‹æ•°æ®åº“ä¸­çš„ä¸€è¡Œè®°å½•ï¼Œä½†esçš„æ–‡æ¡£æ˜¯ä»¥JSONè¿›è¡Œåºåˆ—åŒ–å¹¶ä¿å­˜çš„ï¼Œæ¯ä¸ªJSONå¯¹è±¡ç”±ä¸€ä¸ªæˆ–å¤šä¸ªå­—æ®µç»„æˆï¼Œå­—æ®µç±»åž‹å¯ä»¥æ˜¯å¸ƒå°”ï¼Œæ•°å€¼ï¼Œå­—ç¬¦ä¸²ã€äºŒè¿›åˆ¶ã€æ—¥æœŸç­‰æ•°æ®ç±»åž‹ã€‚
 
-esÃ¿¸öÎÄµµ¶¼ÓÐÎ¨Ò»µÄid,Õâ¸öid¿ÉÒÔÓÉÎÒÃÇ×Ô¼ºÖ¸¶¨£¬Ò²¿ÉÒÔÓÉes×Ô¶¯Éú³É¡£
+esæ¯ä¸ªæ–‡æ¡£éƒ½æœ‰å”¯ä¸€çš„id,è¿™ä¸ªidå¯ä»¥ç”±æˆ‘ä»¬è‡ªå·±æŒ‡å®šï¼Œä¹Ÿå¯ä»¥ç”±esè‡ªåŠ¨ç”Ÿæˆã€‚
 
-5¡¢Ê²Ã´ÊÇµ¹ÅÅË÷Òý£¿
-
-
+**5ã€ä»€ä¹ˆæ˜¯å€’æŽ’ç´¢å¼•ï¼Ÿ**
 
 
-6¡¢ElasticSearch¼¯ÈºÈçºÎÑ¡¾ÙMaster½Úµã£¿
 
-1¡¢µ±¼¯Èº master ºòÑ¡ÊýÁ¿²»Ð¡ÓÚ 3 ¸öÊ±£¬¿ÉÒÔÍ¨¹ýÉèÖÃ×îÉÙÍ¶Æ±Í¨¹ýÊýÁ¿
+**6ã€ElasticSearché›†ç¾¤å¦‚ä½•é€‰ä¸¾MasterèŠ‚ç‚¹ï¼Ÿ**
 
-£¨discovery.zen.minimum_master_nodes£©³¬¹ýËùÓÐºòÑ¡½ÚµãÒ»°ëÒÔÉÏÀ´½â
+1ã€å½“é›†ç¾¤ master å€™é€‰æ•°é‡ä¸å°äºŽ 3 ä¸ªæ—¶ï¼Œå¯ä»¥é€šè¿‡è®¾ç½®æœ€å°‘æŠ•ç¥¨é€šè¿‡æ•°é‡
 
-¾öÄÔÁÑÎÊÌâ£»
+ï¼ˆdiscovery.zen.minimum_master_nodesï¼‰è¶…è¿‡æ‰€æœ‰å€™é€‰èŠ‚ç‚¹ä¸€åŠä»¥ä¸Šæ¥è§£
 
-
-2¡¢µ±ºòÑ¡ÊýÁ¿ÎªÁ½¸öÊ±£¬Ö»ÄÜÐÞ¸ÄÎªÎ¨Ò»µÄÒ»¸ö master ºòÑ¡£¬ÆäËû×÷Îª data
-
-½Úµã£¬±ÜÃâÄÔÁÑÎÊÌâ¡£
+å†³è„‘è£‚é—®é¢˜ï¼›
 
 
-7¡¢ElasticSearch¸üÐÂÎÄµµ²Ù×÷
+2ã€å½“å€™é€‰æ•°é‡ä¸ºä¸¤ä¸ªæ—¶ï¼Œåªèƒ½ä¿®æ”¹ä¸ºå”¯ä¸€çš„ä¸€ä¸ª master å€™é€‰ï¼Œå…¶ä»–ä½œä¸º data
+
+èŠ‚ç‚¹ï¼Œé¿å…è„‘è£‚é—®é¢˜ã€‚
+
+**7ã€ElasticSearchæ›´æ–°æ–‡æ¡£æ“ä½œ**
 
 
-ESÖÐ²¢²»´æÔÚËùÎ½µÄ¸üÐÂ²Ù×÷£¬¶øÊÇÓÃÐÂÎÄµµÌæ»»¾ÉÎÄµµ£»
+ESä¸­å¹¶ä¸å­˜åœ¨æ‰€è°“çš„æ›´æ–°æ“ä½œï¼Œè€Œæ˜¯ç”¨æ–°æ–‡æ¡£æ›¿æ¢æ—§æ–‡æ¡£ï¼›
 
-ÔÚÄÚ²¿£¬ElasticsearchÒÑ¾­±ê¼Ç¾ÉÎÄµµÎªÉ¾³ý²¢Ìí¼ÓÁËÒ»¸öÍêÕûµÄÐÂÎÄµµ²¢½¨Á¢Ë÷Òý¡£¾É°æ±¾ÎÄµµ²»»áÁ¢¼´ÏûÊ§
+åœ¨å†…éƒ¨ï¼ŒElasticsearchå·²ç»æ ‡è®°æ—§æ–‡æ¡£ä¸ºåˆ é™¤å¹¶æ·»åŠ äº†ä¸€ä¸ªå®Œæ•´çš„æ–°æ–‡æ¡£å¹¶å»ºç«‹ç´¢å¼•ã€‚æ—§ç‰ˆæœ¬æ–‡æ¡£ä¸ä¼šç«‹å³æ¶ˆå¤±
 
-£¬µ«ÄãÒ²²»ÄÜÈ¥·ÃÎÊËü¡£
+ï¼Œä½†ä½ ä¹Ÿä¸èƒ½åŽ»è®¿é—®å®ƒã€‚
 
+**8 ElasticSearchå¦‚ä½•åˆ›å»ºç´¢å¼•ï¼Ÿ**
 
-8 ElasticSearchÈçºÎ´´½¨Ë÷Òý£¿
-
-ÐÂ½¨ Index£¬¿ÉÒÔÖ±½ÓÏò Elastic ·þÎñÆ÷·¢³ö PUT ÇëÇó¡£ÏÂÃæµÄÀý×ÓÊÇÐÂ½¨Ò»¸öÃû½ÐweatherµÄ Index¡£
+æ–°å»º Indexï¼Œå¯ä»¥ç›´æŽ¥å‘ Elastic æœåŠ¡å™¨å‘å‡º PUT è¯·æ±‚ã€‚ä¸‹é¢çš„ä¾‹å­æ˜¯æ–°å»ºä¸€ä¸ªåå«weatherçš„ Indexã€‚
 
 
     $ curl -X PUT 'localhost:9200/weather'
 
-·þÎñÆ÷·µ»ØÒ»¸ö JSON ¶ÔÏó£¬ÀïÃæµÄacknowledged×Ö¶Î±íÊ¾²Ù×÷³É¹¦¡£
+æœåŠ¡å™¨è¿”å›žä¸€ä¸ª JSON å¯¹è±¡ï¼Œé‡Œé¢çš„acknowledgedå­—æ®µè¡¨ç¤ºæ“ä½œæˆåŠŸã€‚
 
 
     {
@@ -71,107 +67,95 @@ ESÖÐ²¢²»´æÔÚËùÎ½µÄ¸üÐÂ²Ù×÷£¬¶øÊÇÓÃÐÂÎÄµµÌæ»»¾ÉÎÄµµ£»
 
 
 
-9¡¢ElasticSearchÖÐmatchºÍterm²éÑ¯µÄÇø±ð£¿
+**9ã€ElasticSearchä¸­matchå’ŒtermæŸ¥è¯¢çš„åŒºåˆ«ï¼Ÿ**
 
-matchÔÚÆ¥ÅäÊ±»á¶ÔËù²éÕÒµÄ¹Ø¼ü´Ê½øÐÐ·Ö´Ê£¬È»ºó°´·Ö´ÊÆ¥Åä²éÕÒ£¬
-term´ú±íÍêÈ«Æ¥Åä£¬²»½øÐÐ·Ö´ÊÆ÷·ÖÎö£¬»áÖ±½Ó¶Ô¹Ø¼ü´Ê½øÐÐ²éÕÒ¡£
-Ò»°ãÄ£ºý²éÕÒµÄÊ±ºò£¬¶àÓÃmatch£¬¶ø¾«È·²éÕÒÊ±¿ÉÒÔÊ¹ÓÃterm¡£
+matchåœ¨åŒ¹é…æ—¶ä¼šå¯¹æ‰€æŸ¥æ‰¾çš„å…³é”®è¯è¿›è¡Œåˆ†è¯ï¼Œç„¶åŽæŒ‰åˆ†è¯åŒ¹é…æŸ¥æ‰¾ï¼Œ
+termä»£è¡¨å®Œå…¨åŒ¹é…ï¼Œä¸è¿›è¡Œåˆ†è¯å™¨åˆ†æžï¼Œä¼šç›´æŽ¥å¯¹å…³é”®è¯è¿›è¡ŒæŸ¥æ‰¾ã€‚
+ä¸€èˆ¬æ¨¡ç³ŠæŸ¥æ‰¾çš„æ—¶å€™ï¼Œå¤šç”¨matchï¼Œè€Œç²¾ç¡®æŸ¥æ‰¾æ—¶å¯ä»¥ä½¿ç”¨termã€‚
 
-
-10¡¢ElasticSearchÖÐËÑË÷Ê¹ÓÃµÄÊý¾ÝÀàÐÍÓÐÄÄÐ©£¿
-? ? ElasticSearch5.4°æ±¾ÒÔºó£¬stringÀàÐÍ±»·ÏÆú£¬È¡¶ø´úÖ®µÄÊÇtextÓëkeywordÀàÐÍ¡£
-
-? ? 
-1¡¢ÎÄ±¾ÀàÐÍtext£º µ±Ò»¸ö×Ö¶ÎÐèÒªÓÃÓÚÈ«ÎÄËÑË÷(»á±»·Ö´Ê), ±ÈÈç²úÆ·Ãû³Æ¡¢²úÆ·ÃèÊöÐÅÏ¢, ¾ÍÓ¦¸ÃÊ¹ÓÃtextÀàÐÍ.
+**10ã€ElasticSearchä¸­æœç´¢ä½¿ç”¨çš„æ•°æ®ç±»åž‹æœ‰å“ªäº›ï¼Ÿ**
+? ? ElasticSearch5.4ç‰ˆæœ¬ä»¥åŽï¼Œstringç±»åž‹è¢«åºŸå¼ƒï¼Œå–è€Œä»£ä¹‹çš„æ˜¯textä¸Žkeywordç±»åž‹ã€‚
 
 ? ? 
-2¡¢¹Ø¼ü×ÖÀàÐÍkeyword£ºµ±Ò»¸ö×Ö¶ÎÐèÒª°´ÕÕ¾«È·Öµ½øÐÐ¹ýÂË¡¢ÅÅÐò¡¢¾ÛºÏµÈ²Ù×÷Ê±, ¾ÍÓ¦¸ÃÊ¹ÓÃkeywordÀàÐÍ£¬keywordµÄÄÚÈÝ²»»á±»·Ö´Ê¡£
+1ã€æ–‡æœ¬ç±»åž‹textï¼š å½“ä¸€ä¸ªå­—æ®µéœ€è¦ç”¨äºŽå…¨æ–‡æœç´¢(ä¼šè¢«åˆ†è¯), æ¯”å¦‚äº§å“åç§°ã€äº§å“æè¿°ä¿¡æ¯, å°±åº”è¯¥ä½¿ç”¨textç±»åž‹.
 
-11¡¢ElasticSearch²ÎÊýretry_on_conflictÒâÒå
+? ? 
+2ã€å…³é”®å­—ç±»åž‹keywordï¼šå½“ä¸€ä¸ªå­—æ®µéœ€è¦æŒ‰ç…§ç²¾ç¡®å€¼è¿›è¡Œè¿‡æ»¤ã€æŽ’åºã€èšåˆç­‰æ“ä½œæ—¶, å°±åº”è¯¥ä½¿ç”¨keywordç±»åž‹ï¼Œkeywordçš„å†…å®¹ä¸ä¼šè¢«åˆ†è¯ã€‚
 
-µ±Ö´ÐÐË÷ÒýºÍ¸üÐÂµÄÊ±ºò£¬ÓÐ¿ÉÄÜÁíÒ»¸ö½ø³ÌÕýÔÚÖ´ÐÐ¸üÐÂ¡£Õâ¸öÊ±ºò¾Í»áÔì³É³åÍ»£¬Õâ¸ö²ÎÊý¾ÍÊÇÓÃÓÚ¶¨Òåµ±Óöµ½³åÍ»Ê±£¬ÔÙ¹ý¶à³¤Ê±¼äÖ´ÐÐ²Ù×÷¡££¿
+**11ã€ElasticSearchå‚æ•°retry_on_conflictæ„ä¹‰**
 
+å½“æ‰§è¡Œç´¢å¼•å’Œæ›´æ–°çš„æ—¶å€™ï¼Œæœ‰å¯èƒ½å¦ä¸€ä¸ªè¿›ç¨‹æ­£åœ¨æ‰§è¡Œæ›´æ–°ã€‚è¿™ä¸ªæ—¶å€™å°±ä¼šé€ æˆå†²çªï¼Œè¿™ä¸ªå‚æ•°å°±æ˜¯ç”¨äºŽå®šä¹‰å½“é‡åˆ°å†²çªæ—¶ï¼Œå†è¿‡å¤šé•¿æ—¶é—´æ‰§è¡Œæ“ä½œã€‚ï¼Ÿ
 
-12¡¢logstashµÄÊý¾Ý´¦Àí¹ý³Ì£¿
-logstash°üº¬Inputs,Filters,Outputs Èý²¿·Ö
-ÊäÈë²å¼þInputs´ÓÊý¾ÝÔ´ÄÇÀïÏû·ÑÊý¾Ý£¬ÀýÈçÖ¸¶¨MysqlµÄÁ¬½ÓÒÔ¼°µ¼Èë¹æÔò£»
-¹ýÂËÆ÷²å¼þFilters¸ù¾ÝÄãµÄÆÚÍûÐÞ¸ÄÊý¾Ý£¬ÀýÈç¹ýÂËµôÊý¾ÝÖÐµÄhtml±êÇ©£»
-Êä³ö²å¼þOutputs½«Êý¾ÝÐ´ÈëÄ¿µÄµØ£¬ÀýÈçÖ¸¶¨ElasticSearchµÄIndexÓëdocument¡£
+**12ã€logstashçš„æ•°æ®å¤„ç†è¿‡ç¨‹ï¼Ÿ**
+logstashåŒ…å«Inputs,Filters,Outputs ä¸‰éƒ¨åˆ†
+è¾“å…¥æ’ä»¶Inputsä»Žæ•°æ®æºé‚£é‡Œæ¶ˆè´¹æ•°æ®ï¼Œä¾‹å¦‚æŒ‡å®šMysqlçš„è¿žæŽ¥ä»¥åŠå¯¼å…¥è§„åˆ™ï¼›
+è¿‡æ»¤å™¨æ’ä»¶Filtersæ ¹æ®ä½ çš„æœŸæœ›ä¿®æ”¹æ•°æ®ï¼Œä¾‹å¦‚è¿‡æ»¤æŽ‰æ•°æ®ä¸­çš„htmlæ ‡ç­¾ï¼›
+è¾“å‡ºæ’ä»¶Outputså°†æ•°æ®å†™å…¥ç›®çš„åœ°ï¼Œä¾‹å¦‚æŒ‡å®šElasticSearchçš„Indexä¸Ždocumentã€‚
 
-13¡¢LogstashºÍFlume¶Ô±È
+**13ã€Logstashå’ŒFlumeå¯¹æ¯”**
 
-    1¡¢Logstash±È½ÏÆ«ÖØÓÚ×Ö¶ÎµÄÔ¤´¦Àí£¬ÔÚÒì³£Çé¿öÏÂ¿ÉÄÜ»á³öÏÖÊý¾Ý¶ªÊ§£¬Ö»ÊÇÔÚÔËÎ¬ÈÕÖ¾³¡¾°ÏÂ£¬Ò»°ãÈÏÎªÕâ¸ö¿ÉÄÜ²»ÖØÒª£»
-¶øFlumeÆ«ÖØÊý¾ÝµÄ´«Êä£¬¼¸ºõÃ»ÓÐÊý¾ÝµÄÔ¤´¦Àí£¬½ö½öÊÇÊý¾ÝµÄ²úÉú£¬·â×°³ÉeventÈ»ºó´«Êä£»´«ÊäµÄÊ±ºòflume±Èlogstash¶à¿¼ÂÇÁËÒ»Ð©¿É¿¿ÐÔ¡£ÒòÎªÊý¾Ý»á³Ö¾Ã»¯ÔÚchannelÖÐ£¬Êý¾ÝÖ»ÓÐ´æ´¢ÔÚÏÂÒ»¸ö´æ´¢Î»ÖÃ£¨¿ÉÄÜÊÇ×îÖÕµÄ´æ´¢Î»ÖÃ£¬ÈçHDFS£»
-Ò²¿ÉÄÜÊÇÏÂÒ»¸öFlume½ÚµãµÄchannel£©£¬Êý¾Ý²Å»á´Óµ±Ç°µÄchannelÖÐÉ¾³ý¡£Õâ¸ö¹ý³ÌÊÇÍ¨¹ýÊÂÎñÀ´¿ØÖÆµÄ£¬ÕâÑù¾Í±£Ö¤ÁËÊý¾ÝµÄ¿É¿¿ÐÔ¡£
-    2¡¢LogstashÓÐ¼¸Ê®¸ö²å¼þ£¬ÅäÖÃ±È½ÏÁé»î£¬flumeÇ¿µ÷ÓÃ»§×Ô¶¨Òå¿ª·¢£»
-    3¡¢LogstashµÄinputºÍfilter»¹ÓÐoutputÖ®¼ä¶¼´æÔÚbuffer£¬½øÐÐ»º³å£»FlumeÖ±½ÓÊ¹ÓÃchannel×ö³Ö¾Ã»¯
-    4¡¢LogstashÐÔÄÜÒÔ¼°×ÊÔ´ÏûºÄ±È½ÏÑÏÖØ£¬ÇÒ²»Ö§³Ö»º´æ£»
+    1ã€Logstashæ¯”è¾ƒåé‡äºŽå­—æ®µçš„é¢„å¤„ç†ï¼Œåœ¨å¼‚å¸¸æƒ…å†µä¸‹å¯èƒ½ä¼šå‡ºçŽ°æ•°æ®ä¸¢å¤±ï¼Œåªæ˜¯åœ¨è¿ç»´æ—¥å¿—åœºæ™¯ä¸‹ï¼Œä¸€èˆ¬è®¤ä¸ºè¿™ä¸ªå¯èƒ½ä¸é‡è¦ï¼›
+è€ŒFlumeåé‡æ•°æ®çš„ä¼ è¾“ï¼Œå‡ ä¹Žæ²¡æœ‰æ•°æ®çš„é¢„å¤„ç†ï¼Œä»…ä»…æ˜¯æ•°æ®çš„äº§ç”Ÿï¼Œå°è£…æˆeventç„¶åŽä¼ è¾“ï¼›ä¼ è¾“çš„æ—¶å€™flumeæ¯”logstashå¤šè€ƒè™‘äº†ä¸€äº›å¯é æ€§ã€‚å› ä¸ºæ•°æ®ä¼šæŒä¹…åŒ–åœ¨channelä¸­ï¼Œæ•°æ®åªæœ‰å­˜å‚¨åœ¨ä¸‹ä¸€ä¸ªå­˜å‚¨ä½ç½®ï¼ˆå¯èƒ½æ˜¯æœ€ç»ˆçš„å­˜å‚¨ä½ç½®ï¼Œå¦‚HDFSï¼›
+ä¹Ÿå¯èƒ½æ˜¯ä¸‹ä¸€ä¸ªFlumeèŠ‚ç‚¹çš„channelï¼‰ï¼Œæ•°æ®æ‰ä¼šä»Žå½“å‰çš„channelä¸­åˆ é™¤ã€‚è¿™ä¸ªè¿‡ç¨‹æ˜¯é€šè¿‡äº‹åŠ¡æ¥æŽ§åˆ¶çš„ï¼Œè¿™æ ·å°±ä¿è¯äº†æ•°æ®çš„å¯é æ€§ã€‚
+    2ã€Logstashæœ‰å‡ åä¸ªæ’ä»¶ï¼Œé…ç½®æ¯”è¾ƒçµæ´»ï¼Œflumeå¼ºè°ƒç”¨æˆ·è‡ªå®šä¹‰å¼€å‘ï¼›
+    3ã€Logstashçš„inputå’Œfilterè¿˜æœ‰outputä¹‹é—´éƒ½å­˜åœ¨bufferï¼Œè¿›è¡Œç¼“å†²ï¼›Flumeç›´æŽ¥ä½¿ç”¨channelåšæŒä¹…åŒ–
+    4ã€Logstashæ€§èƒ½ä»¥åŠèµ„æºæ¶ˆè€—æ¯”è¾ƒä¸¥é‡ï¼Œä¸”ä¸æ”¯æŒç¼“å­˜ï¼›
 
-14¡¢ElasticSearch³£ÓÃ²ÎÊýÓÐÄÄÐ©£¿
-# ÉèÖÃË÷ÒýµÄ·ÖÆ¬Êý,Ä¬ÈÏÎª5? "number_of_shards" ÊÇË÷Òý´´½¨ºóÒ»´ÎÉú³ÉµÄ,ºóÐø²»¿É¸ü¸ÄÉèÖÃ
+**14ã€ElasticSearchå¸¸ç”¨å‚æ•°æœ‰å“ªäº›ï¼Ÿ**
+#è®¾ç½®ç´¢å¼•çš„åˆ†ç‰‡æ•°,é»˜è®¤ä¸º5? "number_of_shards" æ˜¯ç´¢å¼•åˆ›å»ºåŽä¸€æ¬¡ç”Ÿæˆçš„,åŽç»­ä¸å¯æ›´æ”¹è®¾ç½®
 index.number_of_shards: 5??
 
-# ÉèÖÃË÷ÒýµÄ¸±±¾Êý,Ä¬ÈÏÎª1
+#è®¾ç½®ç´¢å¼•çš„å‰¯æœ¬æ•°,é»˜è®¤ä¸º1
 index.number_of_replicas: 1??
 
-# Ë÷ÒýµÄË¢ÐÂÆµÂÊ£¬Ä¬ÈÏ1Ãë£¬Ì«Ð¡»áÔì³ÉË÷ÒýÆµ·±Ë¢ÐÂ£¬ÐÂµÄÊý¾ÝÐ´Èë¾ÍÂýÁË¡£
-£¨´Ë²ÎÊýµÄÉèÖÃÐèÒªÔÚÐ´ÈëÐÔÄÜºÍÊµÊ±ËÑË÷ÖÐÈ¡Æ½ºâ£©Í¨³£ÔÚELK³¡¾°ÖÐÐèÒª½«Öµµ÷´óÒ»Ð©±ÈÈç60s£¬ÔÚÓÐ_templateµÄÇé¿öÏÂ£¬ÐèÒªÉèÖÃÔÚÓ¦ÓÃµÄ_templateÖÐ²ÅÉúÐ§¡£?
+#ç´¢å¼•çš„åˆ·æ–°é¢‘çŽ‡ï¼Œé»˜è®¤1ç§’ï¼Œå¤ªå°ä¼šé€ æˆç´¢å¼•é¢‘ç¹åˆ·æ–°ï¼Œæ–°çš„æ•°æ®å†™å…¥å°±æ…¢äº†ã€‚
+ï¼ˆæ­¤å‚æ•°çš„è®¾ç½®éœ€è¦åœ¨å†™å…¥æ€§èƒ½å’Œå®žæ—¶æœç´¢ä¸­å–å¹³è¡¡ï¼‰é€šå¸¸åœ¨ELKåœºæ™¯ä¸­éœ€è¦å°†å€¼è°ƒå¤§ä¸€äº›æ¯”å¦‚60sï¼Œåœ¨æœ‰_templateçš„æƒ…å†µä¸‹ï¼Œéœ€è¦è®¾ç½®åœ¨åº”ç”¨çš„_templateä¸­æ‰ç”Ÿæ•ˆã€‚?
 
 index.refresh_interval: 120s
 
-#µ±ÊÂÎñÈÕÖ¾ÀÛ»ýµ½¶àÉÙÌõÊý¾ÝºóflushÒ»´Î¡£
+#å½“äº‹åŠ¡æ—¥å¿—ç´¯ç§¯åˆ°å¤šå°‘æ¡æ•°æ®åŽflushä¸€æ¬¡ã€‚
 index.translog.flush_threshold_ops: 50000
 
-# Õâ¸ö²ÎÊý¾ö¶¨ÁËÒªÑ¡¾ÙÒ»¸öMasterÖÁÉÙÐèÒª¶àÉÙ¸ö½Úµã£¬Ä¬ÈÏÖµÊÇ1£¬ÍÆ¼öÉèÖÃÎª N/2 + 1£¬NÊÇ¼¯ÈºÖÐ½ÚµãµÄÊýÁ¿£¬ÕâÑù¿ÉÒÔÓÐÐ§±ÜÃâÄÔÁÑ
+#è¿™ä¸ªå‚æ•°å†³å®šäº†è¦é€‰ä¸¾ä¸€ä¸ªMasterè‡³å°‘éœ€è¦å¤šå°‘ä¸ªèŠ‚ç‚¹ï¼Œé»˜è®¤å€¼æ˜¯1ï¼ŒæŽ¨èè®¾ç½®ä¸º N/2 + 1ï¼ŒNæ˜¯é›†ç¾¤ä¸­èŠ‚ç‚¹çš„æ•°é‡ï¼Œè¿™æ ·å¯ä»¥æœ‰æ•ˆé¿å…è„‘è£‚
 
 discovery.zen.minimum_master_nodes: 1
 
-# ½ÚµãÓÃÓÚ fielddata µÄ×î´óÄÚ´æ£¬Èç¹û fielddata´ïµ½¸ÃãÐÖµ£¬¾Í»á°Ñ¾ÉÊý¾Ý½»»»³öÈ¥¡£¸Ã²ÎÊý¿ÉÒÔÉèÖÃ°Ù·Ö±È»òÕß¾ø¶ÔÖµ¡£Ä¬ÈÏÉèÖÃÊÇ²»ÏÞÖÆ£¬ËùÒÔÇ¿ÁÒ½¨ÒéÉèÖÃ¸ÃÖµ£¬±ÈÈç 10%¡£
+#èŠ‚ç‚¹ç”¨äºŽ fielddata çš„æœ€å¤§å†…å­˜ï¼Œå¦‚æžœ fielddataè¾¾åˆ°è¯¥é˜ˆå€¼ï¼Œå°±ä¼šæŠŠæ—§æ•°æ®äº¤æ¢å‡ºåŽ»ã€‚è¯¥å‚æ•°å¯ä»¥è®¾ç½®ç™¾åˆ†æ¯”æˆ–è€…ç»å¯¹å€¼ã€‚é»˜è®¤è®¾ç½®æ˜¯ä¸é™åˆ¶ï¼Œæ‰€ä»¥å¼ºçƒˆå»ºè®®è®¾ç½®è¯¥å€¼ï¼Œæ¯”å¦‚ 10%ã€‚
 
 indices.fielddata.cache.size: 50mb
 
-15¡¢ElasticSearchÐÔÄÜµ÷ÓÅ
-¶ÔÓÚ²»Í¬µÄ×Ö¶Î½ûÓÃ norms ºÍ doc_values
-Èç¹ûÒÔÉÏ½¨ÒéÊÊÓÃ£¬»¹ÐèÒª¼ì²é×Ö¶ÎÊÇ·ñÆôÓÃÁË norms ºÍ doc_values¡£Í¨³£Ö»ÓÃÓÚ¹ýÂË¶ø²»ÐèÒª½øÐÐ´ò·Ö£¨Æ¥Åä¶È´ò·Ö£©µÄ×Ö¶Î£¬¿ÉÒÔÖ±½Ó½ûÓÃ norms ¡£²»ÓÃÓÚÅÅÐò»òÕß¾ÛºÏµÄ×Ö¶Î¿ÉÒÔ½ûÓÃ doc_values ¡£×¢Òâ£¬Èç¹ûÔÚÒÑÓÐµÄ index ×öÕâÐ©±ä¸ü£¬ÊÇÐèÒª¶Ô index ×ö reindexµÄ¶¯×÷¡£
+**15ã€ElasticSearchæ€§èƒ½è°ƒä¼˜**
+å¯¹äºŽä¸åŒçš„å­—æ®µç¦ç”¨ norms å’Œ doc_values
+å¦‚æžœä»¥ä¸Šå»ºè®®é€‚ç”¨ï¼Œè¿˜éœ€è¦æ£€æŸ¥å­—æ®µæ˜¯å¦å¯ç”¨äº† norms å’Œ doc_valuesã€‚é€šå¸¸åªç”¨äºŽè¿‡æ»¤è€Œä¸éœ€è¦è¿›è¡Œæ‰“åˆ†ï¼ˆåŒ¹é…åº¦æ‰“åˆ†ï¼‰çš„å­—æ®µï¼Œå¯ä»¥ç›´æŽ¥ç¦ç”¨ norms ã€‚ä¸ç”¨äºŽæŽ’åºæˆ–è€…èšåˆçš„å­—æ®µå¯ä»¥ç¦ç”¨ doc_values ã€‚æ³¨æ„ï¼Œå¦‚æžœåœ¨å·²æœ‰çš„ index åšè¿™äº›å˜æ›´ï¼Œæ˜¯éœ€è¦å¯¹ index åš reindexçš„åŠ¨ä½œã€‚
 
 
-Ôö¼Ó refresh_interval Ë¢ÐÂµÄ¼ä¸ôÊ±¼ä
-index.refresh_intervalµÄÄ¬ÈÏÖµÊÇ 1s£¬ÕâÆÈÊ¹Elasticsearch¼¯ÈºÃ¿Ãë´´½¨Ò»¸öÐÂµÄ segment £¨¿ÉÒÔÀí½âÎªLucene µÄË÷ÒýÎÄ¼þ£©¡£Ôö¼ÓÕâ¸öÖµ£¬ÀýÈç30s£¬¿ÉÒÔÔÊÐí¸ü´óµÄsegmentÐ´Èë£¬¼õºóÒÔºóµÄsegmentºÏ²¢Ñ¹Á¦¡£
+å¢žåŠ  refresh_interval åˆ·æ–°çš„é—´éš”æ—¶é—´
+index.refresh_intervalçš„é»˜è®¤å€¼æ˜¯ 1sï¼Œè¿™è¿«ä½¿Elasticsearché›†ç¾¤æ¯ç§’åˆ›å»ºä¸€ä¸ªæ–°çš„ segment ï¼ˆå¯ä»¥ç†è§£ä¸ºLucene çš„ç´¢å¼•æ–‡ä»¶ï¼‰ã€‚å¢žåŠ è¿™ä¸ªå€¼ï¼Œä¾‹å¦‚30sï¼Œå¯ä»¥å…è®¸æ›´å¤§çš„segmentå†™å…¥ï¼Œå‡åŽä»¥åŽçš„segmentåˆå¹¶åŽ‹åŠ›ã€‚
 
- 
+ç¦ç”¨ swapping
+æŠŠæ“ä½œç³»ç»Ÿçš„è™šæ‹Ÿå†…å­˜äº¤æ¢åŒºå…³é—­ã€‚sysctl é‡Œé¢æ·»åŠ  vm.swappiness = 1
 
-½ûÓÃ swapping
-°Ñ²Ù×÷ÏµÍ³µÄÐéÄâÄÚ´æ½»»»Çø¹Ø±Õ¡£sysctl ÀïÃæÌí¼Ó vm.swappiness = 1
+**16ã€ElasticSearch APIåˆ†ç±»ï¼š**
+Elasticsearchæœ‰å››ç±»APIï¼š
 
 
-16¡¢ElasticSearch API·ÖÀà£º
-ElasticsearchÓÐËÄÀàAPI£º
+ç¬¬ä¸€ï¼šæ£€æŸ¥é›†ç¾¤ï¼ŒèŠ‚ç‚¹ï¼Œç´¢å¼•ç­‰å¥åº·ä¸Žå¦ï¼Œä»¥åŠèŽ·å–å…¶ç›¸åº”çŠ¶æ€ï¼›
 
-¡¡¡¡¡¡¡¡
-µÚÒ»£º¼ì²é¼¯Èº£¬½Úµã£¬Ë÷ÒýµÈ½¡¿µÓë·ñ£¬ÒÔ¼°»ñÈ¡ÆäÏàÓ¦×´Ì¬£»
 
-¡¡¡¡¡¡¡¡
-µÚ¶þ£º¹ÜÀí¼¯Èº£¬½Úµã£¬Ë÷Òý¼°ÔªÊý¾Ý£»
+ç¬¬äºŒï¼šç®¡ç†é›†ç¾¤ï¼ŒèŠ‚ç‚¹ï¼Œç´¢å¼•åŠå…ƒæ•°æ®ï¼›
 
-¡¡¡¡¡¡¡¡
-µÚÈý£ºÖ´ÐÐCRUD£¨ÔöÉ¾²é¸Ä£©²Ù×÷£»
 
-¡¡¡¡¡¡¡¡
-µÚËÄ£ºÖ´ÐÐ¸ß¼¶²Ù×÷£¬ÀýÈç£ºpaging£¬filteringµÈ
+ç¬¬ä¸‰ï¼šæ‰§è¡ŒCRUDï¼ˆå¢žåˆ æŸ¥æ”¹ï¼‰æ“ä½œï¼›
 
-¡¡¡¡
-ES·ÃÎÊ½Ó¿Ú£º9200/TCP£¬ËüÊÇHTTPÇëÇó£¬ÎÒÃÇ¿ÉÒÔÍ¨¹ýcurlÃüÁî·ÃÎÊ£¬ÀýÈç²é¿´¼¯×´Ì¬£º
+
+ç¬¬å››ï¼šæ‰§è¡Œé«˜çº§æ“ä½œï¼Œä¾‹å¦‚ï¼špagingï¼Œfilteringç­‰
+
+ESè®¿é—®æŽ¥å£ï¼š9200/TCPï¼Œå®ƒæ˜¯HTTPè¯·æ±‚ï¼Œæˆ‘ä»¬å¯ä»¥é€šè¿‡curlå‘½ä»¤è®¿é—®ï¼Œä¾‹å¦‚æŸ¥çœ‹é›†çŠ¶æ€ï¼š
     curl -X GET 'http://node101.yinzhengjie.org.cn:9200/_cat/health?v'
 
-17¡¢
+**17ã€ElasticSearchä¸­9200ç«¯å£ä¸Ž9300ç«¯å£çš„åŒºåˆ«ï¼Ÿ**
+9200ä½œä¸ºHttpåè®®RestfulæŽ¥å£ï¼Œä¸»è¦ç”¨äºŽå¤–éƒ¨é€šè®¯ã€‚
 
-18¡¢ElasticSearchÖÐ9200¶Ë¿ÚÓë9300¶Ë¿ÚµÄÇø±ð£¿
-9200×÷ÎªHttpÐ­ÒéRestful½Ó¿Ú£¬Ö÷ÒªÓÃÓÚÍâ²¿Í¨Ñ¶¡£
+9300ä½œä¸ºTcpåè®®ï¼Œjarä¹‹é—´å°±æ˜¯é€šè¿‡tcpåè®®é€šè®¯
 
-9300×÷ÎªTcpÐ­Òé£¬jarÖ®¼ä¾ÍÊÇÍ¨¹ýtcpÐ­ÒéÍ¨Ñ¶
-
-ES¼¯ÈºÖ®¼äÊÇÍ¨¹ý9300½øÐÐÍ¨Ñ¶£¬¼¯Èº¼äºÍ TCPClient ¶¼×ßµÄ¸Ã¶Ë¿Ú¡£
-
-19¡¢Elasticsearch 7ÓÐÄÄÐ©ÐÂÌØÐÔ£¿
-
-20¡¢
+ESé›†ç¾¤ä¹‹é—´æ˜¯é€šè¿‡9300è¿›è¡Œé€šè®¯ï¼Œé›†ç¾¤é—´å’Œ TCPClient éƒ½èµ°çš„è¯¥ç«¯å£ã€‚
