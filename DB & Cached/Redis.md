@@ -36,6 +36,37 @@
 
   
 
+### redis的数据类型
+
++ sorted set（skiplist跳表，层高）
+
+  ```bash
+  127.0.0.1:6379> lpush list gogo df df df3 df da dfg grt
+  (integer) 9
+  127.0.0.1:6379> object encoding list 
+  "quicklist"
+  127.0.0.1:6379> ZADD class 99 zhangsan
+  (integer) 1
+  127.0.0.1:6379> type class      # 查看某个key的类型
+  zset
+  127.0.0.1:6379> object encoding class   # 查看某个key底层的数据类型
+  "ziplist"
+  127.0.0.1:6379> ZADD class 98	 # 压缩列表
+  asfsadfasfasfdasdfsadfsadfasdfasdfasdfasdfasdfasfasfasfasdf
+  (integer) 1
+  127.0.0.1:6379> object encoding class
+  "ziplist"
+  127.0.0.1:6379> ZADD class 98 asfsadfasfasfdasdfsadfsadfasdfasdfasdfasdfasdfasfasfasfasdfsdffffffffffdsfadfasfdasfasfasfasfasfasfasfasfasfdfdfdfdf
+  (integer) 1
+  127.0.0.1:6379> object encoding class          # skiplist 跳表 最高64层
+  "skiplist"
+  
+  ```
+
+  
+
++ 
+
 ### Redis事务
 
 A原子性，C顺序性、I隔离性，D持久性（一旦被提交就是持久化的）
@@ -137,6 +168,7 @@ QUEUED
   > ![image-20201202193748892](C:\Users\chenmeilan\AppData\Roaming\Typora\typora-user-images\image-20201202193748892.png)
 
 + 建议：
+  
   + 因为RDB文件只用作后备用途，建议只在Slave上持久化RDB文件，而且只要15分钟备份一次就够了，只保留 save 900 1 这条规则。
 
 ### redis主从复制
