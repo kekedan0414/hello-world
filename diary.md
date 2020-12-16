@@ -7,7 +7,7 @@
 
 >![T-35-50X16-expert](https://github.com/kekedan0414/hello-world/blob/dev/images/T-35-50X16-expert.jpg)
 >
->
+>![1608135298724](C:\Users\coco\AppData\Roaming\Typora\typora-user-images\1608135298724.png)
 
 必须要有一个清晰的规划。并且需要认识自己的差距，勇于面对自己的性格，心里缺陷，逼迫自己，走出舒适区。 
 
