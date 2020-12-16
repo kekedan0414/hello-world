@@ -5,7 +5,7 @@
 2019.4 - 2021.02   24  +    2           =  26
 ***2021.3 - forerver   36  +  14           =  50***     
 
->![1608133077084](C:\Users\coco\AppData\Roaming\Typora\typora-user-images\1608133077084.png)
+>![1608133077084](https://github.com/kekedan0414/hello-world/blob/dev/images/T-35-50X16专家.jpg)
 >
 >
 
