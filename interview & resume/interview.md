@@ -200,3 +200,16 @@ https://www.cnblogs.com/wewill/p/8058292.html
 ## 8、Hive数据倾斜
 
 数据倾斜是进行大数据计算时常见的问题。主要分为map端倾斜和reduce端倾斜，map端倾斜主要是因为输入文件大小不均匀导致，reduce端主要是partition不均匀导致。                  
+
+# 20201216菜鸟网络1interview
+
+## 1、线程资源隔离，如何防止单个线程OOM
+
+
+
+## 2、equals和hashcode为什么都要重写
+
+
+
+### 3、minor GC触发的条件，minorgc会有什么样的影响？
+

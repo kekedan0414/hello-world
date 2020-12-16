@@ -5,7 +5,7 @@
 2019.4 - 2021.02   24  +    2           =  26
 ***2021.3 - forerver   36  +  14           =  50***     
 
->![image-20201201192851804](C:\Users\chenmeilan\AppData\Roaming\Typora\typora-user-images\image-20201201192851804.png)
+>![1608133077084](C:\Users\coco\AppData\Roaming\Typora\typora-user-images\1608133077084.png)
 >
 >
 
@@ -57,20 +57,20 @@
 | ---- | ------------ | ----------------------------------------------- | ------------- |
 | 1    | 12.01(2)     | redis视频全流程过一遍<br>快速全局过一遍再细看。 | redis操作     |
 | 2    | 12.02(3)     | redis做笔记，回顾与思考。                       | redis原理     |
-| 3    | 12.03(4)     | 农商银行准备                                    | redis集群     |
-| 4    | 12.04(5)     |                                                 | redis哨兵     |
-| 5    | 12.05(6)     |                                                 | redis代码     |
-| 6    | 12.06(7)     |                                                 | redis总结     |
-| 7    | 12.07(1)     |                                                 | rocketmq      |
-| 8    | 12.08(2)     |                                                 | rocketmq      |
-| 9    | 12.09(3)     |                                                 | rocketmq      |
-| 10   | 12.10(4)     |                                                 | rocketmq      |
-| 11   | 12.11(5)     |                                                 | rocketmq      |
-| 12   | 12.12(6)     |                                                 | rocketmq      |
-| 13   | 12.13(7)     |                                                 | rocketmq      |
-| 14   | 12.14(1)     |                                                 | zookeeper     |
-| 15   | 12.15(2)     |                                                 | zookeeper     |
-| 16   | 12.16(3)     |                                                 | zookeeper     |
+| 3    | 12.03(4)     | 农商银行准备，AI                                | redis集群     |
+| 4    | 12.04(5)     | 汇编--寄存器、指令执行                          | redis哨兵     |
+| 5    | 12.05(6)     | 汇编--中断深入理解                              | redis代码     |
+| 6    | 12.06(7)     | 汇编--x80中断与linux系统调用                    | redis总结     |
+| 7    | 12.07(1)     | ICR智能采集                                     | rocketmq      |
+| 8    | 12.08(2)     | 农商银行准备，ICR                               | rocketmq      |
+| 9    | 12.09(3)     | 167农商未过审                                   | rocketmq      |
+| 10   | 12.10(4)     | 工作                                            | rocketmq      |
+| 11   | 12.11(5)     | 工作                                            | rocketmq      |
+| 12   | 12.12(6)     | poll，select深入理解                            | rocketmq      |
+| 13   | 12.13(7)     | epoll深入理解                                   | rocketmq      |
+| 14   | 12.14(1)     | 菜鸟网络interview1                              | zookeeper     |
+| 15   | 12.15(2)     | 理解红黑树，b+树索引                            | zookeeper     |
+| 16   | 12.16(3)     | Java-threadlocal                                | zookeeper     |
 | 17   | 12.17(4)     |                                                 | zookeeper     |
 | 18   | 12.18(5)     |                                                 | zookeeper     |
 | 19   | 12.19(6)     |                                                 | zookeeper     |
