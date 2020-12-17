@@ -46,6 +46,10 @@ https://www.cnblogs.com/jing99/p/11319175.html
 
 ### hashcode 与 equal
 
+覆盖equals（Object obj）但不覆盖hashCode（）,导致数据不唯一性
+
+覆盖hashCode方法，但不覆盖equals方法，仍然会导致数据的不唯一性
+
 https://blog.csdn.net/lijiecao0226/article/details/24609559
 
 ### 序列化与反序列化
