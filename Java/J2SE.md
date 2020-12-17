@@ -1,214 +1,270 @@
 # JAVA
 
-### Exception��RuntimeException����
+## Java内存模型（JMM--java线程内存模型）
 
-+ **Exception**���ڳ����б���ʹ��try...catch���д����� ����trycatch����throws�׳��Ļ������벻ͨ����
-+ **RuntimeException**�����Բ�ʹ��try...catch���д���������������쳣���������쳣����JVM���д�����
-                        ����trycatch�Ļ�������ֱ����ֹ����һ�㽨����trycatch����
+jmm数据原子操作
 
-�̳�Exception���Ǽ̳�RuntimeException�����쳣�������ص�����ģ����������Ƿ����Զ�����쳣�����ġ�
-������Ҫдһ��java api�����api�л����һ������ٵ���Զ�˷������Զ�˷��񾭳���ʱ�Ͳ����á�
-�����Ҿ������׳��Զ����쳣����ʽ�����е������api�Ŀ�����Ա��֪��һ�ٵ�����ʵ���������ڵ������apiʱ��ؿ��ǵ�Զ�˷��񲻿���ʱӦ��ִ�еĲ����߼������糢�Ե�����һ��api����
-��ʱ�Զ�����쳣���Ӧ�̳�Exception����������������Ա�ڵ������apiʱ�ͻ��յ����������ĺ�ɫ����������û��������쳣������ǿ�����Ǵ��������磬��Ҫд��һ��api��
-���api�����һ���ǳ��ǳ��ȶ���Զ�˷��񣬳������˰�Զ�˷���Ļ���ը�ˣ�����������񲻻���ֲ����õ������
-���Ҽ�����һ������������ˣ�api�ĵ����߳��˼�¼����ʾ����֮��Ҳû�б�����������������ĳ�ֲ��������ĵ���ԭ���һ��Ǿ���Ҫ����һ���쳣����������������ը����һ�����
+read 从主内存读取数据
 
-��ô��ʱ������쳣���Ӧ�̳�RuntimeException����Ϊ�ҵ�api�ĵ�������û��Ҫ�˽���һϸ΢��ϸ�ڣ�����һ�쳣����ͳһ���쳣������ȥ�����ͺ��ˡ�
+load 将主内存的值读取到(线程的)工作内存
+
+use 将(线程的)工作内存的值给cpu使用
+
+assign 将计算好的值重新赋值给（线程的）工作内存
+
+store 将工作内存的值存入主内存
+
+write将store过来的值赋值给变量
+
+volitale： MESI协议（缓存一致性协议），第一时间将工作线程的值同步到主内存中，另一个工作线程有一个CPU嗅探机制，嗅探到了这个值被修改了，那么立即让本工作线程的值失效（地址里存的值清空）并且调用read从主内存读取新值。
+
+汇编层级：在指令前面加一个lock前缀指令（ADD 1 2--> lock ADD 1 2）,lock指令有两个作用：1、CPU第一时间将工作线程的值同步到主内存中
+
+2、开启MESI协议
+
+为什么是轻量级的，加锁粒度非常小，只在jmm store会写到主内存的时候加锁。
+
+volitale不保证原子性，10个线程对一个变量++操作1000次，最终小于1000，CPU嗅探机制，嗅探到了这个值被修改了，那么立即让本工作线程的值失效（地址里存的值清空），然后在读主内存的值。
+
+并发编程三大特性，可见性，原子性，有序性。
+
+## JVM
+
+
+
+
+
+
+
+#### 对象生死判定
+
+#### 对象晋升
+
+##### 年龄
+
+垃圾回收器
+
+JVM调优指令
+
+OOM
+
+lock
+
+synchronize
+
+volitale
+
+锁：乐观锁，悲观锁，对象锁，
+
+### Exception与RuntimeException区别
+
++ **Exception**：在程序中必须使用try...catch进行处理。 不用trycatch或者throws抛出的话，编译不通过。
++ **RuntimeException**：可以不使用try...catch进行处理，但是如果有异常产生，则异常将由JVM进行处理。
+                        不用trycatch的话，出错直接终止程序。一般建议用trycatch捕获。
+
+继承Exception还是继承RuntimeException是由异常本身的特点决定的，而不是由是否是自定义的异常决定的。
+例如我要写一个java api，这个api中会调用一个极其操蛋的远端服务，这个远端服务经常超时和不可用。
+所以我决定以抛出自定义异常的形式向所有调用这个api的开发人员周知这一操蛋的现实，让他们在调用这个api时务必考虑到远端服务不可用时应该执行的补偿逻辑（比如尝试调用另一个api）。
+此时自定义的异常类就应继承Exception，这样其他开发人员在调用这个api时就会收到编译器大大的红色报错：【你没处理这个异常！】，强迫他们处理。又如，我要写另一个api，
+这个api会访问一个非常非常稳定的远端服务，除非有人把远端服务的机房炸了，否则这个服务不会出现不可用的情况。
+而且即便万一这种情况发生了，api的调用者除了记录和提示错误之外也没有别的事情好做。但出于某种不可描述的蛋疼原因，我还是决定要定义一个异常对象描述“机房被炸”这一情况，
+
+那么此时定义的异常类就应继承RuntimeException，因为我的api的调用者们没必要了解这一细微的细节，把这一异常交给统一的异常处理层去处理就好了。
 
 ### HashMap
 
-hashmap�൱�������������һ����Ϸ�����
-��������ɾ�������漰�ƶ����ݣ������ռ�ռ���١�
-��������ɾ�����ݺܷ��㣬���ռ�ռ�öࡣ
-�����������ƽ�����Ӷȶ�Ϊo��n��
-hashmap����ʹ�����飬ͨ��key��ӳ���ϵֱ���ҵ������λ�ã�ʱ�临�Ӷ�Ϊ0(1)
-����ӳ���ϵ���ܻᵼ�²�ͬ��key�ҵ�ͬһ��λ�ã������hash��ͻ��Ϊ�˽��������⣬���������������������ͻ��
-����������ʽ������λ�õĺ��档
+hashmap相当于数组和链表的一个结合方案。
+数组插入和删除数据涉及移动数据，但它空间占用少。
+链表新增删除数据很方便，但空间占用多。
+数组和链表的平均复杂度都为o（n）
+hashmap主干使用数组，通过key和映射关系直接找到数组的位置，时间复杂度为0(1)
+但是映射关系可能会导致不同的key找到同一个位置，这就是hash冲突，为了解决这个问题，引入了链表，如果遇到冲突，
+就以链表形式加在它位置的后面。
 
-### HashMap��������refactor��������
+### HashMap的容量，refactor加载因子
 
-HashMap������capacity����������Ĵ�С��Ĭ����16��rehash��ʱ��Ҳ������Ϊ2���ݴη���
-����ΪĬ��������̫���̫С�������ʣ�����16����Ϊһ���ȽϺ��ʵľ���ֵ�������ˡ�
-refactor��������0.75 ��ȡ0.5��1������ֵ��
-���̫��Ļ����������鶼���Ա��������ռ�����������ˣ���hash��ͻ���ʱ�󣬲�ѯ�������  
-̫�͵Ļ����ò��˶�þ�rehash��rehash̫Ƶ����
+HashMap容量（capacity）就是数组的大小，默认是16，rehash的时候也会设置为2的幂次方。
+而作为默认容量，太大和太小都不合适，所以16就作为一个比较合适的经验值被采用了。
+refactor加载因子0.75 ，取0.5到1的折中值。
+如果太大的话，所有数组都可以被填满，空间利用率提高了，但hash冲突几率变大，查询会变慢。  
+太低的话，用不了多久就rehash，rehash太频繁。
 
-### hashmap��ѭ��
+### hashmap死循环
 
-jdk1.6��1.7����������⣬1.8������
-��Ҫԭ��hashmap���̲߳���ȫ�ģ��ڶ��̵߳�����£����������߳�ͬʱ������resize��
-���Ҷ�ͬһ����������Ǩ�Ƶ�ʱ�򣬿��ܵ��²���������β��������hash.get�����������ʱ������ҵ����ݲ����ڣ���ô�ͽ�������ѭ����
-����ԭ�����transfer�������Ƕ�������ͷ���������ݵ��µġ�����1.8������β�����������ݲ��롣������ͷЧ�ʸߣ�
-����һ��������������λ����������һ��������û�б����ã�
-������ConcurrentHashMap
+jdk1.6、1.7存在这个问题，1.8不存在
+主要原因：hashmap是线程不安全的，在多线程的情况下，假如两个线程同时触发了resize。
+并且对同一个链表进行迁移的时候，可能导致部分链表首尾相连。当hash.get操作这个链表时如果查找的数据不存在，那么就进入了死循环。
+根本原因就是transfer函数中是对链表的头部插入数据导致的。所以1.8对链表尾部进行了数据插入。（插入头效率高）
+另外一个问题是链表首位相连，而另一部分数据没有被引用，
+建议用ConcurrentHashMap
 
 https://www.cnblogs.com/jing99/p/11319175.html
 
-### hashcode �� equal
+### hashcode 与 equal
 
 https://blog.csdn.net/lijiecao0226/article/details/24609559
 
-### ���л��뷴���л�
+### 序列化与反序列化
 
-�����д������Զ�����������ʽ����ģ����л����ǰ�java����ת�����ֽ��򣬷����������д��䡣
-�����л����ǰ��յ����ֽ���ת��Ϊjava����
+网络中传输是以二进制流的形式传输的，序列化就是把java对象转换成字节序，方便在网络中传输。
+反序列化就是把收到的字节序转换为java对象。
 
 ### RPC
 
-RPC(Remote Procedure Call)��Զ�̹��̵��ã�����һ��ͨ������ӽڵ���ڵ�ֱ��������񣬾������ڱ��ص��ýӿڷ���һ����
-RPC ��һ�ּ���˼�룬������һ�ֹ淶��ʵ�����Ŀ�ܱ���dubbo��springcloud��netty
-�� RPC �п�ѡ�����紫�䷽ʽ�ж��֣�����ѡ�� TCP Э�顢UDP Э�顢HTTP Э�顣����springcloud��http��
-tcpЭ���rpc���ܼ������翪����ʵ�ָ�����������Ͳ��������������ѶȽϴ�
-httpЭ����Ȼ���翪�����󣬵��Ǵ����ϲ㣬���ж��ο����ǳ����㡣
+RPC(Remote Procedure Call)：远程过程调用，它是一种通过网络从节点与节点直接请求服务，就像是在本地调用接口服务一样。
+RPC 是一种技术思想，并不是一种规范，实现它的框架比如dubbo，springcloud，netty
+在 RPC 中可选的网络传输方式有多种，可以选择 TCP 协议、UDP 协议、HTTP 协议。比如springcloud是http。
+tcp协议的rpc更能减少网络开销，实现更大的吞吐量和并发数。但开发难度较大。
+http协议虽然网络开销更大，但是处于上层，进行二次开发非常方便。
 
 ### Netty
 
-Netty��һ�����NIO����������ͨ�ſ�ܣ��Ա���BIO�����Ĳ������ܵõ��˺ܴ���ߡ�
-˵���˾�����һ��selector��ѯ��ʵ�ֶ�·���� Ҳ���¼��������ײ��õĲ���ϵͳ��select(windows)��epoll(linux)��ѯ
+Netty是一款基于NIO开发的网络通信框架，对比于BIO，他的并发性能得到了很大提高。
+说白了就是有一个selector轮询器实现多路复用 也叫事件驱动。底层用的操作系统的select(windows)和epoll(linux)轮询
 
-### epoll��select����
+### epoll与select区别
 
-select��ѯЧ�ʵͣ���Ҫ������select��ѯ����socket����ʱ������Ҫ����һ��socket�б���ȷ��������һ��socket�յ������ݡ�
-��Ϊÿ�ζ�Ҫ����������select������������socket1024.
-epoll��û��������ơ�epoll����ά����socket�����б�����ά����һ��socket�����б�������һ����socket�յ����ݣ�ֱ�ӽ�socket
-д�뵽�����б��У�����Ҫ���������б��ˡ�
+select轮询效率低，主要表现在select轮询到有socket数据时，还需要遍历一次socket列表来确定具体那一个socket收到了数据。
+因为每次都要遍历，所以select有限制最多监听socket1024.
+epoll就没有这个限制。epoll不仅维护了socket监听列表，还维护了一个socket就绪列表。这样一旦有socket收到数据，直接将socket
+写入到就绪列表中，不需要遍历监听列表了。
 https://www.cnblogs.com/shijianchuzhenzhi/p/12346318.html
 https://www.jianshu.com/p/dfd940e7fca2
 
-### �¼�����ģ��
+### 事件驱动模型
 
-ͨ�����������һ���¼�����ģ�͵ĳ���������˼·
+通常，我们设计一个事件处理模型的程序有两种思路
 
-    ��ѯ��ʽ
+    轮询方式
 
-�̲߳�����ѯ��������¼�����Դ��û�з����¼����з����¼��͵����¼������߼���
+线程不断轮询访问相关事件发生源有没有发生事件，有发生事件就调用事件处理逻辑。
 
-    �¼�������ʽ
+    事件驱动方式
 
-�����¼������̰߳��¼������¼����У��������̲߳���ѭ�������¼��б��е��¼��������¼���Ӧ�Ĵ����߼������¼���
-�¼�������ʽҲ����Ϊ��Ϣ֪ͨ��ʽ����ʵ�����ģʽ�й۲���ģʽ��˼·��
+发生事件，主线程把事件放入事件队列，在另外线程不断循环消费事件列表中的事件，调用事件对应的处理逻辑处理事件。
+事件驱动方式也被称为消息通知方式，其实是设计模式中观察者模式的思路。
 
-### �̳߳ز���
+### 线程池参数
 
-�����߳���
-��󲢷��߳���
-��ͨ�̵߳Ŀ��г�ʱʱ�䡣
-������У�������פ���߳������̻߳���뵽������У��������˾ͻᴴ���µ��߳�ֱ��max����߳�����
-�ܾ����ԣ���������֮���̳߳ص���max����ô�µ������Ƿ������ǵȴ���
+核心线程数
+最大并发线程数
+普通线程的空闲超时时间。
+缓存队列，超过常驻的线程数的线程会进入到缓存队列，队列满了就会创建新的线程直到max最大线程数。
+拒绝策略，队列满了之后，线程池到了max，那么新的任务是否丢弃还是等待。
 
-### post��get������
+### post与get的区别
 
-post����ȫ��������װ��request body�У�����ʱ���á�
-get����ȫ��url��ֱ�Ӱ������û�����Ϣ����Ч�ʸ��ߣ�������ֻ����һ�Ρ���post��Ҫ���ؽ������Σ���һ�η���postͷ��Ȼ��ڶ��βŷ������ݡ�
+post更安全，把数据装到request body中，但耗时更久。
+get不安全，url中直接包含了用户等信息，但效率更高，与服务端只交互一次。而post需要来回交互两次，第一次发送post头，然后第二次才发送内容。
 
-### cookie��session������
+### cookie与session的区别
 
-cookie�����ڿͻ��ˣ�session�Ƿ���˵ĸ��
-cookie�൱�ڷ���˸��ͻ��˵�һ��ͨ��֤��Ȼ��ͻ��˱������Լ���������У�ÿ�η��ʷ�����ʱ������ͬcookieһ���ύ����������
-��Ϊhttp����״̬Э�飬���һ�����ӵ����ݴ�����ɺ����ӾͶϿ����´������ӵ�ʱ�򣬷������޷��ж������ĸ��û���
-��˷���������Ҫһ�ֻ����������û�����Ϣ�������session����һ�δ���sessionʱ���ͻ���cookie���¼һ��session id�������ͻ��ˣ�
-�Ժ�ͻ���ÿ�η��������ʱ��ͻ��sid�����������������������ҵ���Ӧ��session��
-session�ڶ�����Ҫ�����ǣ�������һ���Session�����ڴ��У���session���棬�����û������ݿ��Ƶ��������������̹��ﳵ�� 
+cookie保存在客户端，session是服务端的概念。
+cookie相当于服务端给客户端的一个通行证，然后客户端保存在自己的浏览器中，每次访问服务器时，会连同cookie一起提交给服务器。
+因为http是无状态协议，因此一次连接的数据传输完成后，连接就断开。下次再连接的时候，服务器无法判断你是哪个用户。
+因此服务器就需要一种机制来保存用户的信息，这就是session。第一次创建session时，就会在cookie里记录一个session id，发给客户端，
+以后客户端每次发送请求的时候就会把sid发给服务器，服务器就能找到对应的session。
+session第二个主要作用是，服务器一般把Session放在内存中，做session缓存，减少用户与数据库的频繁交互，例如电商购物车。 
 
-### ת�����ض���
+### 转发与重定向
 
-�ض����������Ϊ������������������󣬵õ�������Ӧ��response.sendRedirect
-ת������������Ϊ������һ�����󣬵õ�һ�λ�Ӧ����ַ������仯��request.getRequestDispatcher
+重定向：浏览器行为，浏览器发送两次请求，得到两次响应，response.sendRedirect
+转发：服务器行为，发出一次请求，得到一次回应，地址栏不会变化。request.getRequestDispatcher
 
-### �����������ô���Ԫ���ݿռ�MetaSpace
+### 方法区与永久代与元数据空间MetaSpace
 
-�����������ô��Ĺ�ϵ����Java�нӿں���Ĺ�ϵ����ʵ���˽ӿڣ������ô�����HotSpot�������������淶�з�������һ��ʵ�ַ�ʽ��
-��java1.7��ʼ�Ƴ��������1.8�����Ƴ����������ȡ����֮����MetaSpace����Ҫ������MetaSpace���ڱ����ڴ棬�Ͳ���������ô�OOM�ڴ�������⡣
+方法区和永久代的关系很像Java中接口和类的关系，类实现了接口，而永久代就是HotSpot虚拟机对虚拟机规范中方法区的一种实现方式。
+在java1.7开始移除老年代，1.8彻底移除了老年代，取而代之的是MetaSpace。主要区别是MetaSpace放在本地内存，就不会出现永久代OOM内存溢出问题。
 
-���������ʲô����������Ϣ��class�ļ���static�����뷽����final����
+方法区存放什么东西：类信息，class文件，static变量与方法，final常量
 
-### ���ģʽ
+### 设计模式
 
-spring IOC�����Ʒ�ת��ʹ������ע��
+spring IOC，控制反转：使用依赖注入
 http://www.mamicode.com/info-detail-2691212.html
-�������ģʽ : Springʹ�ù���ģʽͨ�� BeanFactory��ApplicationContext ���� bean ����
+工厂设计模式 : Spring使用工厂模式通过 BeanFactory、ApplicationContext 创建 bean 对象。
 
-�������ģʽ : Spring AOP ���ܵ�ʵ�֡�
+代理设计模式 : Spring AOP 功能的实现。
 
-�������ģʽ : Spring �е� Bean Ĭ�϶��ǵ����ġ�
+单例设计模式 : Spring 中的 Bean 默认都是单例的。
 
-ģ�巽��ģʽ : Spring �� jdbcTemplate��hibernateTemplate ���� Template ��β�Ķ����ݿ�������࣬���Ǿ�ʹ�õ���ģ��ģʽ��
+模板方法模式 : Spring 中 jdbcTemplate、hibernateTemplate 等以 Template 结尾的对数据库操作的类，它们就使用到了模板模式。
 
-װ�������ģʽ : ���ǵ���Ŀ��Ҫ���Ӷ�����ݿ⣬���Ҳ�ͬ�Ŀͻ���ÿ�η����и�����Ҫ��ȥ���ʲ�ͬ�����ݿ⡣����ģʽ�����ǿ��Ը��ݿͻ��������ܹ���̬�л���ͬ������Դ��
+装饰器设计模式 : 我们的项目需要连接多个数据库，而且不同的客户在每次访问中根据需要会去访问不同的数据库。这种模式让我们可以根据客户的需求能够动态切换不同的数据源。
 
-�۲���ģʽ: Spring �¼�����ģ�;��ǹ۲���ģʽ�ܾ����һ��Ӧ�á�
+观察者模式: Spring 事件驱动模型就是观察者模式很经典的一个应用。
 
-������ģʽ :Spring AOP ����ǿ��֪ͨ(Advice)ʹ�õ���������ģʽ��spring MVC ��Ҳ���õ���������ģʽ����Controller��
+适配器模式 :Spring AOP 的增强或通知(Advice)使用到了适配器模式、spring MVC 中也是用到了适配器模式适配Controller。
 
-JDBC �Ž�ģʽ��
+JDBC 桥接模式。
 
 ### IOC AOP
 
-IoC��������ƣ���������ҵ���߼��и�������໥������
-��ǰ��Ҫ�Լ�newһ���࣬����ͨ��ioc spring�����Ǵ����͹���������ֱ��ʹ�þ����ˡ������������������Ҫ�Ķ���ֻ��Ҫ�������ļ���������ϣ���������ԡ�
-������A��Ϊ��Ҫ����F��������B����ͨ�����������A��Ҫ������B�������A����������B�ˣ�Ҳ����˵����B�����ڵ�ʱ����A���޷�ʹ���ˡ�
-ʹ����IoC����A���õĽ�����ʵ���˹���F�Ľӿڵ�ĳ���࣬������������B��Ҳ��������һ����C����spring�������ļ�����������������A�Ͳ�����������B�ˣ���϶Ƚ��ͣ�����������ˡ�
+IoC（反向控制），降低了业务逻辑中各个类的相互依赖。
+以前需要自己new一个类，现在通过ioc spring帮我们创建和管理，我们直接使用就行了。如果后续代码升级需要改动，只需要改配置文件，降低耦合，提高重用性。
+假如类A因为需要功能F而调用类B，在通常的情况下类A需要引用类B，因而类A就依赖于类B了，也就是说当类B不存在的时候类A就无法使用了。
+使用了IoC，类A调用的仅仅是实现了功能F的接口的某个类，这个类可能是类B，也可能是另一个类C，由spring的配置文件来决定。这样，类A就不再依赖于类B了，耦合度降低，重用性提高了。
 
-### ����ģʽ
+### 单例模式
 
-���������ã�ȷ��һ����ֻ��һ��ʵ����������jvm�б���Ψһ�ԣ�Ψһ��һЩ��Դ�������̳߳ؿ����õ������ŵ���Ψһ�ԣ����ҿ���ʡȥ���󷴸��Ĵ��������ٵĹ��̣���ʡ��Դ��
-����ʽ��ֻ���ڵ��õ�ʱ��ų�ʼ���������ȽϽ�ʡ��Դ�����ǵ��õ�ʱ��ÿ�ζ�Ҫ�ж��Ƿ��Ѿ������������ˡ�
-����ʽ������һ�����ʹ���ʵ����������Ƚ�ռ��Դ�����ǵ��õ�ʱ����Ҫ�ж��Ƿ񴴽���������
+单例的作用：确保一个类只有一个实例，在整个jvm中保持唯一性，唯一的一些资源，比如线程池可以用单例。优点是唯一性，并且可以省去对象反复的创建与销毁的过程，节省资源。
+懒汉式：只有在调用的时候才初始化，这样比较节省资源，但是调用的时候每次都要判断是否已经创建过单例了。
+饿汉式：程序一启动就创建实例。这样会比较占资源，但是调用的时候不需要判断是否创建过单例。
 
-### ����ģʽ
+### 工厂模式
 
-����ģʽ�����ã�һ�Ƿ���ά�������һ�ݴ������кܶ�new������Ҫ�����޸ĵ�ʱ�򣬴����ÿһ���ط���Ҫ�޸ġ�����new������װ�ڹ������ֻҪ��һ���ط��ˡ�
-                ���Ƿ��ϵ���ϵ�һ�����˼�룬���������ݴ���A��B��B�����A���࣬����Ҫnewһ��A�������ͻ������һ�𡣵������ʹ�ù����Ļ����Ե��ù��������ξͿ��Եõ�����Ķ���
+工厂模式的作用：一是方便维护。如果一份代码里有很多new操作，要进行修改的时候，代码的每一个地方都要修改。而把new操作封装在工厂里，就只要改一个地方了。
+                二是符合低耦合的一个编程思想，比如有两份代码A和B，B想调用A的类，就需要new一个A，这样就会耦合在一起。但是如果使用工厂的话，对调用工厂并传参就可以得到具体的对象。
 
-### ����ģʽ
+### 代理模式
 
-�����Ҳ�����߲���ֱ�ӵ���ĳ���࣬�͸�����װһ���������ֱ�ӵ��������������ʵ����Ӧ�Ĺ��ܡ��ô�������һ���н飬������ί�����ϸ�ڡ�
-������������ӵ��¹��ܣ�������ֱ���޸�ί���࣬�����ڴ�������ʵ�֡�
+比如我不想或者不能直接调用某个类，就给他封装一层代理，我直接调用这个代理类来实现响应的功能。好处是他是一个中介，屏蔽了委托类的细节。
+另外如果想增加点新功能，但不想直接修改委托类，可以在代理类上实现。
 
-### ǰ��˷���
+### 前后端分离
 
-ǰ��˲������������ǣ��ͻ��˷�һ�����󣬷����׼����������ҳ������ݷ����ͻ��ˡ�ÿ��ҳ������ݶ��ᷢ��������������ݺܶࡣ
-ǰ��˷����������Ƿ����ֻ�ṩ���ݣ�һ�����������ǰ��ʹ��ajax������ṩrestful�Ľӿڣ�������json��ʽ���䡣
+前后端不分离的情况就是，客户端发一个请求，服务端准备好完整的页面和数据发给客户端。每次页面和数据都会发过来，传输的内容很多。
+前后端分离的情况就是服务端只提供数据，一般的做法就是前端使用ajax，后端提供restful的接口，数据以json格式传输。
 
-### ��������
+### 动静分离
 
-��ν�Ķ����������ָͼƬ��css, js֮��Ķ�����nginx��������nginx�������˵ģ�����jsp �ͽ���tomcat������
-�ô���nginx������̬���ݵ��������ܸߣ���tomcat�߶��ˣ��������������������ܡ� 
+所谓的动静分离就是指图片，css, js之类的都交给nginx来处理，nginx处理不了的，比如jsp 就交给tomcat来处理
+好处是nginx处理静态内容的吞吐量很高，比tomcat高多了，这样无形中提升了性能。 
 
 ### Springboot
 
-Springbootʡȥ��SpringMVC���������ã�����������tomcat���൱��һ���򻯿����Ŀ���������
+Springboot省去了SpringMVC繁琐的配置，并且内置了tomcat，相当于一个简化开发的开发环境。
 
 ### SpringMVC
 
- java��������ַ֣�
+ java类加载器又分：
 
-1��Bootstrap ClassLoader
+1）Bootstrap ClassLoader
 
-�������$JAVA_HOME��jre/lib/rt.jar�����е�class����C++ʵ�֣�����ClassLoader����
+负责加载$JAVA_HOME中jre/lib/rt.jar里所有的class，由C++实现，不是ClassLoader子类
 
-2��Extension ClassLoader
+2）Extension ClassLoader
 
-�������javaƽ̨����չ���ܵ�һЩjar��������$JAVA_HOME��jre/lib/*.jar��-Djava.ext.dirsָ��Ŀ¼�µ�jar��
+负责加载java平台中扩展功能的一些jar包，包括$JAVA_HOME中jre/lib/*.jar或-Djava.ext.dirs指定目录下的jar包
 
-3��App ClassLoader
+3）App ClassLoader
 
-�������classpath��ָ����jar����Ŀ¼��class
+负责记载classpath中指定的jar包及目录中class
 
-4��Custom ClassLoader
+4）Custom ClassLoader
 
-����Ӧ�ó������������Ҫ�Զ����ClassLoader����tomcat��jboss�������j2ee�淶����ʵ��ClassLoader
+属于应用程序根据自身需要自定义的ClassLoader，如tomcat、jboss都会根据j2ee规范自行实现ClassLoader
 
-���ع����л��ȼ�����Ƿ��Ѽ��أ����˳�����Ե����ϣ���Custom ClassLoader��BootStrap ClassLoader����飬ֻҪĳ��classloader�Ѽ��ؾ���Ϊ�Ѽ��ش��࣬��֤����ֻ����ClassLoader����һ�Ρ������ص�˳�����Զ����£�Ҳ�������ϲ�����㳢�Լ��ش��ࡣ
-
-
-�ɴ˿ɼ��������Ȱѱ�֤�������еĻ�����һ���Լ��ص�jvm�С�����������java�������ΪǶ��ʽϵͳ����Ƶģ��ڴ汦�����������ʼ�Ͱ����У��õĵ����ò������඼���ص�jvm�У��Ʊػ�ռ�úܶ౦����ڴ棬������Щclass����ѹ�����������й����ж�����ʹ�á�
+加载过程中会先检查类是否被已加载，检查顺序是自底向上，从Custom ClassLoader到BootStrap ClassLoader逐层检查，只要某个classloader已加载就视为已加载此类，保证此类只所有ClassLoader加载一次。而加载的顺序是自顶向下，也就是由上层来逐层尝试加载此类。
 
 
-���еó����ۣ�
+由此可见，会首先把保证程序运行的基础类一次性加载到jvm中。而根据资料java最早就是为嵌入式系统而设计的，内存宝贵。所有如果开始就把所有，用的到、用不到的类都加载到jvm中，势必会占用很多宝贵的内存，而且有些class可能压根在整个运行过程中都不会使用。
 
-һ��Ӧ�ó���������n�������ɣ�Java��������ʱ��������һ�ΰ����е���ȫ�����غ������У��������Ȱѱ�֤�������еĻ�����һ���Լ��ص�jvm�У�������ȵ�jvm�õ���ʱ���ټ���
 
-�ص㣺final����׼���׶�ʱ�͸�ֵ�ˣ�static׼���׶�ʱ��������ֵ���ڳ�ʼ���׶βŻḳֵ��
+所有得出结论：
 
-�ο���https://blog.csdn.net/noaman_wgs/article/details/74489549?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control
+一个应用程序总是由n多个类组成，Java程序启动时，并不是一次把所有的类全部加载后再运行，它总是先把保证程序运行的基础类一次性加载到jvm中，其它类等到jvm用到的时候再加载
+
+重点：final是在准备阶段时就赋值了，static准备阶段时数据是零值，在初始化阶段才会赋值。
+
+参考：https://blog.csdn.net/noaman_wgs/article/details/74489549?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control
