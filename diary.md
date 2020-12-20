@@ -71,7 +71,7 @@
 | 14   | 12.14(1)     | 菜鸟网络interview1                              | zookeeper     |
 | 15   | 12.15(2)     | 理解红黑树，b+树索引                            | zookeeper     |
 | 16   | 12.16(3)     | Java-threadlocal                                | zookeeper     |
-| 17   | 12.17(4)     |                                                 | zookeeper     |
+| 17   | 12.17(4)     | 并发编程                                        | zookeeper     |
 | 18   | 12.18(5)     |                                                 | zookeeper     |
 | 19   | 12.19(6)     |                                                 | zookeeper     |
 | 20   | 12.20(7)     |                                                 | zookeeper     |
