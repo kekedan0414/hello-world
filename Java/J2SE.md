@@ -1,5 +1,376 @@
 # JAVA
 
+## Java内存模型（JMM--java线程内存模型）
+
+jmm数据原子操作
+
+read 从主内存读取数据
+
+load 将主内存的值读取到(线程的)工作内存
+
+use 将(线程的)工作内存的值给cpu使用
+
+assign 将计算好的值重新赋值给（线程的）工作内存
+
+store 将工作内存的值存入主内存
+
+write将store过来的值赋值给变量
+
+volitale： MESI协议（缓存一致性协议），第一时间将工作线程的值同步到主内存中，另一个工作线程有一个CPU嗅探机制，嗅探到了这个值被修改了，那么立即让本工作线程的值失效（地址里存的值清空）并且调用read从主内存读取新值。
+
+汇编层级：在指令前面加一个lock前缀指令（ADD 1 2--> lock ADD 1 2）,lock指令有两个作用：1、CPU第一时间将工作线程的值同步到主内存中
+
+2、开启MESI协议
+
+为什么是轻量级的，加锁粒度非常小，只在jmm store会写到主内存的时候加锁。
+
+volitale不保证原子性，10个线程对一个变量++操作1000次，最终小于1000，CPU嗅探机制，嗅探到了这个值被修改了，那么立即让本工作线程的值失效（地址里存的值清空），然后在读主内存的值。
+
+并发编程三大特性，可见性，原子性，有序性。
+
+## JVM
+
+
+
+
+
+
+
+#### 对象生死判定
+
+#### 对象晋升
+
+##### 年龄
+
+垃圾回收器
+
+JVM调优指令
+
+OOM
+
+lock
+
+synchronize
+
+volitale
+
+锁：乐观锁，悲观锁，对象锁，
+
+### JAVA-CPU占比高线程堆栈问题定位
+
+1、top  -p <pid> 查看某个进程的CPU使用情况
+
+2、top -H -p <pid>查看进程中每个线程的CPU使用情况
+
+3、找到最高线程的thread id，并将tid转换为16进制。
+
+4、 执行jstack <pid> | grep -A 10  -i <thread id>   查看该线程的10行堆栈信息，-i 忽略16进制的大小写问题
+
+## 并发编程
+
+### 可重入锁
+
+一个线程可以多次获取锁。synchronized和ReentrantLock, ReentrantLock （底层使用AQS）和 synchronized 不一样，需要手动释放锁，所以使用 ReentrantLock的时候一定要**手动释放锁**，并且**加锁次数和释放次数要一样**
+
+```java
+// 可重入降低了编程复杂性
+//synchronized
+public class WhatReentrant {
+	public static void main(String[] args) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				synchronized (this) {
+					System.out.println("第1次获取锁，这个锁是：" + this);
+					int index = 1;
+					while (true) {
+						synchronized (this) {
+							System.out.println("第" + (++index) + "次获取锁，这个锁是：" + this);
+						}
+						if (index == 10) {
+							break;
+						}
+					}
+				}
+			}
+		}).start();
+	}
+}
+//ReentrantLock 
+public class WhatReentrant2 {
+	public static void main(String[] args) {
+		ReentrantLock lock = new ReentrantLock();
+		
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					lock.lock();
+					System.out.println("第1次获取锁，这个锁是：" + lock);
+
+					int index = 1;
+					while (true) {
+						try {
+							lock.lock();
+							System.out.println("第" + (++index) + "次获取锁，这个锁是：" + lock);
+							
+							try {
+								Thread.sleep(new Random().nextInt(200));
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							
+							if (index == 10) {
+								break;
+							}
+						} finally {
+							lock.unlock();
+						}
+
+					}
+
+				} finally {
+					lock.unlock();
+				}
+			}
+		}).start();
+	}
+}
+```
+
+### 为什么有synchronized还需要AQS
+
+synchronize最终需要调用操作系统底层mutex，开销大。AQS在JVM层实现锁，不需要与OS交互。另外可以设置条件，更加灵活。
+
+> 扩展：jdk1.6以后，synchronize改进了锁的等级以及升级策略，无锁-->偏向锁-->轻量锁（自旋锁）-->重量锁
+>
+> 扩展：synchronize锁是锁整个类。并不是某一个代码块。
+
+### synchronized
+
+#### synchronized你到底锁住的是谁？
+
+synchronized从语法的维度一共有3个用法：
+
+1. 静态方法加上关键字
+2. 普通方法加上关键字
+3. 方法中使用同步代码块
+
+synchronized从锁的是谁的维度一共有两种情况：
+
++ 对象锁：对于对象锁，如果两个线程里对应的是同一个对象，那么其中一个线程必然不可能获取这个锁；如果两个线程针对的是两个对象实例，那么这两个线程不相关均能获取这个锁。
+
++ 类锁：而对于类锁，上述两种情况，都有一个线程无法获得锁。
+
+代码块中，synchronized(this){...}是对象锁，如果this里的A方法和B方法都加了锁，假设线程1调用对象A方法，并拿到这这个对象的锁，线程2调用B方法，是需要等待锁的。因为锁的是整个对象。
+
+```java
+/**
+* Description:
+* synchronized同步代码块对本实例加锁（this）
+* 假设demo1与demo2方法不相关，此时两个线程对同一个对象实例分别调用demo1与demo2，只要其中一个线程获取到了锁即执行了demo1或者demo2，此时另一个线程会永远处于阻塞状态
+* 2019-06-13
+* Created with OKevin.
+*/
+public class Demo {
+
+   public void demo1() {
+       synchronized (this) {
+           while (true) {  //死循环目的是为了让线程一直持有该锁
+               System.out.println(Thread.currentThread());
+           }
+       }
+   }
+
+   public void demo2() {
+       synchronized (this) {
+           while (true) {
+               System.out.println(Thread.currentThread());
+           }
+       }
+   }
+}
+```
+
+那么这样效率就变低了，优化上述方式：private Object obj = new Object();   synchronized(obj){...}
+
+```java
+/**
+* Description:
+* synchronized同步代码块对对象内部的实例加锁
+* 假设demo1与demo2方法不相关，此时两个线程对同一个对象实例分别调用demo1与demo2，均能获取各自的锁
+* 2019-06-13
+* Created with OKevin.
+*/
+public class Demo {
+   private Object lock1 = new Object();
+   private Object lock2 = new Object();
+
+   public void demo1() {
+       synchronized (lock1) {
+           while (true) {  //死循环目的是为了让线程一直持有该锁
+               System.out.println(Thread.currentThread());
+           }
+       }
+   }
+
+   public void demo2() {
+       synchronized (lock2) {
+           while (true) {
+               System.out.println(Thread.currentThread());
+           }
+       }
+   }
+}
+```
+
+synchronized(Demo.class){...} 类锁。
+
+
+
+
+
+> 扩展：[synchronize锁的是类还是对象，失之毫厘谬之千里](https://www.cnblogs.com/yulinfeng/p/11020576.html)
+
+### AQS
+
+### CAS
+
+比较交换，CPU底层就有CAS指令，原子操作。乐观锁，先比较，如果相等再交换。如果不相等，就自旋。JAVA自己的CAS在JVM中解决。
+
+CAS有ABA问题：如果变量初始值是1，线程A拿到1后改成2，再写回变量，这是不会有问题的。但是如果你拿到1后，被线程B改成3，又被线程C改回1，这个时候需要看你的业务系统在不在乎这个ABA（1--8--1）中间过程的改变。如果在乎的话，解决方案是加一个AtomicStampleReference版本号，每个线程拿到值后都给版本号+1。如果不在乎被改了多少次，可以使用AtomicMarkableReference，如果是false表示没被其他线程改动过，如果变为true，表示有被改变过。
+
+### Semphore 信号量
+
+与synchronize完全串行不同，1000个线程，可以运行10个线程一起跑
+
+> 扩展：[Java信号量](https://blog.csdn.net/qq_25956141/article/details/102959976)
+
+### object.wait()
+
+让当前线程进入该锁的等待队列，并释放object锁，[wait、notify，notifyall](https://www.cnblogs.com/xumaomao/p/12843683.html)
+
+notify随机唤醒，notifyall全部唤醒。唤醒策略基于操作系统，比如CFS（completely-fair-scheduler）
+
+### LockSupport
+
+LockSupport.unpark()
+
+LockSupport.park(t)   t为线程。可以指定唤醒某个线程。
+
+### ReentrantLock
+
+lock(), unlock() ,await()，signalall()
+
+```java
+static class ProducerAndConsumer{
+
+        boolean flag = false;
+        Lock lock = new ReentrantLock();
+        Condition producerCon = lock.newCondition();
+        Condition consumerCon = lock.newCondition();
+
+        public void producer(){
+            lock.lock();
+            if(flag){
+                System.out.println("还有食物，暂时不需要生产");
+                    try {
+                        producerCon.await();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+            }
+            flag = true;
+            System.out.println("生产者生产了食物");
+            consumerCon.signal();
+            lock.unlock();
+        }
+
+        public void consumer(){
+            lock.lock();
+            if(!flag){
+                System.out.println("没有食物了,通知生产者生产");
+                try {
+                    consumerCon.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            System.out.println("消费者进食中");
+            flag = false;
+            producerCon.signal();
+            lock.unlock();
+        }
+    }
+
+    public static void main(String []args) throws Exception{
+        producerAndConsumer pac = new producerAndConsumer();
+            new Thread(()->{
+                for(int i=0;i<3;i++)
+                pac.producer();
+            }).start();
+
+            new Thread(()->{
+                for(int i=0;i<3;i++)
+                pac.consumer();
+            }).start();
+    }
+```
+
+### CountDownLatch门栓计数器
+
+等待所有线程结束，类似join
+
+百米赛跑，4名运动员选手到达场地等待裁判口令，裁判一声口令，选手听到后同时起跑，当所有选手到达终点，裁判进行汇总排名
+
+```java
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class CountdownLatchTest2 {
+    public static void main(String[] args) {
+        ExecutorService service = Executors.newCachedThreadPool();
+        final CountDownLatch cdOrder = new CountDownLatch(1);
+        final CountDownLatch cdAnswer = new CountDownLatch(4);
+        for (int i = 0; i < 4; i++) {
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        System.out.println("选手" + Thread.currentThread().getName() + "正在等待裁判发布口令");
+                        cdOrder.await();
+                        System.out.println("选手" + Thread.currentThread().getName() + "已接受裁判口令");
+                        Thread.sleep((long) (Math.random() * 10000));
+                        System.out.println("选手" + Thread.currentThread().getName() + "到达终点");
+                        cdAnswer.countDown();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+            service.execute(runnable);
+        }
+        try {
+            Thread.sleep((long) (Math.random() * 10000));
+            System.out.println("裁判"+Thread.currentThread().getName()+"即将发布口令");
+            cdOrder.countDown();
+            System.out.println("裁判"+Thread.currentThread().getName()+"已发送口令，正在等待所有选手到达终点");
+            cdAnswer.await();
+            System.out.println("所有选手都到达终点");
+            System.out.println("裁判"+Thread.currentThread().getName()+"汇总成绩排名");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        service.shutdown();
+    }
+}
+```
+
+CountDownLatch典型用法：1、某一线程在开始运行前等待n个线程执行完毕。
+
+CountDownLatch典型用法：2、实现多个线程开始执行任务的最大并行性。注意是并行性，不是并发,类似semphore
+
 ### Exception与RuntimeException区别
 
 + **Exception**：在程序中必须使用try...catch进行处理。 不用trycatch或者throws抛出的话，编译不通过。
@@ -45,11 +416,8 @@ jdk1.6、1.7存在这个问题，1.8不存在
 https://www.cnblogs.com/jing99/p/11319175.html
 
 ### hashcode 与 equal
-
 覆盖equals（Object obj）但不覆盖hashCode（）,导致数据不唯一性
-
 覆盖hashCode方法，但不覆盖equals方法，仍然会导致数据的不唯一性
-
 https://blog.csdn.net/lijiecao0226/article/details/24609559
 
 ### 序列化与反序列化
