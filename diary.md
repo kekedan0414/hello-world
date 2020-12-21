@@ -74,7 +74,7 @@
 | 17   | 12.17(4)     | JMM内存模型                                     | zookeeper     |
 | 18   | 12.18(5)     | rocketMQ                                        | zookeeper     |
 | 19   | 12.19(6)     | DDD领域模型                                     | zookeeper     |
-| 20   | 12.20(7)     |                                                 | zookeeper     |
+| 20   | 12.20(7)     | 菜鸟网络interview2：神经网络                    | zookeeper     |
 | 21   | 12.21(1)     |                                                 | tomcat        |
 | 22   | 12.22(2)     |                                                 | tomcat        |
 | 23   | 12.23(3)     |                                                 | tomcat        |
