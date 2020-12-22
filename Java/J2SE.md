@@ -1,6 +1,6 @@
 # JAVA
 
-## Java内存模型（JMM--java线程内存模型）
+## JMM专题（JMM--java线程内存模型）
 
 jmm数据原子操作
 
@@ -27,6 +27,20 @@ volitale： MESI协议（缓存一致性协议），第一时间将工作线程�
 volitale不保证原子性，10个线程对一个变量++操作1000次，最终小于1000，CPU嗅探机制，嗅探到了这个值被修改了，那么立即让本工作线程的值失效（地址里存的值清空），然后在读主内存的值。
 
 并发编程三大特性，可见性，原子性，有序性。
+
+问题：不使用synchronize和lock，如何保证volitale的原子性？ 答案：因为num++实际上是两个操作，先+1在赋值，解决：变量使用atomic原子类（底层用了CAS）
+
+单例里面加volitale防止指令重排。
+
+> 扩展：反射可以破坏单例。那如何防止？
+>
+> 方法1、可以在私有构造函数里判断，但还是不能完全防止。原因：
+>
+> 
+
+指令重排在并发编程中还有另一个问题，就是多个线程操作相互依赖的变量时，结果可能和顺序执行的预期不符。
+
+
 
 ## JVM
 
@@ -66,11 +80,13 @@ volitale
 
 4、 执行jstack <pid> | grep -A 10  -i <thread id>   查看该线程的10行堆栈信息，-i 忽略16进制的大小写问题
 
-## 并发编程
+## 并发编程与JUC
 
 ### 可重入锁
 
-一个线程可以多次获取锁。synchronized和ReentrantLock, ReentrantLock （底层使用AQS）和 synchronized 不一样，需要手动释放锁，所以使用 ReentrantLock的时候一定要**手动释放锁**，并且**加锁次数和释放次数要一样**
+一个线程可以多次获取锁。synchronized和ReentrantLock, ReentrantLock （底层使用AQS）和 synchronized 不一样，需要手动释放锁，所以使用 ReentrantLock的时候一定要**手动释放锁**，并且**加锁次数和释放次数要一样**。
+
+什么是可重入锁，不可重入锁呢？"重入"字面意思已经很明显了，就是可以重新进入。可重入锁，就是说一个线程在获取某个锁后，还可以继续获取该锁，即允许一个线程多次获取同一个锁。比如synchronized内置锁就是可重入的，如果A类有2个synchornized方法method1和method2，那么method1调用method2是允许的。显然重入锁给编程带来了极大的方便。假如内置锁不是可重入的，那么导致的问题是：1个类的synchornized方法不能调用本类其他synchornized方法，也不能调用父类中的synchornized方法。
 
 ```java
 // 可重入降低了编程复杂性
@@ -254,13 +270,15 @@ notify随机唤醒，notifyall全部唤醒。唤醒策略基于操作系统，�
 
 ### LockSupport
 
-LockSupport.unpark()
+LockSupport.park()       t线程停车。
 
-LockSupport.park(t)   t为线程。可以指定唤醒某个线程。
+LockSupport.unpark(t)     可以指定唤醒某个线程。
 
 ### ReentrantLock
 
 lock(), unlock() ,await()，signalall()
+
+默认为非公平的（可以插队），可以传参true改为公平锁（先来后到）
 
 ```java
 static class ProducerAndConsumer{
@@ -317,9 +335,54 @@ static class ProducerAndConsumer{
     }
 ```
 
+condition可以做到精准的通知控制。
+
 ### CountDownLatch门栓计数器
 
-等待所有线程结束，类似join
+1、等待所有线程结束，类似join
+
+```java
+
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+/**
+ * 主线程等待子线程执行完成再执行
+ */
+public class CountdownLatchTest1 {
+    public static void main(String[] args) {
+        ExecutorService service = Executors.newFixedThreadPool(3);
+        final CountDownLatch latch = new CountDownLatch(3);
+        for (int i = 0; i < 3; i++) {
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        System.out.println("子线程" + Thread.currentThread().getName() + "开始执行");
+                        Thread.sleep((long) (Math.random() * 10000));
+                        System.out.println("子线程"+Thread.currentThread().getName()+"执行完成");
+                        latch.countDown();//当前线程调用此方法，则计数减一
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+            service.execute(runnable);
+        }
+
+        try {
+            System.out.println("主线程"+Thread.currentThread().getName()+"等待子线程执行完成...");
+            latch.await();//阻塞当前线程，直到计数器的值为0
+            System.out.println("主线程"+Thread.currentThread().getName()+"开始执行...");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+
 
 百米赛跑，4名运动员选手到达场地等待裁判口令，裁判一声口令，选手听到后同时起跑，当所有选手到达终点，裁判进行汇总排名
 
@@ -369,7 +432,212 @@ public class CountdownLatchTest2 {
 
 CountDownLatch典型用法：1、某一线程在开始运行前等待n个线程执行完毕。
 
-CountDownLatch典型用法：2、实现多个线程开始执行任务的最大并行性。注意是并行性，不是并发,类似semphore
+CountDownLatch典型用法：2、实现多个线程开始执行任务的最大并行性。注意是并行性，不是并发,类似semphore。
+
+### CyclicBarrier栅栏
+
+```java
+public static void main(String[] args) {
+        CyclicBarrier cyclicBarrier = new CyclicBarrier(7,() ->{
+            System.out.println("****召唤神龙");
+        });
+        for(int i = 1;i <= 7; i++){
+            int finalI = i;
+            new Thread(() -> {
+                System.out.println(Thread.currentThread().getName() + "\t 收集到第"+ finalI +"颗龙珠");
+                try {
+                    cyclicBarrier.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (BrokenBarrierException e) {
+                    e.printStackTrace();
+                }
+            },String.valueOf(i)).start();
+        }
+    }
+```
+
+从javadoc的描述可以得出区别：
+
+- CountDownLatch：一个或者多个线程，等待其他多个线程完成某件事情之后才能执行；
+- CyclicBarrier：多个线程互相等待，直到到达同一个同步点，再继续**一起执行**。
+
+对于CountDownLatch来说，重点是“一个线程（多个线程）等待”，而其他的N个线程在完成“某件事情”之后，可以终止，也可以等待。而对于CyclicBarrier，重点是多个线程，在任意一个线程没有完成，所有的线程都必须互相等待，然后继续一起执行。
+
+CountDownLatch是计数器，线程完成一个记录一个，只不过计数不是递增而是递减，而CyclicBarrier更像是一个阀门，需要所有线程都到达，阀门才能打开，然后继续执行。
+
+> [可重复使用的栅栏](https://www.jianshu.com/p/beed2c00ff6d)
+
+### ReadwriteLock读写锁
+
+ReadWriteLock管理一组锁，一个是只读的锁（共享锁），一个是写锁（独占锁），如果不管是读写都锁住的话，效率低。而读写锁可以
+
+ 1.Java并发库中ReetrantReadWriteLock实现了ReadWriteLock接口并添加了可重入的特性。
+ 2.ReetrantReadWriteLock读写锁的效率明显高于synchronized关键字。
+ 3.ReetrantReadWriteLock读写锁的实现中，读锁使用共享模式；写锁使用独占模式，换句话说，读锁可以在没有写锁的时候被多个线程同时持有，写锁是独占的。
+ 4.ReetrantReadWriteLock读写锁的实现中，需要注意的，当有读锁时，写锁就不能获得；而当有写锁时，除了获得写锁的这个线程可以获得读锁外，其他线程不能获得读锁。
+
+锁升级 读锁 ----> 写锁
+
+锁降级 写锁 ----> 读锁
+
+```java
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
+public class Test1 {
+    public static void main(String[] args) {
+        ReentrantReadWriteLock rtLock = new ReentrantReadWriteLock();
+        rtLock.readLock().lock();
+        System.out.println("get readLock.");
+        rtLock.writeLock().lock();
+        System.out.println("blocking");
+    }
+}
+//打印：get readLock.产生死锁
+
+public class Test2 {
+    public static void main(String[] args) {
+        ReentrantReadWriteLock rtLock = new ReentrantReadWriteLock();  
+        rtLock.writeLock().lock();  
+        System.out.println("writeLock");  
+          
+        rtLock.readLock().lock();  
+        System.out.println("get read lock");  
+        //lock.writeLock().unlock();
+        //lock.readLock().unlock();
+    }
+}
+//打印：writeLock
+//  get readLock.
+       
+```
+
+结论：**ReentrantReadWriteLock支持锁降级**，上面代码不会产生死锁。这段代码虽然不会导致死锁，但没有正确的释放锁。从写锁降级成读锁，并不会自动释放当前线程获取的写锁，仍然需要显示的释放，否则别的线程永远也获取不到写锁。
+
+### Thread、Callable、Runnable
+
+```java
+    Runnable myRunnable = new Runnable() {
+        @Override
+        public void run() {
+            System.out.println("This is a runnable!");
+        }
+    };
+    new Thread(myRunnable).start();// 为什么用start不用run，start会新起一个线程，而myThread.run()只会在当前线程执行Runnable的run方法方法。
+
+
+    Callable callable = new Callable<Integer>() {    //返回值
+        @Override
+        public Integer call() throws Exception {    //异常
+            System.out.println("This is a callable!");
+            return 5;
+        }
+    };
+    FutureTask<Integer> futureTask = new FutureTask<>(callable); 
+    new Thread(futureTask).start(); 	//Thread不能直接接收callable，必须用FutureTask包一层。（futureTask里面有run方法，run里面调用call）
+    System.out.println(futureTask.get());
+```
+
+
+
+### Thread.sleep()与wait()区别
+
+sleep谁调用谁睡觉，但不释放锁，也就是CPU资源。wait()挂起当前线程，并释放锁，在同步代码块中执行。
+
+
+
+### Lambda函数式编程
+
+```java
+   //1、定义变量方法
+   Runnable myRunnable = new Runnable() {
+        @Override
+        public void run() {
+            System.out.println("This is a runnable!");
+        }
+    };
+    Thread myThread = new Thread(myRunnable);
+    myThread.start();
+
+   //2、不定义变量直接执行
+	new Thread(new Runnable() {
+        @Override
+        public void run() {
+            System.out.println("This is a runnable!");
+        }
+    }).start();
+
+   //2、lambda   ()->{}
+	new Thread(()->{
+        System.out.println("This is a runnable!");
+    }).start();
+
+	//普通方式
+    Callable callable1 = new Callable<Integer>() {
+        @Override
+        public Integer call() throws Exception {
+            System.out.println("This is a callable!");
+            return 5;
+        }
+    };
+    FutureTask<Integer> futureTask1  = new FutureTask<>(callable1);
+    new Thread(futureTask1).start();
+	System.out.println(futureTask.get());
+
+	//lambda
+    Callable callable2 = (Callable<Integer>) () -> {
+        System.out.println("This is a callable!");
+        return 5;
+    };
+    FutureTask<Integer> futureTask2  = new FutureTask<>(callable2);
+    new Thread(futureTask2).start();
+	System.out.println(futureTask.get());
+```
+
+虽然使用 Lambda 表达式可以对某些接口进行简单的实现，但并不是所有的接口都可以使用 Lambda 表达式来实现。**Lambda 规定接口中只能有一个需要被实现的方法，不是规定接口中只能有一个方法**
+
+### CopyOnWriteArrayList/Set
+
+底层使用的是写时复制技术以及可重入锁：
+
+```Java
+    public boolean add(E e) {
+        final ReentrantLock lock = this.lock;
+        lock.lock();		//先加锁
+        try {
+            Object[] elements = getArray();
+            int len = elements.length;
+            Object[] newElements = Arrays.copyOf(elements, len + 1);		//复制到新数组中
+            newElements[len] = e;		//在新数组中添加元素
+            setArray(newElements);		//将元素设置为新数组
+            return true;
+        } finally {
+            lock.unlock();
+        }
+    }
+```
+
+HashSet底层就是使用的HashMap，只是使用了它的Key。
+
+JUC并发包下的线程安全的HashMap为ConCurrentHashMap。
+
+
+
+### 线程池参数
+
+核心线程数
+最大并发线程数
+普通线程的空闲超时时间。
+缓存队列，超过常驻的线程数的线程会进入到缓存队列，队列满了就会创建新的线程直到max最大线程数。
+拒绝策略，队列满了之后，线程池到了max，那么新的任务是否丢弃，等待，丢弃老的，或者抛出异常。
+
+最大并发线程数如何定义？
+
+CPU密集型：CPU比较忙，最佳性能就是开当前最大核数（如果是超线程可以开当前最大的超线程数）。
+
+IO密集型：CPU比较空闲，可以适当比当前IO任务线程数多一点。
+
+[CPU密集型，IO密集型](https://www.cnblogs.com/aspirant/p/11441353.html)
 
 ### Exception与RuntimeException区别
 
@@ -459,14 +727,6 @@ https://www.jianshu.com/p/dfd940e7fca2
 
 发生事件，主线程把事件放入事件队列，在另外线程不断循环消费事件列表中的事件，调用事件对应的处理逻辑处理事件。
 事件驱动方式也被称为消息通知方式，其实是设计模式中观察者模式的思路。
-
-### 线程池参数
-
-核心线程数
-最大并发线程数
-普通线程的空闲超时时间。
-缓存队列，超过常驻的线程数的线程会进入到缓存队列，队列满了就会创建新的线程直到max最大线程数。
-拒绝策略，队列满了之后，线程池到了max，那么新的任务是否丢弃还是等待。
 
 ### post与get的区别
 
@@ -671,8 +931,4 @@ Springboot省去了SpringMVC繁琐的配置，并且内置了tomcat，相当于�
 > ![1608465228835](C:\Users\coco\AppData\Roaming\Typora\typora-user-images\1608465228835.png)
 >
 > 链接：[minorGC也会触发SWT](https://www.zhihu.com/question/29114369)
-
-
-
-## JMM专题
 
