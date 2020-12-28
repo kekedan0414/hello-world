@@ -1,218 +1,1005 @@
 # JAVA
 
-### ExceptionÓëRuntimeExceptionÇø±ğ
+## å¹¶å‘ç¼–ç¨‹ä¸JUC
 
-+ **Exception**£ºÔÚ³ÌĞòÖĞ±ØĞëÊ¹ÓÃtry...catch½øĞĞ´¦Àí¡£ ²»ÓÃtrycatch»òÕßthrowsÅ×³öµÄ»°£¬±àÒë²»Í¨¹ı¡£
-+ **RuntimeException**£º¿ÉÒÔ²»Ê¹ÓÃtry...catch½øĞĞ´¦Àí£¬µ«ÊÇÈç¹ûÓĞÒì³£²úÉú£¬ÔòÒì³£½«ÓÉJVM½øĞĞ´¦Àí¡£
-                        ²»ÓÃtrycatchµÄ»°£¬³ö´íÖ±½ÓÖÕÖ¹³ÌĞò¡£Ò»°ã½¨ÒéÓÃtrycatch²¶»ñ¡£
+### JMM--javaçº¿ç¨‹å†…å­˜æ¨¡å‹
 
-¼Ì³ĞException»¹ÊÇ¼Ì³ĞRuntimeExceptionÊÇÓÉÒì³£±¾ÉíµÄÌØµã¾ö¶¨µÄ£¬¶ø²»ÊÇÓÉÊÇ·ñÊÇ×Ô¶¨ÒåµÄÒì³£¾ö¶¨µÄ¡£
-ÀıÈçÎÒÒªĞ´Ò»¸öjava api£¬Õâ¸öapiÖĞ»áµ÷ÓÃÒ»¸ö¼«Æä²Ùµ°µÄÔ¶¶Ë·şÎñ£¬Õâ¸öÔ¶¶Ë·şÎñ¾­³£³¬Ê±ºÍ²»¿ÉÓÃ¡£
-ËùÒÔÎÒ¾ö¶¨ÒÔÅ×³ö×Ô¶¨ÒåÒì³£µÄĞÎÊ½ÏòËùÓĞµ÷ÓÃÕâ¸öapiµÄ¿ª·¢ÈËÔ±ÖÜÖªÕâÒ»²Ùµ°µÄÏÖÊµ£¬ÈÃËûÃÇÔÚµ÷ÓÃÕâ¸öapiÊ±Îñ±Ø¿¼ÂÇµ½Ô¶¶Ë·şÎñ²»¿ÉÓÃÊ±Ó¦¸ÃÖ´ĞĞµÄ²¹³¥Âß¼­£¨±ÈÈç³¢ÊÔµ÷ÓÃÁíÒ»¸öapi£©¡£
-´ËÊ±×Ô¶¨ÒåµÄÒì³£Àà¾ÍÓ¦¼Ì³ĞException£¬ÕâÑùÆäËû¿ª·¢ÈËÔ±ÔÚµ÷ÓÃÕâ¸öapiÊ±¾Í»áÊÕµ½±àÒëÆ÷´ó´óµÄºìÉ«±¨´í£º¡¾ÄãÃ»´¦ÀíÕâ¸öÒì³££¡¡¿£¬Ç¿ÆÈËûÃÇ´¦Àí¡£ÓÖÈç£¬ÎÒÒªĞ´ÁíÒ»¸öapi£¬
-Õâ¸öapi»á·ÃÎÊÒ»¸ö·Ç³£·Ç³£ÎÈ¶¨µÄÔ¶¶Ë·şÎñ£¬³ı·ÇÓĞÈË°ÑÔ¶¶Ë·şÎñµÄ»ú·¿Õ¨ÁË£¬·ñÔòÕâ¸ö·şÎñ²»»á³öÏÖ²»¿ÉÓÃµÄÇé¿ö¡£
-¶øÇÒ¼´±ãÍòÒ»ÕâÖÖÇé¿ö·¢ÉúÁË£¬apiµÄµ÷ÓÃÕß³ıÁË¼ÇÂ¼ºÍÌáÊ¾´íÎóÖ®ÍâÒ²Ã»ÓĞ±ğµÄÊÂÇéºÃ×ö¡£µ«³öÓÚÄ³ÖÖ²»¿ÉÃèÊöµÄµ°ÌÛÔ­Òò£¬ÎÒ»¹ÊÇ¾ö¶¨Òª¶¨ÒåÒ»¸öÒì³£¶ÔÏóÃèÊö¡°»ú·¿±»Õ¨¡±ÕâÒ»Çé¿ö£¬
+jmmæ•°æ®åŸå­æ“ä½œ
 
-ÄÇÃ´´ËÊ±¶¨ÒåµÄÒì³£Àà¾ÍÓ¦¼Ì³ĞRuntimeException£¬ÒòÎªÎÒµÄapiµÄµ÷ÓÃÕßÃÇÃ»±ØÒªÁË½âÕâÒ»Ï¸Î¢µÄÏ¸½Ú£¬°ÑÕâÒ»Òì³£½»¸øÍ³Ò»µÄÒì³£´¦Àí²ãÈ¥´¦Àí¾ÍºÃÁË¡£
+read ä»ä¸»å†…å­˜è¯»å–æ•°æ®
+
+load å°†ä¸»å†…å­˜çš„å€¼è¯»å–åˆ°(çº¿ç¨‹çš„)å·¥ä½œå†…å­˜
+
+use å°†(çº¿ç¨‹çš„)å·¥ä½œå†…å­˜çš„å€¼ç»™cpuä½¿ç”¨
+
+assign å°†è®¡ç®—å¥½çš„å€¼é‡æ–°èµ‹å€¼ç»™ï¼ˆçº¿ç¨‹çš„ï¼‰å·¥ä½œå†…å­˜
+
+store å°†å·¥ä½œå†…å­˜çš„å€¼å­˜å…¥ä¸»å†…å­˜
+
+writeå°†storeè¿‡æ¥çš„å€¼èµ‹å€¼ç»™å˜é‡
+
+volitaleï¼š MESIåè®®ï¼ˆç¼“å­˜ä¸€è‡´æ€§åè®®ï¼‰ï¼Œç¬¬ä¸€æ—¶é—´å°†å·¥ä½œçº¿ç¨‹çš„å€¼åŒæ­¥åˆ°ä¸»å†…å­˜ä¸­ï¼Œå¦ä¸€ä¸ªå·¥ä½œçº¿ç¨‹æœ‰ä¸€ä¸ªCPUå—…æ¢æœºåˆ¶ï¼Œå—…æ¢åˆ°äº†è¿™ä¸ªå€¼è¢«ä¿®æ”¹äº†ï¼Œé‚£ä¹ˆç«‹å³è®©æœ¬å·¥ä½œçº¿ç¨‹çš„å€¼å¤±æ•ˆï¼ˆåœ°å€é‡Œå­˜çš„å€¼æ¸…ç©ºï¼‰å¹¶ä¸”è°ƒç”¨readä»ä¸»å†…å­˜è¯»å–æ–°å€¼ã€‚
+
+æ±‡ç¼–å±‚çº§ï¼šåœ¨æŒ‡ä»¤å‰é¢åŠ ä¸€ä¸ªlockå‰ç¼€æŒ‡ä»¤ï¼ˆADD 1 2--> lock ADD 1 2ï¼‰,lockæŒ‡ä»¤æœ‰ä¸¤ä¸ªä½œç”¨ï¼š1ã€CPUç¬¬ä¸€æ—¶é—´å°†å·¥ä½œçº¿ç¨‹çš„å€¼åŒæ­¥åˆ°ä¸»å†…å­˜ä¸­
+
+2ã€å¼€å¯MESIåè®®
+
+ä¸ºä»€ä¹ˆæ˜¯è½»é‡çº§çš„ï¼ŒåŠ é”ç²’åº¦éå¸¸å°ï¼Œåªåœ¨jmm storeä¼šå†™åˆ°ä¸»å†…å­˜çš„æ—¶å€™åŠ é”ã€‚
+
+volitaleä¸ä¿è¯åŸå­æ€§ï¼Œ10ä¸ªçº¿ç¨‹å¯¹ä¸€ä¸ªå˜é‡++æ“ä½œ1000æ¬¡ï¼Œæœ€ç»ˆå°äº1000ï¼ŒCPUå—…æ¢æœºåˆ¶ï¼Œå—…æ¢åˆ°äº†è¿™ä¸ªå€¼è¢«ä¿®æ”¹äº†ï¼Œé‚£ä¹ˆç«‹å³è®©æœ¬å·¥ä½œçº¿ç¨‹çš„å€¼å¤±æ•ˆï¼ˆåœ°å€é‡Œå­˜çš„å€¼æ¸…ç©ºï¼‰ï¼Œç„¶ååœ¨è¯»ä¸»å†…å­˜çš„å€¼ã€‚
+
+å¹¶å‘ç¼–ç¨‹ä¸‰å¤§ç‰¹æ€§ï¼Œå¯è§æ€§ï¼ŒåŸå­æ€§ï¼Œæœ‰åºæ€§ã€‚
+
+é—®é¢˜ï¼šä¸ä½¿ç”¨synchronizeå’Œlockï¼Œå¦‚ä½•ä¿è¯volitaleçš„åŸå­æ€§ï¼Ÿ ç­”æ¡ˆï¼šå› ä¸ºnum++å®é™…ä¸Šæ˜¯ä¸¤ä¸ªæ“ä½œï¼Œå…ˆ+1åœ¨èµ‹å€¼ï¼Œè§£å†³ï¼šå˜é‡ä½¿ç”¨atomicåŸå­ç±»ï¼ˆåº•å±‚ç”¨äº†CASï¼‰
+
+å•ä¾‹é‡Œé¢åŠ volitaleé˜²æ­¢æŒ‡ä»¤é‡æ’ã€‚
+
+> æ‰©å±•ï¼šåå°„å¯ä»¥ç ´åå•ä¾‹ã€‚é‚£å¦‚ä½•é˜²æ­¢ï¼Ÿ
+>
+> æ–¹æ³•1ã€å¯ä»¥åœ¨ç§æœ‰æ„é€ å‡½æ•°é‡Œåˆ¤æ–­ï¼Œä½†è¿˜æ˜¯ä¸èƒ½å®Œå…¨é˜²æ­¢ã€‚åŸå› ï¼š
+>
+> 
+
+æŒ‡ä»¤é‡æ’åœ¨å¹¶å‘ç¼–ç¨‹ä¸­è¿˜æœ‰å¦ä¸€ä¸ªé—®é¢˜ï¼Œå°±æ˜¯å¤šä¸ªçº¿ç¨‹æ“ä½œç›¸äº’ä¾èµ–çš„å˜é‡æ—¶ï¼Œç»“æœå¯èƒ½å’Œé¡ºåºæ‰§è¡Œçš„é¢„æœŸä¸ç¬¦ã€‚
+
+### å¯é‡å…¥é”
+
+ä¸€ä¸ªçº¿ç¨‹å¯ä»¥å¤šæ¬¡è·å–é”ã€‚synchronizedå’ŒReentrantLock, ReentrantLock ï¼ˆåº•å±‚ä½¿ç”¨AQSï¼‰å’Œ synchronized ä¸ä¸€æ ·ï¼Œéœ€è¦æ‰‹åŠ¨é‡Šæ”¾é”ï¼Œæ‰€ä»¥ä½¿ç”¨ ReentrantLockçš„æ—¶å€™ä¸€å®šè¦**æ‰‹åŠ¨é‡Šæ”¾é”**ï¼Œå¹¶ä¸”**åŠ é”æ¬¡æ•°å’Œé‡Šæ”¾æ¬¡æ•°è¦ä¸€æ ·**ã€‚
+
+ä»€ä¹ˆæ˜¯å¯é‡å…¥é”ï¼Œä¸å¯é‡å…¥é”å‘¢ï¼Ÿ"é‡å…¥"å­—é¢æ„æ€å·²ç»å¾ˆæ˜æ˜¾äº†ï¼Œå°±æ˜¯å¯ä»¥é‡æ–°è¿›å…¥ã€‚å¯é‡å…¥é”ï¼Œå°±æ˜¯è¯´ä¸€ä¸ªçº¿ç¨‹åœ¨è·å–æŸä¸ªé”åï¼Œè¿˜å¯ä»¥ç»§ç»­è·å–è¯¥é”ï¼Œå³å…è®¸ä¸€ä¸ªçº¿ç¨‹å¤šæ¬¡è·å–åŒä¸€ä¸ªé”ã€‚æ¯”å¦‚synchronizedå†…ç½®é”å°±æ˜¯å¯é‡å…¥çš„ï¼Œå¦‚æœAç±»æœ‰2ä¸ªsynchornizedæ–¹æ³•method1å’Œmethod2ï¼Œé‚£ä¹ˆmethod1è°ƒç”¨method2æ˜¯å…è®¸çš„ã€‚æ˜¾ç„¶é‡å…¥é”ç»™ç¼–ç¨‹å¸¦æ¥äº†æå¤§çš„æ–¹ä¾¿ã€‚å‡å¦‚å†…ç½®é”ä¸æ˜¯å¯é‡å…¥çš„ï¼Œé‚£ä¹ˆå¯¼è‡´çš„é—®é¢˜æ˜¯ï¼š1ä¸ªç±»çš„synchornizedæ–¹æ³•ä¸èƒ½è°ƒç”¨æœ¬ç±»å…¶ä»–synchornizedæ–¹æ³•ï¼Œä¹Ÿä¸èƒ½è°ƒç”¨çˆ¶ç±»ä¸­çš„synchornizedæ–¹æ³•ã€‚
+
+```java
+// å¯é‡å…¥é™ä½äº†ç¼–ç¨‹å¤æ‚æ€§
+//synchronized
+public class WhatReentrant {
+	public static void main(String[] args) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				synchronized (this) {
+					System.out.println("ç¬¬1æ¬¡è·å–é”ï¼Œè¿™ä¸ªé”æ˜¯ï¼š" + this);
+					int index = 1;
+					while (true) {
+						synchronized (this) {
+							System.out.println("ç¬¬" + (++index) + "æ¬¡è·å–é”ï¼Œè¿™ä¸ªé”æ˜¯ï¼š" + this);
+						}
+						if (index == 10) {
+							break;
+						}
+					}
+				}
+			}
+		}).start();
+	}
+}
+//ReentrantLock 
+public class WhatReentrant2 {
+	public static void main(String[] args) {
+		ReentrantLock lock = new ReentrantLock();
+		
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					lock.lock();
+					System.out.println("ç¬¬1æ¬¡è·å–é”ï¼Œè¿™ä¸ªé”æ˜¯ï¼š" + lock);
+
+					int index = 1;
+					while (true) {
+						try {
+							lock.lock();
+							System.out.println("ç¬¬" + (++index) + "æ¬¡è·å–é”ï¼Œè¿™ä¸ªé”æ˜¯ï¼š" + lock);
+							
+							try {
+								Thread.sleep(new Random().nextInt(200));
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							
+							if (index == 10) {
+								break;
+							}
+						} finally {
+							lock.unlock();
+						}
+
+					}
+
+				} finally {
+					lock.unlock();
+				}
+			}
+		}).start();
+	}
+}
+```
+
+### ä¸ºä»€ä¹ˆæœ‰synchronizedè¿˜éœ€è¦AQS
+
+synchronizeæœ€ç»ˆéœ€è¦è°ƒç”¨æ“ä½œç³»ç»Ÿåº•å±‚mutexï¼Œå¼€é”€å¤§ã€‚AQSåœ¨JVMå±‚å®ç°é”ï¼Œä¸éœ€è¦ä¸OSäº¤äº’ã€‚å¦å¤–å¯ä»¥è®¾ç½®æ¡ä»¶ï¼Œæ›´åŠ çµæ´»ã€‚
+
+> æ‰©å±•ï¼šjdk1.6ä»¥åï¼Œsynchronizeæ”¹è¿›äº†é”çš„ç­‰çº§ä»¥åŠå‡çº§ç­–ç•¥ï¼Œæ— é”-->åå‘é”-->è½»é‡é”ï¼ˆè‡ªæ—‹é”ï¼‰-->é‡é‡é”
+>
+> æ‰©å±•ï¼šsynchronizeé”æ˜¯é”æ•´ä¸ªç±»ã€‚å¹¶ä¸æ˜¯æŸä¸€ä¸ªä»£ç å—ã€‚
+
+### synchronized
+
+**synchronizedä½ åˆ°åº•é”ä½çš„æ˜¯è°ï¼Ÿ**
+
+synchronizedä»è¯­æ³•çš„ç»´åº¦ä¸€å…±æœ‰3ä¸ªç”¨æ³•ï¼š
+
+1. é™æ€æ–¹æ³•åŠ ä¸Šå…³é”®å­—
+2. æ™®é€šæ–¹æ³•åŠ ä¸Šå…³é”®å­—
+3. æ–¹æ³•ä¸­ä½¿ç”¨åŒæ­¥ä»£ç å—
+
+synchronizedä»é”çš„æ˜¯è°çš„ç»´åº¦ä¸€å…±æœ‰ä¸¤ç§æƒ…å†µï¼š
+
++ å¯¹è±¡é”ï¼šå¯¹äºå¯¹è±¡é”ï¼Œå¦‚æœä¸¤ä¸ªçº¿ç¨‹é‡Œå¯¹åº”çš„æ˜¯åŒä¸€ä¸ªå¯¹è±¡ï¼Œé‚£ä¹ˆå…¶ä¸­ä¸€ä¸ªçº¿ç¨‹å¿…ç„¶ä¸å¯èƒ½è·å–è¿™ä¸ªé”ï¼›å¦‚æœä¸¤ä¸ªçº¿ç¨‹é’ˆå¯¹çš„æ˜¯ä¸¤ä¸ªå¯¹è±¡å®ä¾‹ï¼Œé‚£ä¹ˆè¿™ä¸¤ä¸ªçº¿ç¨‹ä¸ç›¸å…³å‡èƒ½è·å–è¿™ä¸ªé”ã€‚
+
++ ç±»é”ï¼šè€Œå¯¹äºç±»é”ï¼Œä¸Šè¿°ä¸¤ç§æƒ…å†µï¼Œéƒ½æœ‰ä¸€ä¸ªçº¿ç¨‹æ— æ³•è·å¾—é”ã€‚
+
+ä»£ç å—ä¸­ï¼Œsynchronized(this){...}æ˜¯å¯¹è±¡é”ï¼Œå¦‚æœthisé‡Œçš„Aæ–¹æ³•å’ŒBæ–¹æ³•éƒ½åŠ äº†é”ï¼Œå‡è®¾çº¿ç¨‹1è°ƒç”¨å¯¹è±¡Aæ–¹æ³•ï¼Œå¹¶æ‹¿åˆ°è¿™è¿™ä¸ªå¯¹è±¡çš„é”ï¼Œçº¿ç¨‹2è°ƒç”¨Bæ–¹æ³•ï¼Œæ˜¯éœ€è¦ç­‰å¾…é”çš„ã€‚å› ä¸ºé”çš„æ˜¯æ•´ä¸ªå¯¹è±¡ã€‚
+
+```java
+/**
+* Description:
+* synchronizedåŒæ­¥ä»£ç å—å¯¹æœ¬å®ä¾‹åŠ é”ï¼ˆthisï¼‰
+* å‡è®¾demo1ä¸demo2æ–¹æ³•ä¸ç›¸å…³ï¼Œæ­¤æ—¶ä¸¤ä¸ªçº¿ç¨‹å¯¹åŒä¸€ä¸ªå¯¹è±¡å®ä¾‹åˆ†åˆ«è°ƒç”¨demo1ä¸demo2ï¼Œåªè¦å…¶ä¸­ä¸€ä¸ªçº¿ç¨‹è·å–åˆ°äº†é”å³æ‰§è¡Œäº†demo1æˆ–è€…demo2ï¼Œæ­¤æ—¶å¦ä¸€ä¸ªçº¿ç¨‹ä¼šæ°¸è¿œå¤„äºé˜»å¡çŠ¶æ€
+* 2019-06-13
+* Created with OKevin.
+*/
+public class Demo {
+
+   public void demo1() {
+       synchronized (this) {
+           while (true) {  //æ­»å¾ªç¯ç›®çš„æ˜¯ä¸ºäº†è®©çº¿ç¨‹ä¸€ç›´æŒæœ‰è¯¥é”
+               System.out.println(Thread.currentThread());
+           }
+       }
+   }
+
+   public void demo2() {
+       synchronized (this) {
+           while (true) {
+               System.out.println(Thread.currentThread());
+           }
+       }
+   }
+}
+```
+
+é‚£ä¹ˆè¿™æ ·æ•ˆç‡å°±å˜ä½äº†ï¼Œä¼˜åŒ–ä¸Šè¿°æ–¹å¼ï¼šprivate Object obj = new Object();   synchronized(obj){...}
+
+```java
+/**
+* Description:
+* synchronizedåŒæ­¥ä»£ç å—å¯¹å¯¹è±¡å†…éƒ¨çš„å®ä¾‹åŠ é”
+* å‡è®¾demo1ä¸demo2æ–¹æ³•ä¸ç›¸å…³ï¼Œæ­¤æ—¶ä¸¤ä¸ªçº¿ç¨‹å¯¹åŒä¸€ä¸ªå¯¹è±¡å®ä¾‹åˆ†åˆ«è°ƒç”¨demo1ä¸demo2ï¼Œå‡èƒ½è·å–å„è‡ªçš„é”
+* 2019-06-13
+* Created with OKevin.
+*/
+public class Demo {
+   private Object lock1 = new Object();
+   private Object lock2 = new Object();
+
+   public void demo1() {
+       synchronized (lock1) {
+           while (true) {  //æ­»å¾ªç¯ç›®çš„æ˜¯ä¸ºäº†è®©çº¿ç¨‹ä¸€ç›´æŒæœ‰è¯¥é”
+               System.out.println(Thread.currentThread());
+           }
+       }
+   }
+
+   public void demo2() {
+       synchronized (lock2) {
+           while (true) {
+               System.out.println(Thread.currentThread());
+           }
+       }
+   }
+}
+```
+
+synchronized(Demo.class){...} ç±»é”ã€‚
+
+
+
+
+
+> æ‰©å±•ï¼š[synchronizeé”çš„æ˜¯ç±»è¿˜æ˜¯å¯¹è±¡ï¼Œå¤±ä¹‹æ¯«å˜è°¬ä¹‹åƒé‡Œ](https://www.cnblogs.com/yulinfeng/p/11020576.html)
+
+### AQS
+
+### CAS
+
+æ¯”è¾ƒäº¤æ¢ï¼ŒCPUåº•å±‚å°±æœ‰CASæŒ‡ä»¤ï¼ŒåŸå­æ“ä½œã€‚ä¹è§‚é”ï¼Œå…ˆæ¯”è¾ƒï¼Œå¦‚æœç›¸ç­‰å†äº¤æ¢ã€‚å¦‚æœä¸ç›¸ç­‰ï¼Œå°±è‡ªæ—‹ã€‚
+
+CASæœ‰ABAé—®é¢˜ï¼šå¦‚æœå˜é‡åˆå§‹å€¼æ˜¯1ï¼Œçº¿ç¨‹Aæ‹¿åˆ°1åæ”¹æˆ2ï¼Œå†å†™å›å˜é‡ï¼Œè¿™æ˜¯ä¸ä¼šæœ‰é—®é¢˜çš„ã€‚ä½†æ˜¯å¦‚æœä½ æ‹¿åˆ°1åï¼Œè¢«çº¿ç¨‹Bæ”¹æˆ3åˆè¢«æ”¹å›1ï¼Œè¿™ä¸ªæ—¶å€™éœ€è¦çœ‹ä½ çš„ä¸šåŠ¡ç³»ç»Ÿåœ¨ä¸åœ¨ä¹è¿™ä¸ªABAï¼ˆ1--3--1ï¼‰ä¸­é—´è¿‡ç¨‹çš„æ”¹å˜ã€‚å¦‚æœåœ¨ä¹çš„è¯ï¼Œè§£å†³æ–¹æ¡ˆæ˜¯åŠ ä¸€ä¸ªAtomicStampleReferenceç‰ˆæœ¬å·ï¼Œæ¯ä¸ªçº¿ç¨‹æ‹¿åˆ°å€¼åéƒ½ç»™ç‰ˆæœ¬å·+1ã€‚å¦‚æœä¸åœ¨ä¹è¢«æ”¹äº†å¤šå°‘æ¬¡ï¼Œå¯ä»¥ä½¿ç”¨AtomicMarkableReferenceï¼Œå¦‚æœæ˜¯falseè¡¨ç¤ºæ²¡è¢«å…¶ä»–çº¿ç¨‹æ”¹åŠ¨è¿‡ï¼Œå¦‚æœå˜ä¸ºtrueï¼Œè¡¨ç¤ºæœ‰è¢«æ”¹å˜è¿‡ã€‚
+
+### Semphore ä¿¡å·é‡
+
+ä¸synchronizeå®Œå…¨ä¸²è¡Œä¸åŒï¼Œ1000ä¸ªçº¿ç¨‹ï¼Œå¯ä»¥è¿è¡Œ10ä¸ªçº¿ç¨‹ä¸€èµ·è·‘
+
+> æ‰©å±•ï¼š[Javaä¿¡å·é‡](https://blog.csdn.net/qq_25956141/article/details/102959976)
+
+### object.wait()
+
+è®©å½“å‰çº¿ç¨‹è¿›å…¥è¯¥é”çš„ç­‰å¾…é˜Ÿåˆ—ï¼Œå¹¶é‡Šæ”¾objecté”ï¼Œ[waitã€notifyï¼Œnotifyall](https://www.cnblogs.com/xumaomao/p/12843683.html)
+
+notifyéšæœºå”¤é†’ï¼Œnotifyallå…¨éƒ¨å”¤é†’ã€‚å”¤é†’ç­–ç•¥åŸºäºæ“ä½œç³»ç»Ÿï¼Œæ¯”å¦‚CFSï¼ˆcompletely-fair-schedulerï¼‰
+
+### LockSupport
+
+LockSupport.park()       tçº¿ç¨‹åœè½¦ã€‚
+
+LockSupport.unpark(t)     å¯ä»¥æŒ‡å®šå”¤é†’æŸä¸ªçº¿ç¨‹ã€‚
+
+### ReentrantLock
+
+lock(), unlock() ,await()ï¼Œsignalall()
+
+é»˜è®¤ä¸ºéå…¬å¹³çš„ï¼ˆå¯ä»¥æ’é˜Ÿï¼‰ï¼Œå¯ä»¥ä¼ å‚trueæ”¹ä¸ºå…¬å¹³é”ï¼ˆå…ˆæ¥ååˆ°ï¼‰
+
+```java
+static class ProducerAndConsumer{
+
+        boolean flag = false;
+        Lock lock = new ReentrantLock();
+        Condition producerCon = lock.newCondition();
+        Condition consumerCon = lock.newCondition();
+
+        public void producer(){
+            lock.lock();
+            if(flag){
+                System.out.println("è¿˜æœ‰é£Ÿç‰©ï¼Œæš‚æ—¶ä¸éœ€è¦ç”Ÿäº§");
+                    try {
+                        producerCon.await();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+            }
+            flag = true;
+            System.out.println("ç”Ÿäº§è€…ç”Ÿäº§äº†é£Ÿç‰©");
+            consumerCon.signal();
+            lock.unlock();
+        }
+
+        public void consumer(){
+            lock.lock();
+            if(!flag){
+                System.out.println("æ²¡æœ‰é£Ÿç‰©äº†,é€šçŸ¥ç”Ÿäº§è€…ç”Ÿäº§");
+                try {
+                    consumerCon.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            System.out.println("æ¶ˆè´¹è€…è¿›é£Ÿä¸­");
+            flag = false;
+            producerCon.signal();
+            lock.unlock();
+        }
+    }
+
+    public static void main(String []args) throws Exception{
+        producerAndConsumer pac = new producerAndConsumer();
+            new Thread(()->{
+                for(int i=0;i<3;i++)
+                pac.producer();
+            }).start();
+
+            new Thread(()->{
+                for(int i=0;i<3;i++)
+                pac.consumer();
+            }).start();
+    }
+```
+
+conditionå¯ä»¥åšåˆ°ç²¾å‡†çš„é€šçŸ¥æ§åˆ¶ã€‚
+
+### CountDownLatché—¨æ “è®¡æ•°å™¨
+
+1ã€ç­‰å¾…æ‰€æœ‰çº¿ç¨‹ç»“æŸï¼Œç±»ä¼¼join
+
+```java
+
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+/**
+ * ä¸»çº¿ç¨‹ç­‰å¾…å­çº¿ç¨‹æ‰§è¡Œå®Œæˆå†æ‰§è¡Œ
+ */
+public class CountdownLatchTest1 {
+    public static void main(String[] args) {
+        ExecutorService service = Executors.newFixedThreadPool(3);
+        final CountDownLatch latch = new CountDownLatch(3);
+        for (int i = 0; i < 3; i++) {
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        System.out.println("å­çº¿ç¨‹" + Thread.currentThread().getName() + "å¼€å§‹æ‰§è¡Œ");
+                        Thread.sleep((long) (Math.random() * 10000));
+                        System.out.println("å­çº¿ç¨‹"+Thread.currentThread().getName()+"æ‰§è¡Œå®Œæˆ");
+                        latch.countDown();//å½“å‰çº¿ç¨‹è°ƒç”¨æ­¤æ–¹æ³•ï¼Œåˆ™è®¡æ•°å‡ä¸€
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+            service.execute(runnable);
+        }
+
+        try {
+            System.out.println("ä¸»çº¿ç¨‹"+Thread.currentThread().getName()+"ç­‰å¾…å­çº¿ç¨‹æ‰§è¡Œå®Œæˆ...");
+            latch.await();//é˜»å¡å½“å‰çº¿ç¨‹ï¼Œç›´åˆ°è®¡æ•°å™¨çš„å€¼ä¸º0
+            System.out.println("ä¸»çº¿ç¨‹"+Thread.currentThread().getName()+"å¼€å§‹æ‰§è¡Œ...");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+
+
+ç™¾ç±³èµ›è·‘ï¼Œ4åè¿åŠ¨å‘˜é€‰æ‰‹åˆ°è¾¾åœºåœ°ç­‰å¾…è£åˆ¤å£ä»¤ï¼Œè£åˆ¤ä¸€å£°å£ä»¤ï¼Œé€‰æ‰‹å¬åˆ°ååŒæ—¶èµ·è·‘ï¼Œå½“æ‰€æœ‰é€‰æ‰‹åˆ°è¾¾ç»ˆç‚¹ï¼Œè£åˆ¤è¿›è¡Œæ±‡æ€»æ’å
+
+```java
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class CountdownLatchTest2 {
+    public static void main(String[] args) {
+        ExecutorService service = Executors.newCachedThreadPool();
+        final CountDownLatch cdOrder = new CountDownLatch(1);
+        final CountDownLatch cdAnswer = new CountDownLatch(4);
+        for (int i = 0; i < 4; i++) {
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        System.out.println("é€‰æ‰‹" + Thread.currentThread().getName() + "æ­£åœ¨ç­‰å¾…è£åˆ¤å‘å¸ƒå£ä»¤");
+                        cdOrder.await();
+                        System.out.println("é€‰æ‰‹" + Thread.currentThread().getName() + "å·²æ¥å—è£åˆ¤å£ä»¤");
+                        Thread.sleep((long) (Math.random() * 10000));
+                        System.out.println("é€‰æ‰‹" + Thread.currentThread().getName() + "åˆ°è¾¾ç»ˆç‚¹");
+                        cdAnswer.countDown();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+            service.execute(runnable);
+        }
+        try {
+            Thread.sleep((long) (Math.random() * 10000));
+            System.out.println("è£åˆ¤"+Thread.currentThread().getName()+"å³å°†å‘å¸ƒå£ä»¤");
+            cdOrder.countDown();
+            System.out.println("è£åˆ¤"+Thread.currentThread().getName()+"å·²å‘é€å£ä»¤ï¼Œæ­£åœ¨ç­‰å¾…æ‰€æœ‰é€‰æ‰‹åˆ°è¾¾ç»ˆç‚¹");
+            cdAnswer.await();
+            System.out.println("æ‰€æœ‰é€‰æ‰‹éƒ½åˆ°è¾¾ç»ˆç‚¹");
+            System.out.println("è£åˆ¤"+Thread.currentThread().getName()+"æ±‡æ€»æˆç»©æ’å");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        service.shutdown();
+    }
+}
+```
+
+CountDownLatchå…¸å‹ç”¨æ³•ï¼š1ã€æŸä¸€çº¿ç¨‹åœ¨å¼€å§‹è¿è¡Œå‰ç­‰å¾…nä¸ªçº¿ç¨‹æ‰§è¡Œå®Œæ¯•ã€‚
+
+CountDownLatchå…¸å‹ç”¨æ³•ï¼š2ã€å®ç°å¤šä¸ªçº¿ç¨‹å¼€å§‹æ‰§è¡Œä»»åŠ¡çš„æœ€å¤§å¹¶è¡Œæ€§ã€‚æ³¨æ„æ˜¯å¹¶è¡Œæ€§ï¼Œä¸æ˜¯å¹¶å‘,ç±»ä¼¼semphoreã€‚
+
+### CyclicBarrieræ …æ 
+
+```java
+public static void main(String[] args) {
+        CyclicBarrier cyclicBarrier = new CyclicBarrier(7,() ->{
+            System.out.println("****å¬å”¤ç¥é¾™");
+        });
+        for(int i = 1;i <= 7; i++){
+            int finalI = i;
+            new Thread(() -> {
+                System.out.println(Thread.currentThread().getName() + "\t æ”¶é›†åˆ°ç¬¬"+ finalI +"é¢—é¾™ç ");
+                try {
+                    cyclicBarrier.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (BrokenBarrierException e) {
+                    e.printStackTrace();
+                }
+            },String.valueOf(i)).start();
+        }
+    }
+```
+
+ä»javadocçš„æè¿°å¯ä»¥å¾—å‡ºåŒºåˆ«ï¼š
+
+- CountDownLatchï¼šä¸€ä¸ªæˆ–è€…å¤šä¸ªçº¿ç¨‹ï¼Œç­‰å¾…å…¶ä»–å¤šä¸ªçº¿ç¨‹å®ŒæˆæŸä»¶äº‹æƒ…ä¹‹åæ‰èƒ½æ‰§è¡Œï¼›
+- CyclicBarrierï¼šå¤šä¸ªçº¿ç¨‹äº’ç›¸ç­‰å¾…ï¼Œç›´åˆ°åˆ°è¾¾åŒä¸€ä¸ªåŒæ­¥ç‚¹ï¼Œå†ç»§ç»­**ä¸€èµ·æ‰§è¡Œ**ã€‚
+
+å¯¹äºCountDownLatchæ¥è¯´ï¼Œé‡ç‚¹æ˜¯â€œä¸€ä¸ªçº¿ç¨‹ï¼ˆå¤šä¸ªçº¿ç¨‹ï¼‰ç­‰å¾…â€ï¼Œè€Œå…¶ä»–çš„Nä¸ªçº¿ç¨‹åœ¨å®Œæˆâ€œæŸä»¶äº‹æƒ…â€ä¹‹åï¼Œå¯ä»¥ç»ˆæ­¢ï¼Œä¹Ÿå¯ä»¥ç­‰å¾…ã€‚è€Œå¯¹äºCyclicBarrierï¼Œé‡ç‚¹æ˜¯å¤šä¸ªçº¿ç¨‹ï¼Œåœ¨ä»»æ„ä¸€ä¸ªçº¿ç¨‹æ²¡æœ‰å®Œæˆï¼Œæ‰€æœ‰çš„çº¿ç¨‹éƒ½å¿…é¡»äº’ç›¸ç­‰å¾…ï¼Œç„¶åç»§ç»­ä¸€èµ·æ‰§è¡Œã€‚
+
+CountDownLatchæ˜¯è®¡æ•°å™¨ï¼Œçº¿ç¨‹å®Œæˆä¸€ä¸ªè®°å½•ä¸€ä¸ªï¼Œåªä¸è¿‡è®¡æ•°ä¸æ˜¯é€’å¢è€Œæ˜¯é€’å‡ï¼Œè€ŒCyclicBarrieræ›´åƒæ˜¯ä¸€ä¸ªé˜€é—¨ï¼Œéœ€è¦æ‰€æœ‰çº¿ç¨‹éƒ½åˆ°è¾¾ï¼Œé˜€é—¨æ‰èƒ½æ‰“å¼€ï¼Œç„¶åç»§ç»­æ‰§è¡Œã€‚
+
+> [å¯é‡å¤ä½¿ç”¨çš„æ …æ ](https://www.jianshu.com/p/beed2c00ff6d)
+
+### ReadwriteLockè¯»å†™é”
+
+ReadWriteLockç®¡ç†ä¸€ç»„é”ï¼Œä¸€ä¸ªæ˜¯åªè¯»çš„é”ï¼ˆå…±äº«é”ï¼‰ï¼Œä¸€ä¸ªæ˜¯å†™é”ï¼ˆç‹¬å é”ï¼‰ï¼Œå¦‚æœä¸ç®¡æ˜¯è¯»å†™éƒ½é”ä½çš„è¯ï¼Œæ•ˆç‡ä½ã€‚è€Œè¯»å†™é”å¯ä»¥
+
+ 1.Javaå¹¶å‘åº“ä¸­ReetrantReadWriteLockå®ç°äº†ReadWriteLockæ¥å£å¹¶æ·»åŠ äº†å¯é‡å…¥çš„ç‰¹æ€§ã€‚
+ 2.ReetrantReadWriteLockè¯»å†™é”çš„æ•ˆç‡æ˜æ˜¾é«˜äºsynchronizedå…³é”®å­—ã€‚
+ 3.ReetrantReadWriteLockè¯»å†™é”çš„å®ç°ä¸­ï¼Œè¯»é”ä½¿ç”¨å…±äº«æ¨¡å¼ï¼›å†™é”ä½¿ç”¨ç‹¬å æ¨¡å¼ï¼Œæ¢å¥è¯è¯´ï¼Œè¯»é”å¯ä»¥åœ¨æ²¡æœ‰å†™é”çš„æ—¶å€™è¢«å¤šä¸ªçº¿ç¨‹åŒæ—¶æŒæœ‰ï¼Œå†™é”æ˜¯ç‹¬å çš„ã€‚
+ 4.ReetrantReadWriteLockè¯»å†™é”çš„å®ç°ä¸­ï¼Œéœ€è¦æ³¨æ„çš„ï¼Œå½“æœ‰è¯»é”æ—¶ï¼Œå†™é”å°±ä¸èƒ½è·å¾—ï¼›è€Œå½“æœ‰å†™é”æ—¶ï¼Œé™¤äº†è·å¾—å†™é”çš„è¿™ä¸ªçº¿ç¨‹å¯ä»¥è·å¾—è¯»é”å¤–ï¼Œå…¶ä»–çº¿ç¨‹ä¸èƒ½è·å¾—è¯»é”ã€‚
+
+é”å‡çº§ è¯»é” ----> å†™é”
+
+é”é™çº§ å†™é” ----> è¯»é”
+
+```java
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
+public class Test1 {
+    public static void main(String[] args) {
+        ReentrantReadWriteLock rtLock = new ReentrantReadWriteLock();
+        rtLock.readLock().lock();
+        System.out.println("get readLock.");
+        rtLock.writeLock().lock();
+        System.out.println("blocking");
+    }
+}
+//æ‰“å°ï¼šget readLock.äº§ç”Ÿæ­»é”
+
+public class Test2 {
+    public static void main(String[] args) {
+        ReentrantReadWriteLock rtLock = new ReentrantReadWriteLock();  
+        rtLock.writeLock().lock();  
+        System.out.println("writeLock");  
+          
+        rtLock.readLock().lock();  
+        System.out.println("get read lock");  
+        //lock.writeLock().unlock();
+        //lock.readLock().unlock();
+    }
+}
+//æ‰“å°ï¼šwriteLock
+//  get readLock.
+       
+```
+
+ç»“è®ºï¼š**ReentrantReadWriteLockæ”¯æŒé”é™çº§**ï¼Œä¸Šé¢ä»£ç ä¸ä¼šäº§ç”Ÿæ­»é”ã€‚è¿™æ®µä»£ç è™½ç„¶ä¸ä¼šå¯¼è‡´æ­»é”ï¼Œä½†æ²¡æœ‰æ­£ç¡®çš„é‡Šæ”¾é”ã€‚ä»å†™é”é™çº§æˆè¯»é”ï¼Œå¹¶ä¸ä¼šè‡ªåŠ¨é‡Šæ”¾å½“å‰çº¿ç¨‹è·å–çš„å†™é”ï¼Œä»ç„¶éœ€è¦æ˜¾ç¤ºçš„é‡Šæ”¾ï¼Œå¦åˆ™åˆ«çš„çº¿ç¨‹æ°¸è¿œä¹Ÿè·å–ä¸åˆ°å†™é”ã€‚
+
+### Threadã€Callableã€Runnable
+
+```java
+    Runnable myRunnable = new Runnable() {
+        @Override
+        public void run() {
+            System.out.println("This is a runnable!");
+        }
+    };
+    new Thread(myRunnable).start();// ä¸ºä»€ä¹ˆç”¨startä¸ç”¨runï¼Œstartä¼šæ–°èµ·ä¸€ä¸ªçº¿ç¨‹ï¼Œè€ŒmyThread.run()åªä¼šåœ¨å½“å‰çº¿ç¨‹æ‰§è¡ŒRunnableçš„runæ–¹æ³•æ–¹æ³•ã€‚
+
+
+    Callable callable = new Callable<Integer>() {    //è¿”å›å€¼
+        @Override
+        public Integer call() throws Exception {    //å¼‚å¸¸
+            System.out.println("This is a callable!");
+            return 5;
+        }
+    };
+    FutureTask<Integer> futureTask = new FutureTask<>(callable); 
+    new Thread(futureTask).start(); 	//Threadä¸èƒ½ç›´æ¥æ¥æ”¶callableï¼Œå¿…é¡»ç”¨FutureTaskåŒ…ä¸€å±‚ã€‚ï¼ˆfutureTaské‡Œé¢æœ‰runæ–¹æ³•ï¼Œruné‡Œé¢è°ƒç”¨callï¼‰
+    System.out.println(futureTask.get());
+```
+
+
+
+### Thread.sleep()ä¸wait()åŒºåˆ«
+
+sleepè°è°ƒç”¨è°ç¡è§‰ï¼Œä½†ä¸é‡Šæ”¾é”ï¼Œä¹Ÿå°±æ˜¯CPUèµ„æºã€‚wait()æŒ‚èµ·å½“å‰çº¿ç¨‹ï¼Œå¹¶é‡Šæ”¾é”ï¼Œåœ¨åŒæ­¥ä»£ç å—ä¸­æ‰§è¡Œã€‚
+
+
+
+### å‡½æ•°å¼ç¼–ç¨‹
+
+**å‡½æ•°å¼æ¥å£**ï¼šåªæœ‰1ä¸ªæ–¹æ³•çš„æ¥å£ã€‚
+
+**å››å¤§å‡½æ•°å¼æ¥å£**ï¼š
+
++ **Function Interface**   å‡½æ•°å‹æ¥å£ï¼Œæ¥æ”¶ä¸€ä¸ªå‚æ•°ï¼ŒåŠ å·¥åè¿”å›ä¸€ä¸ªå€¼ã€‚
+
+  ```java
+      /*  @FunctionalInterface
+          public interface Function<T, R> {
+              R apply(T t);
+          }
+      */
+  
+  	Function<String,String> function = new Function<String, String>() {
+          @Override
+          public String apply(String str) {
+              return str;
+          }
+      };
+      System.out.println(function.apply("hello,function"));
+  	//ç®€åŒ–   ()->{}
+      Function<String,String> function1 = (str) -> {return str;};
+      System.out.println(function1.apply("hello,function1"));
+  	//å†ç®€åŒ–ï¼ŒæŠŠreturnï¼Œ() {}éƒ½å¯ä»¥å»æ‰
+      Function function2 = str -> str;
+      System.out.println(function2.apply("hello,function2"));
+  ```
+
+  
+
++ **Predicate Interface**   æ–­å®šå‹æ¥å£ï¼Œè¾“å…¥ä¸€ä¸ªå‚æ•°ï¼Œè¿”å›true falseã€‚
+
+  ```java
+  /*  @FunctionalInterface
+      public interface Predicate<T> {
+          * Evaluates this predicate on the given argument.
+              *
+              * @param t the input argument
+              * @return {@code true} if the input argument matches the predicate,
+          * otherwise {@code false}
+          boolean test(T t);
+      }
+  */
+  
+      Predicate<String> predicate = new Predicate<String>() {
+          @Override
+          public boolean test(String str) {
+              return str.contains("dog");
+          }
+      };
+      System.out.println(predicate.test("dog"));
+  
+      Predicate<String> predicate1 = str -> str.contains("dog");
+      System.out.println(predicate1.test("cat"));
+  ```
+
++ **Consumer Interface**   æ¶ˆè´¹å‹æ¥å£ï¼Œæ¥æ”¶ä¸€ä¸ªå‚æ•°ï¼Œå†…éƒ¨æ¶ˆåŒ–
+
+  ```java
+  /*  @FunctionalInterface
+      public interface Consumer<T> {
+           * Performs this operation on the given argument.
+           *
+           * @param t the input argument     
+          void accept(T t);
+      }
+  */
+  
+      Consumer<String> consumer = new Consumer<String>() {
+          @Override
+          public void accept(String s) {
+              System.out.println(s);
+          }
+      };
+      consumer.accept("hello,concumer");
+  
+      Consumer consumer1 = str -> System.out.println(str);
+      consumer1.accept("hello,consumer1");
+  ```
+
+  
+
++ **Supplier Interface**   ä¾›ç»™å‹æ¥å£ï¼Œä¸æ¥å—å‚æ•°ï¼Œè¿”å›ä¸€ä¸ªå€¼
+
+  ```java
+  /*	@FunctionalInterface
+      public interface Supplier<T> {
+           * Gets a result.
+           *
+           * @return a result     
+          T get();
+      }
+  */
+      Supplier supplier = new Supplier() {
+          @Override
+          public Object get() {
+              return "hello,I'm Supplier";
+          }
+      };
+      System.out.println(supplier.get());
+  
+      Supplier supplier1 = () -> "hello,I'm Supplier1";
+      System.out.println(supplier1.get());
+  ```
+
+### Lambdaè¡¨è¾¾å¼
+
+Runnableå’ŒCallableæ¥å£éƒ½åªæœ‰ä¸€ä¸ªæ–¹æ³•
+
+```java
+   //1ã€å®šä¹‰å˜é‡æ–¹æ³•
+   Runnable myRunnable = new Runnable() {
+        @Override
+        public void run() {
+            System.out.println("This is a runnable!");
+        }
+    };
+    Thread myThread = new Thread(myRunnable);
+    myThread.start();
+
+   //2ã€ä¸å®šä¹‰å˜é‡ç›´æ¥æ‰§è¡Œ
+	new Thread(new Runnable() {
+        @Override
+        public void run() {
+            System.out.println("This is a runnable!");
+        }
+    }).start();
+
+   //2ã€lambda   ()->{}
+	new Thread(()->{
+        System.out.println("This is a runnable!");
+    }).start();
+
+	//æ™®é€šæ–¹å¼
+    Callable callable1 = new Callable<Integer>() {
+        @Override
+        public Integer call() throws Exception {
+            System.out.println("This is a callable!");
+            return 5;
+        }
+    };
+    FutureTask<Integer> futureTask1  = new FutureTask<>(callable1);
+    new Thread(futureTask1).start();
+	System.out.println(futureTask.get());
+
+	//lambda
+    Callable callable2 = () -> {
+        System.out.println("This is a callable!");
+        return 5;
+    };
+    FutureTask<Integer> futureTask2  = new FutureTask<>(callable2);
+    new Thread(futureTask2).start();
+	System.out.println(futureTask.get());
+```
+
+è™½ç„¶ä½¿ç”¨ Lambda è¡¨è¾¾å¼å¯ä»¥å¯¹æŸäº›æ¥å£è¿›è¡Œç®€å•çš„å®ç°ï¼Œä½†å¹¶ä¸æ˜¯æ‰€æœ‰çš„æ¥å£éƒ½å¯ä»¥ä½¿ç”¨ Lambda è¡¨è¾¾å¼æ¥å®ç°ã€‚**Lambda è§„å®šæ¥å£ä¸­åªèƒ½æœ‰ä¸€ä¸ªéœ€è¦è¢«å®ç°çš„æ–¹æ³•ï¼Œä¸æ˜¯è§„å®šæ¥å£ä¸­åªèƒ½æœ‰ä¸€ä¸ªæ–¹æ³•**
+
+### Streamæµå¼ç¼–ç¨‹
+
+```java
+		/**ä¸€ã€
+         * 1ã€åªè¦idä¸ºå¶æ•°çš„ç”¨æˆ·
+         * 2ã€åªè¦>23å²çš„
+         * 3ã€ç”¨æˆ·åè½¬ä¸ºå¤§å†™
+         * 4ã€æŒ‰ç”¨æˆ·åå€’ç€æ’åº
+         * 5ã€åªè¾“å‡º1ä¸ªç”¨æˆ·
+         */
+        User u1 = new User(1, "a", 21);
+        User u2 = new User(2, "b", 22);
+        User u3 = new User(3, "c", 23);
+        User u4 = new User(4, "d", 24);
+        User u5 = new User(5, "e", 25);
+
+        List<User> list1 = Arrays.asList(u1, u2, u3, u4, u5);
+        list1.stream()
+            .filter(u -> u.getId()%2==0)
+            .filter(u -> u.getAge()>23)
+            .map(u -> u.getName().toUpperCase())
+            .sorted(Comparator.reverseOrder())
+            .limit(1)
+            .forEach(System.out::println);
+		
+		//äºŒã€å¹¶è¡Œè®¡ç®— 0åˆ°100000000æ±‚å’Œï¼Œåº•å±‚ä½¿ç”¨çš„forkJoinåˆ†æ²»çš„æ€æƒ³
+		System.out.println(LongStream.rangeClosed(0L, 10_0000_0000L).parallel().reduce(0, Long::sum));
+```
+
+
+
+### ForkJoinå·¥ä½œçªƒå–
+
+ABçº¿ç¨‹åŒæ—¶è¿è¡Œï¼Œå¦‚æœAæ‰§è¡Œå®Œäº†ï¼ŒBè¿˜æ²¡æœ‰æ‰§è¡Œå®Œï¼ŒAå¯ä»¥çªƒå–Bçš„å·¥ä½œæé«˜æ•ˆç‡ï¼ˆwork-stealingï¼‰ã€‚åœ¨å¤§æ•°æ®é‡çš„æƒ…å†µä¸‹ä½¿ç”¨ï¼Œå°æ•°æ®é‡ä¸‹æ•ˆæœä¸æ˜æ˜¾ã€‚
+
+
+
+### å¼‚æ­¥å›è°ƒ
+
+```java
+     	//
+        CompletableFuture<String> completableFuture= new CompletableFuture<>();
+        new Thread( () -> {
+            try {
+                TimeUnit.SECONDS.sleep(3);
+                System.out.println(Thread.currentThread().getName()+" æ‰§è¡Œ.....");
+                completableFuture.complete("success");//
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+        String result=completableFuture.get();//ä¸»çº¿ç¨‹é˜»å¡ï¼Œç­‰å¾…å®Œæˆ
+        System.out.println(Thread.currentThread().getName()+" 1x:  "+result);
+
+        //è¾“å‡ºç»“æœï¼š
+        //Thread-0 æ‰§è¡Œ.....
+        //main 1x:  success
+```
+
+
+
+```java
+        //è¿è¡Œä¸€ä¸ªæœ‰è¿”å›å€¼çš„å¼‚æ­¥ä»»åŠ¡
+        CompletableFuture<String> future = CompletableFuture.supplyAsync(new Supplier<String>(){
+            @Override
+            public String get() {
+                try {
+                    System.out.println(Thread.currentThread().getName()+"æ­£åœ¨æ‰§è¡Œä¸€ä¸ªæœ‰è¿”å›å€¼çš„å¼‚æ­¥ä»»åŠ¡ã€‚");
+                    TimeUnit.SECONDS.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                return "OK";
+            }
+        });
+        String result1=future.get(); //é˜»å¡10ç§’ï¼Œç­‰å¾…å­çº¿ç¨‹å®Œæˆ
+        System.out.println(Thread.currentThread().getName()+"  ç»“æœï¼š"+result1);
+
+        //è¾“å‡ºç»“æœï¼š
+        //ForkJoinPool.commonPool-worker-1æ­£åœ¨æ‰§è¡Œä¸€ä¸ªæœ‰è¿”å›å€¼çš„å¼‚æ­¥ä»»åŠ¡ã€‚
+        //main  ç»“æœï¼šOK
+```
+
+
+
+```java
+
+```
+
+
+
+
+
+> [ä»€ä¹ˆæ˜¯å›è°ƒï¼Ÿå¼‚æ­¥å›è°ƒ](https://www.cnblogs.com/liujiarui/p/13395424.html)
+>
+> å‚è€ƒMQçš„è¿œç¨‹è°ƒç”¨ï¼Œæ¶ˆè´¹è€…è¦æ¶ˆè´¹MQä¸Šçš„æ¶ˆæ¯ï¼Œæ¶ˆè´¹è€…å†™ä¸€ä¸ªå›è°ƒæ–¹æ³•ï¼Œè¿™ä¸ªæ–¹æ³•ç»™MQæ¥è°ƒç”¨ï¼Œè€Œå›è°ƒæ–¹æ³•æ˜¯åœ¨æ¶ˆè´¹è€…ä¸Šæ‰§è¡Œçš„ï¼Œæ‰§è¡Œå®Œå¹¶æŠŠè¿”å›å€¼ï¼ˆæ¶ˆè´¹çŠ¶æ€ï¼‰è¿”å›ç»™MQï¼ˆMQæ”¶åˆ°æ¶ˆè´¹æˆåŠŸçš„çŠ¶æ€åå†åˆ é™¤æ¶ˆæ¯ï¼‰ã€‚
+
+
+
+### çº¿ç¨‹æ± å‚æ•°
+
+æ ¸å¿ƒçº¿ç¨‹æ•°
+æœ€å¤§å¹¶å‘çº¿ç¨‹æ•°
+æ™®é€šçº¿ç¨‹çš„ç©ºé—²è¶…æ—¶æ—¶é—´ã€‚
+ç¼“å­˜é˜Ÿåˆ—ï¼Œè¶…è¿‡å¸¸é©»çš„çº¿ç¨‹æ•°çš„çº¿ç¨‹ä¼šè¿›å…¥åˆ°ç¼“å­˜é˜Ÿåˆ—ï¼Œé˜Ÿåˆ—æ»¡äº†å°±ä¼šåˆ›å»ºæ–°çš„çº¿ç¨‹ç›´åˆ°maxæœ€å¤§çº¿ç¨‹æ•°ã€‚
+æ‹’ç»ç­–ç•¥ï¼Œé˜Ÿåˆ—æ»¡äº†ä¹‹åï¼Œçº¿ç¨‹æ± åˆ°äº†maxï¼Œé‚£ä¹ˆæ–°çš„ä»»åŠ¡æ˜¯å¦ä¸¢å¼ƒï¼Œç­‰å¾…ï¼Œä¸¢å¼ƒè€çš„ï¼Œæˆ–è€…æŠ›å‡ºå¼‚å¸¸ã€‚
+
+æœ€å¤§å¹¶å‘çº¿ç¨‹æ•°å¦‚ä½•å®šä¹‰ï¼Ÿ
+
+CPUå¯†é›†å‹ï¼šCPUæ¯”è¾ƒå¿™ï¼Œæœ€ä½³æ€§èƒ½å°±æ˜¯å¼€å½“å‰æœ€å¤§æ ¸æ•°ï¼ˆå¦‚æœæ˜¯è¶…çº¿ç¨‹å¯ä»¥å¼€å½“å‰æœ€å¤§çš„è¶…çº¿ç¨‹æ•°ï¼‰ã€‚
+
+IOå¯†é›†å‹ï¼šCPUæ¯”è¾ƒç©ºé—²ï¼Œå¯ä»¥é€‚å½“æ¯”å½“å‰IOä»»åŠ¡çº¿ç¨‹æ•°å¤šä¸€ç‚¹ã€‚
+
+[CPUå¯†é›†å‹ï¼ŒIOå¯†é›†å‹](https://www.cnblogs.com/aspirant/p/11441353.html)
+
+
+
+### CopyOnWriteArrayList/Set
+
+åº•å±‚ä½¿ç”¨çš„æ˜¯å†™æ—¶å¤åˆ¶æŠ€æœ¯ä»¥åŠå¯é‡å…¥é”ï¼š
+
+```Java
+    public boolean add(E e) {
+        final ReentrantLock lock = this.lock;
+        lock.lock();		//å…ˆåŠ é”
+        try {
+            Object[] elements = getArray();
+            int len = elements.length;
+            Object[] newElements = Arrays.copyOf(elements, len + 1);		//å¤åˆ¶åˆ°æ–°æ•°ç»„ä¸­
+            newElements[len] = e;		//åœ¨æ–°æ•°ç»„ä¸­æ·»åŠ å…ƒç´ 
+            setArray(newElements);		//å°†å…ƒç´ è®¾ç½®ä¸ºæ–°æ•°ç»„
+            return true;
+        } finally {
+            lock.unlock();
+        }
+    }
+```
+
+HashSetåº•å±‚å°±æ˜¯ä½¿ç”¨çš„HashMapï¼Œåªæ˜¯ä½¿ç”¨äº†å®ƒçš„Keyã€‚
+
+JUCå¹¶å‘åŒ…ä¸‹çš„çº¿ç¨‹å®‰å…¨çš„HashMapä¸ºConCurrentHashMapã€‚
 
 ### HashMap
 
-hashmapÏàµ±ÓÚÊı×éºÍÁ´±íµÄÒ»¸ö½áºÏ·½°¸¡£
-Êı×é²åÈëºÍÉ¾³ıÊı¾İÉæ¼°ÒÆ¶¯Êı¾İ£¬µ«Ëü¿Õ¼äÕ¼ÓÃÉÙ¡£
-Á´±íĞÂÔöÉ¾³ıÊı¾İºÜ·½±ã£¬µ«¿Õ¼äÕ¼ÓÃ¶à¡£
-Êı×éºÍÁ´±íµÄÆ½¾ù¸´ÔÓ¶È¶¼Îªo£¨n£©
-hashmapÖ÷¸ÉÊ¹ÓÃÊı×é£¬Í¨¹ıkeyºÍÓ³Éä¹ØÏµÖ±½ÓÕÒµ½Êı×éµÄÎ»ÖÃ£¬Ê±¼ä¸´ÔÓ¶ÈÎª0(1)
-µ«ÊÇÓ³Éä¹ØÏµ¿ÉÄÜ»áµ¼ÖÂ²»Í¬µÄkeyÕÒµ½Í¬Ò»¸öÎ»ÖÃ£¬Õâ¾ÍÊÇhash³åÍ»£¬ÎªÁË½â¾öÕâ¸öÎÊÌâ£¬ÒıÈëÁËÁ´±í£¬Èç¹ûÓöµ½³åÍ»£¬
-¾ÍÒÔÁ´±íĞÎÊ½¼ÓÔÚËüÎ»ÖÃµÄºóÃæ¡£
+hashmapç›¸å½“äºæ•°ç»„å’Œé“¾è¡¨çš„ä¸€ä¸ªç»“åˆæ–¹æ¡ˆã€‚
+æ•°ç»„æ’å…¥å’Œåˆ é™¤æ•°æ®æ¶‰åŠç§»åŠ¨æ•°æ®ï¼Œä½†å®ƒç©ºé—´å ç”¨å°‘ã€‚
+é“¾è¡¨æ–°å¢åˆ é™¤æ•°æ®å¾ˆæ–¹ä¾¿ï¼Œä½†ç©ºé—´å ç”¨å¤šã€‚
+æ•°ç»„å’Œé“¾è¡¨çš„å¹³å‡å¤æ‚åº¦éƒ½ä¸ºoï¼ˆnï¼‰
+hashmapä¸»å¹²ä½¿ç”¨æ•°ç»„ï¼Œé€šè¿‡keyå’Œæ˜ å°„å…³ç³»ç›´æ¥æ‰¾åˆ°æ•°ç»„çš„ä½ç½®ï¼Œæ—¶é—´å¤æ‚åº¦ä¸º0(1)
+ä½†æ˜¯æ˜ å°„å…³ç³»å¯èƒ½ä¼šå¯¼è‡´ä¸åŒçš„keyæ‰¾åˆ°åŒä¸€ä¸ªä½ç½®ï¼Œè¿™å°±æ˜¯hashå†²çªï¼Œä¸ºäº†è§£å†³è¿™ä¸ªé—®é¢˜ï¼Œå¼•å…¥äº†é“¾è¡¨ï¼Œå¦‚æœé‡åˆ°å†²çªï¼Œ
+å°±ä»¥é“¾è¡¨å½¢å¼åŠ åœ¨å®ƒä½ç½®çš„åé¢ã€‚
 
-### HashMapµÄÈİÁ¿£¬refactor¼ÓÔØÒò×Ó
+### HashMapçš„å®¹é‡ï¼ŒrefactoråŠ è½½å› å­
 
-HashMapÈİÁ¿£¨capacity£©¾ÍÊÇÊı×éµÄ´óĞ¡£¬Ä¬ÈÏÊÇ16£¬rehashµÄÊ±ºòÒ²»áÉèÖÃÎª2µÄÃİ´Î·½¡£
-¶ø×÷ÎªÄ¬ÈÏÈİÁ¿£¬Ì«´óºÍÌ«Ğ¡¶¼²»ºÏÊÊ£¬ËùÒÔ16¾Í×÷ÎªÒ»¸ö±È½ÏºÏÊÊµÄ¾­ÑéÖµ±»²ÉÓÃÁË¡£
-refactor¼ÓÔØÒò×Ó0.75 £¬È¡0.5µ½1µÄÕÛÖĞÖµ¡£
-Èç¹ûÌ«´óµÄ»°£¬ËùÓĞÊı×é¶¼¿ÉÒÔ±»ÌîÂú£¬¿Õ¼äÀûÓÃÂÊÌá¸ßÁË£¬µ«hash³åÍ»¼¸ÂÊ±ä´ó£¬²éÑ¯»á±äÂı¡£  
-Ì«µÍµÄ»°£¬ÓÃ²»ÁË¶à¾Ã¾Írehash£¬rehashÌ«Æµ·±¡£
+HashMapå®¹é‡ï¼ˆcapacityï¼‰å°±æ˜¯æ•°ç»„çš„å¤§å°ï¼Œé»˜è®¤æ˜¯16ï¼Œrehashçš„æ—¶å€™ä¹Ÿä¼šè®¾ç½®ä¸º2çš„å¹‚æ¬¡æ–¹ã€‚
+è€Œä½œä¸ºé»˜è®¤å®¹é‡ï¼Œå¤ªå¤§å’Œå¤ªå°éƒ½ä¸åˆé€‚ï¼Œæ‰€ä»¥16å°±ä½œä¸ºä¸€ä¸ªæ¯”è¾ƒåˆé€‚çš„ç»éªŒå€¼è¢«é‡‡ç”¨äº†ã€‚
+refactoråŠ è½½å› å­0.75 ï¼Œå–0.5åˆ°1çš„æŠ˜ä¸­å€¼ã€‚
+å¦‚æœå¤ªå¤§çš„è¯ï¼Œæ‰€æœ‰æ•°ç»„éƒ½å¯ä»¥è¢«å¡«æ»¡ï¼Œç©ºé—´åˆ©ç”¨ç‡æé«˜äº†ï¼Œä½†hashå†²çªå‡ ç‡å˜å¤§ï¼ŒæŸ¥è¯¢ä¼šå˜æ…¢ã€‚  
+å¤ªä½çš„è¯ï¼Œç”¨ä¸äº†å¤šä¹…å°±rehashï¼Œrehashå¤ªé¢‘ç¹ã€‚
 
-### hashmapËÀÑ­»·
+### hashmapæ­»å¾ªç¯
 
-jdk1.6¡¢1.7´æÔÚÕâ¸öÎÊÌâ£¬1.8²»´æÔÚ
-Ö÷ÒªÔ­Òò£ºhashmapÊÇÏß³Ì²»°²È«µÄ£¬ÔÚ¶àÏß³ÌµÄÇé¿öÏÂ£¬¼ÙÈçÁ½¸öÏß³ÌÍ¬Ê±´¥·¢ÁËresize¡£
-²¢ÇÒ¶ÔÍ¬Ò»¸öÁ´±í½øĞĞÇ¨ÒÆµÄÊ±ºò£¬¿ÉÄÜµ¼ÖÂ²¿·ÖÁ´±íÊ×Î²ÏàÁ¬¡£µ±hash.get²Ù×÷Õâ¸öÁ´±íÊ±Èç¹û²éÕÒµÄÊı¾İ²»´æÔÚ£¬ÄÇÃ´¾Í½øÈëÁËËÀÑ­»·¡£
-¸ù±¾Ô­Òò¾ÍÊÇtransferº¯ÊıÖĞÊÇ¶ÔÁ´±íµÄÍ·²¿²åÈëÊı¾İµ¼ÖÂµÄ¡£ËùÒÔ1.8¶ÔÁ´±íÎ²²¿½øĞĞÁËÊı¾İ²åÈë¡££¨²åÈëÍ·Ğ§ÂÊ¸ß£©
-ÁíÍâÒ»¸öÎÊÌâÊÇÁ´±íÊ×Î»ÏàÁ¬£¬¶øÁíÒ»²¿·ÖÊı¾İÃ»ÓĞ±»ÒıÓÃ£¬
-½¨ÒéÓÃConcurrentHashMap
+jdk1.6ã€1.7å­˜åœ¨è¿™ä¸ªé—®é¢˜ï¼Œ1.8ä¸å­˜åœ¨
+ä¸»è¦åŸå› ï¼šhashmapæ˜¯çº¿ç¨‹ä¸å®‰å…¨çš„ï¼Œåœ¨å¤šçº¿ç¨‹çš„æƒ…å†µä¸‹ï¼Œå‡å¦‚ä¸¤ä¸ªçº¿ç¨‹åŒæ—¶è§¦å‘äº†resizeã€‚
+å¹¶ä¸”å¯¹åŒä¸€ä¸ªé“¾è¡¨è¿›è¡Œè¿ç§»çš„æ—¶å€™ï¼Œå¯èƒ½å¯¼è‡´éƒ¨åˆ†é“¾è¡¨é¦–å°¾ç›¸è¿ã€‚å½“hash.getæ“ä½œè¿™ä¸ªé“¾è¡¨æ—¶å¦‚æœæŸ¥æ‰¾çš„æ•°æ®ä¸å­˜åœ¨ï¼Œé‚£ä¹ˆå°±è¿›å…¥äº†æ­»å¾ªç¯ã€‚
+æ ¹æœ¬åŸå› å°±æ˜¯transferå‡½æ•°ä¸­æ˜¯å¯¹é“¾è¡¨çš„å¤´éƒ¨æ’å…¥æ•°æ®å¯¼è‡´çš„ã€‚æ‰€ä»¥1.8å¯¹é“¾è¡¨å°¾éƒ¨è¿›è¡Œäº†æ•°æ®æ’å…¥ã€‚ï¼ˆæ’å…¥å¤´æ•ˆç‡é«˜ï¼‰
+å¦å¤–ä¸€ä¸ªé—®é¢˜æ˜¯é“¾è¡¨é¦–ä½ç›¸è¿ï¼Œè€Œå¦ä¸€éƒ¨åˆ†æ•°æ®æ²¡æœ‰è¢«å¼•ç”¨ï¼Œ
+å»ºè®®ç”¨ConcurrentHashMap
 
 https://www.cnblogs.com/jing99/p/11319175.html
 
-### hashcode Óë equal
-
-¸²¸Çequals£¨Object obj£©µ«²»¸²¸ÇhashCode£¨£©,µ¼ÖÂÊı¾İ²»Î¨Ò»ĞÔ
-
-¸²¸ÇhashCode·½·¨£¬µ«²»¸²¸Çequals·½·¨£¬ÈÔÈ»»áµ¼ÖÂÊı¾İµÄ²»Î¨Ò»ĞÔ
-
+### hashcode ä¸ equal
+è¦†ç›–equalsï¼ˆObject objï¼‰ä½†ä¸è¦†ç›–hashCodeï¼ˆï¼‰,å¯¼è‡´æ•°æ®ä¸å”¯ä¸€æ€§
+è¦†ç›–hashCodeæ–¹æ³•ï¼Œä½†ä¸è¦†ç›–equalsæ–¹æ³•ï¼Œä»ç„¶ä¼šå¯¼è‡´æ•°æ®çš„ä¸å”¯ä¸€æ€§
 https://blog.csdn.net/lijiecao0226/article/details/24609559
 
-### ĞòÁĞ»¯Óë·´ĞòÁĞ»¯
+### JAVA-CPUå æ¯”é«˜çº¿ç¨‹å †æ ˆé—®é¢˜å®šä½
 
-ÍøÂçÖĞ´«ÊäÊÇÒÔ¶ş½øÖÆÁ÷µÄĞÎÊ½´«ÊäµÄ£¬ĞòÁĞ»¯¾ÍÊÇ°Ñjava¶ÔÏó×ª»»³É×Ö½ÚĞò£¬·½±ãÔÚÍøÂçÖĞ´«Êä¡£
-·´ĞòÁĞ»¯¾ÍÊÇ°ÑÊÕµ½µÄ×Ö½ÚĞò×ª»»Îªjava¶ÔÏó¡£
+1ã€top  -p <pid> æŸ¥çœ‹æŸä¸ªè¿›ç¨‹çš„CPUä½¿ç”¨æƒ…å†µ
 
-### RPC
+2ã€top -H -p <pid>æŸ¥çœ‹è¿›ç¨‹ä¸­æ¯ä¸ªçº¿ç¨‹çš„CPUä½¿ç”¨æƒ…å†µ
 
-RPC(Remote Procedure Call)£ºÔ¶³Ì¹ı³Ìµ÷ÓÃ£¬ËüÊÇÒ»ÖÖÍ¨¹ıÍøÂç´Ó½ÚµãÓë½ÚµãÖ±½ÓÇëÇó·şÎñ£¬¾ÍÏñÊÇÔÚ±¾µØµ÷ÓÃ½Ó¿Ú·şÎñÒ»Ñù¡£
-RPC ÊÇÒ»ÖÖ¼¼ÊõË¼Ïë£¬²¢²»ÊÇÒ»ÖÖ¹æ·¶£¬ÊµÏÖËüµÄ¿ò¼Ü±ÈÈçdubbo£¬springcloud£¬netty
-ÔÚ RPC ÖĞ¿ÉÑ¡µÄÍøÂç´«Êä·½Ê½ÓĞ¶àÖÖ£¬¿ÉÒÔÑ¡Ôñ TCP Ğ­Òé¡¢UDP Ğ­Òé¡¢HTTP Ğ­Òé¡£±ÈÈçspringcloudÊÇhttp¡£
-tcpĞ­ÒéµÄrpc¸üÄÜ¼õÉÙÍøÂç¿ªÏú£¬ÊµÏÖ¸ü´óµÄÍÌÍÂÁ¿ºÍ²¢·¢Êı¡£µ«¿ª·¢ÄÑ¶È½Ï´ó¡£
-httpĞ­ÒéËäÈ»ÍøÂç¿ªÏú¸ü´ó£¬µ«ÊÇ´¦ÓÚÉÏ²ã£¬½øĞĞ¶ş´Î¿ª·¢·Ç³£·½±ã¡£
+3ã€æ‰¾åˆ°æœ€é«˜çº¿ç¨‹çš„thread idï¼Œå¹¶å°†tidè½¬æ¢ä¸º16è¿›åˆ¶ã€‚
 
-### Netty
+4ã€ æ‰§è¡Œjstack <pid> | grep -A 10  -i <thread id>   æŸ¥çœ‹è¯¥çº¿ç¨‹çš„10è¡Œå †æ ˆä¿¡æ¯ï¼Œ-i å¿½ç•¥16è¿›åˆ¶çš„å¤§å°å†™é—®é¢˜
 
-NettyÊÇÒ»¿î»ùÓÚNIO¿ª·¢µÄÍøÂçÍ¨ĞÅ¿ò¼Ü£¬¶Ô±ÈÓÚBIO£¬ËûµÄ²¢·¢ĞÔÄÜµÃµ½ÁËºÜ´óÌá¸ß¡£
-Ëµ°×ÁË¾ÍÊÇÓĞÒ»¸öselectorÂÖÑ¯Æ÷ÊµÏÖ¶àÂ·¸´ÓÃ Ò²½ĞÊÂ¼şÇı¶¯¡£µ×²ãÓÃµÄ²Ù×÷ÏµÍ³µÄselect(windows)ºÍepoll(linux)ÂÖÑ¯
+åŒæ ·é€‚ç”¨äºæ­»é”çš„é—®é¢˜ï¼Œdead lock
 
-### epollÓëselectÇø±ğ
+### Exceptionä¸RuntimeExceptionåŒºåˆ«
 
-selectÂÖÑ¯Ğ§ÂÊµÍ£¬Ö÷Òª±íÏÖÔÚselectÂÖÑ¯µ½ÓĞsocketÊı¾İÊ±£¬»¹ĞèÒª±éÀúÒ»´ÎsocketÁĞ±íÀ´È·¶¨¾ßÌåÄÇÒ»¸ösocketÊÕµ½ÁËÊı¾İ¡£
-ÒòÎªÃ¿´Î¶¼Òª±éÀú£¬ËùÒÔselectÓĞÏŞÖÆ×î¶à¼àÌısocket1024.
-epoll¾ÍÃ»ÓĞÕâ¸öÏŞÖÆ¡£epoll²»½öÎ¬»¤ÁËsocket¼àÌıÁĞ±í£¬»¹Î¬»¤ÁËÒ»¸ösocket¾ÍĞ÷ÁĞ±í¡£ÕâÑùÒ»µ©ÓĞsocketÊÕµ½Êı¾İ£¬Ö±½Ó½«socket
-Ğ´Èëµ½¾ÍĞ÷ÁĞ±íÖĞ£¬²»ĞèÒª±éÀú¼àÌıÁĞ±íÁË¡£
-https://www.cnblogs.com/shijianchuzhenzhi/p/12346318.html
-https://www.jianshu.com/p/dfd940e7fca2
++ **Exception**ï¼šåœ¨ç¨‹åºä¸­å¿…é¡»ä½¿ç”¨try...catchè¿›è¡Œå¤„ç†ã€‚ ä¸ç”¨trycatchæˆ–è€…throwsæŠ›å‡ºçš„è¯ï¼Œç¼–è¯‘ä¸é€šè¿‡ã€‚
++ **RuntimeException**ï¼šå¯ä»¥ä¸ä½¿ç”¨try...catchè¿›è¡Œå¤„ç†ï¼Œä½†æ˜¯å¦‚æœæœ‰å¼‚å¸¸äº§ç”Ÿï¼Œåˆ™å¼‚å¸¸å°†ç”±JVMè¿›è¡Œå¤„ç†ã€‚
+      ä¸ç”¨trycatchçš„è¯ï¼Œå‡ºé”™ç›´æ¥ç»ˆæ­¢ç¨‹åºã€‚ä¸€èˆ¬å»ºè®®ç”¨trycatchæ•è·ã€‚
 
-### ÊÂ¼şÇı¶¯Ä£ĞÍ
+ç»§æ‰¿Exceptionè¿˜æ˜¯ç»§æ‰¿RuntimeExceptionæ˜¯ç”±å¼‚å¸¸æœ¬èº«çš„ç‰¹ç‚¹å†³å®šçš„ï¼Œè€Œä¸æ˜¯ç”±æ˜¯å¦æ˜¯è‡ªå®šä¹‰çš„å¼‚å¸¸å†³å®šçš„ã€‚
+ä¾‹å¦‚æˆ‘è¦å†™ä¸€ä¸ªjava apiï¼Œè¿™ä¸ªapiä¸­ä¼šè°ƒç”¨ä¸€ä¸ªæå…¶æ“è›‹çš„è¿œç«¯æœåŠ¡ï¼Œè¿™ä¸ªè¿œç«¯æœåŠ¡ç»å¸¸è¶…æ—¶å’Œä¸å¯ç”¨ã€‚
+æ‰€ä»¥æˆ‘å†³å®šä»¥æŠ›å‡ºè‡ªå®šä¹‰å¼‚å¸¸çš„å½¢å¼å‘æ‰€æœ‰è°ƒç”¨è¿™ä¸ªapiçš„å¼€å‘äººå‘˜å‘¨çŸ¥è¿™ä¸€æ“è›‹çš„ç°å®ï¼Œè®©ä»–ä»¬åœ¨è°ƒç”¨è¿™ä¸ªapiæ—¶åŠ¡å¿…è€ƒè™‘åˆ°è¿œç«¯æœåŠ¡ä¸å¯ç”¨æ—¶åº”è¯¥æ‰§è¡Œçš„è¡¥å¿é€»è¾‘ï¼ˆæ¯”å¦‚å°è¯•è°ƒç”¨å¦ä¸€ä¸ªapiï¼‰ã€‚
+æ­¤æ—¶è‡ªå®šä¹‰çš„å¼‚å¸¸ç±»å°±åº”ç»§æ‰¿Exceptionï¼Œè¿™æ ·å…¶ä»–å¼€å‘äººå‘˜åœ¨è°ƒç”¨è¿™ä¸ªapiæ—¶å°±ä¼šæ”¶åˆ°ç¼–è¯‘å™¨å¤§å¤§çš„çº¢è‰²æŠ¥é”™ï¼šã€ä½ æ²¡å¤„ç†è¿™ä¸ªå¼‚å¸¸ï¼ã€‘ï¼Œå¼ºè¿«ä»–ä»¬å¤„ç†ã€‚åˆå¦‚ï¼Œæˆ‘è¦å†™å¦ä¸€ä¸ªapiï¼Œ
+è¿™ä¸ªapiä¼šè®¿é—®ä¸€ä¸ªéå¸¸éå¸¸ç¨³å®šçš„è¿œç«¯æœåŠ¡ï¼Œé™¤éæœ‰äººæŠŠè¿œç«¯æœåŠ¡çš„æœºæˆ¿ç‚¸äº†ï¼Œå¦åˆ™è¿™ä¸ªæœåŠ¡ä¸ä¼šå‡ºç°ä¸å¯ç”¨çš„æƒ…å†µã€‚
+è€Œä¸”å³ä¾¿ä¸‡ä¸€è¿™ç§æƒ…å†µå‘ç”Ÿäº†ï¼Œapiçš„è°ƒç”¨è€…é™¤äº†è®°å½•å’Œæç¤ºé”™è¯¯ä¹‹å¤–ä¹Ÿæ²¡æœ‰åˆ«çš„äº‹æƒ…å¥½åšã€‚ä½†å‡ºäºæŸç§ä¸å¯æè¿°çš„è›‹ç–¼åŸå› ï¼Œæˆ‘è¿˜æ˜¯å†³å®šè¦å®šä¹‰ä¸€ä¸ªå¼‚å¸¸å¯¹è±¡æè¿°â€œæœºæˆ¿è¢«ç‚¸â€è¿™ä¸€æƒ…å†µï¼Œ
 
-Í¨³££¬ÎÒÃÇÉè¼ÆÒ»¸öÊÂ¼ş´¦ÀíÄ£ĞÍµÄ³ÌĞòÓĞÁ½ÖÖË¼Â·
+é‚£ä¹ˆæ­¤æ—¶å®šä¹‰çš„å¼‚å¸¸ç±»å°±åº”ç»§æ‰¿RuntimeExceptionï¼Œå› ä¸ºæˆ‘çš„apiçš„è°ƒç”¨è€…ä»¬æ²¡å¿…è¦äº†è§£è¿™ä¸€ç»†å¾®çš„ç»†èŠ‚ï¼ŒæŠŠè¿™ä¸€å¼‚å¸¸äº¤ç»™ç»Ÿä¸€çš„å¼‚å¸¸å¤„ç†å±‚å»å¤„ç†å°±å¥½äº†ã€‚
 
-    ÂÖÑ¯·½Ê½
+###  javaç±»åŠ è½½
 
-Ïß³Ì²»¶ÏÂÖÑ¯·ÃÎÊÏà¹ØÊÂ¼ş·¢ÉúÔ´ÓĞÃ»ÓĞ·¢ÉúÊÂ¼ş£¬ÓĞ·¢ÉúÊÂ¼ş¾Íµ÷ÓÃÊÂ¼ş´¦ÀíÂß¼­¡£
+1ï¼‰Bootstrap ClassLoader
 
-    ÊÂ¼şÇı¶¯·½Ê½
+è´Ÿè´£åŠ è½½$JAVA_HOMEä¸­jre/lib/rt.jaré‡Œæ‰€æœ‰çš„classï¼Œç”±C++å®ç°ï¼Œä¸æ˜¯ClassLoaderå­ç±»
 
-·¢ÉúÊÂ¼ş£¬Ö÷Ïß³Ì°ÑÊÂ¼ş·ÅÈëÊÂ¼ş¶ÓÁĞ£¬ÔÚÁíÍâÏß³Ì²»¶ÏÑ­»·Ïû·ÑÊÂ¼şÁĞ±íÖĞµÄÊÂ¼ş£¬µ÷ÓÃÊÂ¼ş¶ÔÓ¦µÄ´¦ÀíÂß¼­´¦ÀíÊÂ¼ş¡£
-ÊÂ¼şÇı¶¯·½Ê½Ò²±»³ÆÎªÏûÏ¢Í¨Öª·½Ê½£¬ÆäÊµÊÇÉè¼ÆÄ£Ê½ÖĞ¹Û²ìÕßÄ£Ê½µÄË¼Â·¡£
+2ï¼‰Extension ClassLoader
 
-### Ïß³Ì³Ø²ÎÊı
+è´Ÿè´£åŠ è½½javaå¹³å°ä¸­æ‰©å±•åŠŸèƒ½çš„ä¸€äº›jaråŒ…ï¼ŒåŒ…æ‹¬$JAVA_HOMEä¸­jre/lib/*.jaræˆ–-Djava.ext.dirsæŒ‡å®šç›®å½•ä¸‹çš„jaråŒ…
 
-ºËĞÄÏß³ÌÊı
-×î´ó²¢·¢Ïß³ÌÊı
-ÆÕÍ¨Ïß³ÌµÄ¿ÕÏĞ³¬Ê±Ê±¼ä¡£
-»º´æ¶ÓÁĞ£¬³¬¹ı³£×¤µÄÏß³ÌÊıµÄÏß³Ì»á½øÈëµ½»º´æ¶ÓÁĞ£¬¶ÓÁĞÂúÁË¾Í»á´´½¨ĞÂµÄÏß³ÌÖ±µ½max×î´óÏß³ÌÊı¡£
-¾Ü¾ø²ßÂÔ£¬¶ÓÁĞÂúÁËÖ®ºó£¬Ïß³Ì³Øµ½ÁËmax£¬ÄÇÃ´ĞÂµÄÈÎÎñÊÇ·ñ¶ªÆú»¹ÊÇµÈ´ı¡£
+3ï¼‰App ClassLoader
 
-### postÓëgetµÄÇø±ğ
+è´Ÿè´£è®°è½½classpathä¸­æŒ‡å®šçš„jaråŒ…åŠç›®å½•ä¸­class
 
-post¸ü°²È«£¬°ÑÊı¾İ×°µ½request bodyÖĞ£¬µ«ºÄÊ±¸ü¾Ã¡£
-get²»°²È«£¬urlÖĞÖ±½Ó°üº¬ÁËÓÃ»§µÈĞÅÏ¢£¬µ«Ğ§ÂÊ¸ü¸ß£¬Óë·şÎñ¶ËÖ»½»»¥Ò»´Î¡£¶øpostĞèÒªÀ´»Ø½»»¥Á½´Î£¬µÚÒ»´Î·¢ËÍpostÍ·£¬È»ºóµÚ¶ş´Î²Å·¢ËÍÄÚÈİ¡£
+4ï¼‰Custom ClassLoader
 
-### cookieÓësessionµÄÇø±ğ
+å±äºåº”ç”¨ç¨‹åºæ ¹æ®è‡ªèº«éœ€è¦è‡ªå®šä¹‰çš„ClassLoaderï¼Œå¦‚tomcatã€jbosséƒ½ä¼šæ ¹æ®j2eeè§„èŒƒè‡ªè¡Œå®ç°ClassLoader
 
-cookie±£´æÔÚ¿Í»§¶Ë£¬sessionÊÇ·şÎñ¶ËµÄ¸ÅÄî¡£
-cookieÏàµ±ÓÚ·şÎñ¶Ë¸ø¿Í»§¶ËµÄÒ»¸öÍ¨ĞĞÖ¤£¬È»ºó¿Í»§¶Ë±£´æÔÚ×Ô¼ºµÄä¯ÀÀÆ÷ÖĞ£¬Ã¿´Î·ÃÎÊ·şÎñÆ÷Ê±£¬»áÁ¬Í¬cookieÒ»ÆğÌá½»¸ø·şÎñÆ÷¡£
-ÒòÎªhttpÊÇÎŞ×´Ì¬Ğ­Òé£¬Òò´ËÒ»´ÎÁ¬½ÓµÄÊı¾İ´«ÊäÍê³Éºó£¬Á¬½Ó¾Í¶Ï¿ª¡£ÏÂ´ÎÔÙÁ¬½ÓµÄÊ±ºò£¬·şÎñÆ÷ÎŞ·¨ÅĞ¶ÏÄãÊÇÄÄ¸öÓÃ»§¡£
-Òò´Ë·şÎñÆ÷¾ÍĞèÒªÒ»ÖÖ»úÖÆÀ´±£´æÓÃ»§µÄĞÅÏ¢£¬Õâ¾ÍÊÇsession¡£µÚÒ»´Î´´½¨sessionÊ±£¬¾Í»áÔÚcookieÀï¼ÇÂ¼Ò»¸ösession id£¬·¢¸ø¿Í»§¶Ë£¬
-ÒÔºó¿Í»§¶ËÃ¿´Î·¢ËÍÇëÇóµÄÊ±ºò¾Í»á°Ñsid·¢¸ø·şÎñÆ÷£¬·şÎñÆ÷¾ÍÄÜÕÒµ½¶ÔÓ¦µÄsession¡£
-sessionµÚ¶ş¸öÖ÷Òª×÷ÓÃÊÇ£¬·şÎñÆ÷Ò»°ã°ÑSession·ÅÔÚÄÚ´æÖĞ£¬×ösession»º´æ£¬¼õÉÙÓÃ»§ÓëÊı¾İ¿âµÄÆµ·±½»»¥£¬ÀıÈçµçÉÌ¹ºÎï³µ¡£ 
+åŠ è½½è¿‡ç¨‹ä¸­ä¼šå…ˆæ£€æŸ¥ç±»æ˜¯å¦è¢«å·²åŠ è½½ï¼Œæ£€æŸ¥é¡ºåºæ˜¯è‡ªåº•å‘ä¸Šï¼Œä»Custom ClassLoaderåˆ°BootStrap ClassLoaderé€å±‚æ£€æŸ¥ï¼Œåªè¦æŸä¸ªclassloaderå·²åŠ è½½å°±è§†ä¸ºå·²åŠ è½½æ­¤ç±»ï¼Œä¿è¯æ­¤ç±»åªæ‰€æœ‰ClassLoaderåŠ è½½ä¸€æ¬¡ã€‚è€ŒåŠ è½½çš„é¡ºåºæ˜¯è‡ªé¡¶å‘ä¸‹ï¼Œä¹Ÿå°±æ˜¯ç”±ä¸Šå±‚æ¥é€å±‚å°è¯•åŠ è½½æ­¤ç±»ã€‚
 
-### ×ª·¢ÓëÖØ¶¨Ïò
 
-ÖØ¶¨Ïò£ºä¯ÀÀÆ÷ĞĞÎª£¬ä¯ÀÀÆ÷·¢ËÍÁ½´ÎÇëÇó£¬µÃµ½Á½´ÎÏìÓ¦£¬response.sendRedirect
-×ª·¢£º·şÎñÆ÷ĞĞÎª£¬·¢³öÒ»´ÎÇëÇó£¬µÃµ½Ò»´Î»ØÓ¦£¬µØÖ·À¸²»»á±ä»¯¡£request.getRequestDispatcher
+ç”±æ­¤å¯è§ï¼Œä¼šé¦–å…ˆæŠŠä¿è¯ç¨‹åºè¿è¡Œçš„åŸºç¡€ç±»ä¸€æ¬¡æ€§åŠ è½½åˆ°jvmä¸­ã€‚è€Œæ ¹æ®èµ„æ–™javaæœ€æ—©å°±æ˜¯ä¸ºåµŒå…¥å¼ç³»ç»Ÿè€Œè®¾è®¡çš„ï¼Œå†…å­˜å®è´µã€‚æ‰€æœ‰å¦‚æœå¼€å§‹å°±æŠŠæ‰€æœ‰ï¼Œç”¨çš„åˆ°ã€ç”¨ä¸åˆ°çš„ç±»éƒ½åŠ è½½åˆ°jvmä¸­ï¼ŒåŠ¿å¿…ä¼šå ç”¨å¾ˆå¤šå®è´µçš„å†…å­˜ï¼Œè€Œä¸”æœ‰äº›classå¯èƒ½å‹æ ¹åœ¨æ•´ä¸ªè¿è¡Œè¿‡ç¨‹ä¸­éƒ½ä¸ä¼šä½¿ç”¨ã€‚
 
-### ·½·¨ÇøÓëÓÀ¾Ã´úÓëÔªÊı¾İ¿Õ¼äMetaSpace
 
-·½·¨ÇøºÍÓÀ¾Ã´úµÄ¹ØÏµºÜÏñJavaÖĞ½Ó¿ÚºÍÀàµÄ¹ØÏµ£¬ÀàÊµÏÖÁË½Ó¿Ú£¬¶øÓÀ¾Ã´ú¾ÍÊÇHotSpotĞéÄâ»ú¶ÔĞéÄâ»ú¹æ·¶ÖĞ·½·¨ÇøµÄÒ»ÖÖÊµÏÖ·½Ê½¡£
-ÔÚjava1.7¿ªÊ¼ÒÆ³ıÀÏÄê´ú£¬1.8³¹µ×ÒÆ³ıÁËÀÏÄê´ú£¬È¡¶ø´úÖ®µÄÊÇMetaSpace¡£Ö÷ÒªÇø±ğÊÇMetaSpace·ÅÔÚ±¾µØÄÚ´æ£¬¾Í²»»á³öÏÖÓÀ¾Ã´úOOMÄÚ´æÒç³öÎÊÌâ¡£
+æ‰€æœ‰å¾—å‡ºç»“è®ºï¼š
 
-·½·¨Çø´æ·ÅÊ²Ã´¶«Î÷£ºÀàĞÅÏ¢£¬classÎÄ¼ş£¬static±äÁ¿Óë·½·¨£¬final³£Á¿
+ä¸€ä¸ªåº”ç”¨ç¨‹åºæ€»æ˜¯ç”±nå¤šä¸ªç±»ç»„æˆï¼ŒJavaç¨‹åºå¯åŠ¨æ—¶ï¼Œå¹¶ä¸æ˜¯ä¸€æ¬¡æŠŠæ‰€æœ‰çš„ç±»å…¨éƒ¨åŠ è½½åå†è¿è¡Œï¼Œå®ƒæ€»æ˜¯å…ˆæŠŠä¿è¯ç¨‹åºè¿è¡Œçš„åŸºç¡€ç±»ä¸€æ¬¡æ€§åŠ è½½åˆ°jvmä¸­ï¼Œå…¶å®ƒç±»ç­‰åˆ°jvmç”¨åˆ°çš„æ—¶å€™å†åŠ è½½
 
-### Éè¼ÆÄ£Ê½
+é‡ç‚¹ï¼šfinalæ˜¯åœ¨å‡†å¤‡é˜¶æ®µæ—¶å°±èµ‹å€¼äº†ï¼Œstaticå‡†å¤‡é˜¶æ®µæ—¶æ•°æ®æ˜¯é›¶å€¼ï¼Œåœ¨åˆå§‹åŒ–é˜¶æ®µæ‰ä¼šèµ‹å€¼ã€‚
 
-spring IOC£¬¿ØÖÆ·´×ª£ºÊ¹ÓÃÒÀÀµ×¢Èë
-http://www.mamicode.com/info-detail-2691212.html
-¹¤³§Éè¼ÆÄ£Ê½ : SpringÊ¹ÓÃ¹¤³§Ä£Ê½Í¨¹ı BeanFactory¡¢ApplicationContext ´´½¨ bean ¶ÔÏó¡£
+å‚è€ƒï¼šhttps://blog.csdn.net/noaman_wgs/article/details/74489549?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control
 
-´úÀíÉè¼ÆÄ£Ê½ : Spring AOP ¹¦ÄÜµÄÊµÏÖ¡£
 
-µ¥ÀıÉè¼ÆÄ£Ê½ : Spring ÖĞµÄ Bean Ä¬ÈÏ¶¼ÊÇµ¥ÀıµÄ¡£
 
-Ä£°å·½·¨Ä£Ê½ : Spring ÖĞ jdbcTemplate¡¢hibernateTemplate µÈÒÔ Template ½áÎ²µÄ¶ÔÊı¾İ¿â²Ù×÷µÄÀà£¬ËüÃÇ¾ÍÊ¹ÓÃµ½ÁËÄ£°åÄ£Ê½¡£
+## JVMä¸“é¢˜
 
-×°ÊÎÆ÷Éè¼ÆÄ£Ê½ : ÎÒÃÇµÄÏîÄ¿ĞèÒªÁ¬½Ó¶à¸öÊı¾İ¿â£¬¶øÇÒ²»Í¬µÄ¿Í»§ÔÚÃ¿´Î·ÃÎÊÖĞ¸ù¾İĞèÒª»áÈ¥·ÃÎÊ²»Í¬µÄÊı¾İ¿â¡£ÕâÖÖÄ£Ê½ÈÃÎÒÃÇ¿ÉÒÔ¸ù¾İ¿Í»§µÄĞèÇóÄÜ¹»¶¯Ì¬ÇĞ»»²»Í¬µÄÊı¾İÔ´¡£
+### JVMå†…å­˜æ¨¡å‹
 
-¹Û²ìÕßÄ£Ê½: Spring ÊÂ¼şÇı¶¯Ä£ĞÍ¾ÍÊÇ¹Û²ìÕßÄ£Ê½ºÜ¾­µäµÄÒ»¸öÓ¦ÓÃ¡£
+> ![1608456701648](C:\Users\coco\AppData\Roaming\Typora\typora-user-images\1608456701648.png)
 
-ÊÊÅäÆ÷Ä£Ê½ :Spring AOP µÄÔöÇ¿»òÍ¨Öª(Advice)Ê¹ÓÃµ½ÁËÊÊÅäÆ÷Ä£Ê½¡¢spring MVC ÖĞÒ²ÊÇÓÃµ½ÁËÊÊÅäÆ÷Ä£Ê½ÊÊÅäController¡£
+#### JVMå†…å­˜åˆ’åˆ†
 
-JDBC ÇÅ½ÓÄ£Ê½¡£
+ä¸€ä¸ªJAVAè¿›ç¨‹æ‹¿åˆ°è‡ªå·±å¯æ”¯é…çš„å†…å­˜æ—¶ï¼Œä¼šå°†å†…å­˜åˆ†ä¸º5ä¸ªéƒ¨åˆ†ï¼š
 
-### IOC AOP
++ **æ ˆåŒº**ï¼šå­˜å¯¹è±¡çš„å¼•ç”¨ã€å±€éƒ¨å˜é‡ã€‚
 
-IoC£¨·´Ïò¿ØÖÆ£©£¬½µµÍÁËÒµÎñÂß¼­ÖĞ¸÷¸öÀàµÄÏà»¥ÒÀÀµ¡£
-ÒÔÇ°ĞèÒª×Ô¼ºnewÒ»¸öÀà£¬ÏÖÔÚÍ¨¹ıioc spring°ïÎÒÃÇ´´½¨ºÍ¹ÜÀí£¬ÎÒÃÇÖ±½ÓÊ¹ÓÃ¾ÍĞĞÁË¡£Èç¹ûºóĞø´úÂëÉı¼¶ĞèÒª¸Ä¶¯£¬Ö»ĞèÒª¸ÄÅäÖÃÎÄ¼ş£¬½µµÍñîºÏ£¬Ìá¸ßÖØÓÃĞÔ¡£
-¼ÙÈçÀàAÒòÎªĞèÒª¹¦ÄÜF¶øµ÷ÓÃÀàB£¬ÔÚÍ¨³£µÄÇé¿öÏÂÀàAĞèÒªÒıÓÃÀàB£¬Òò¶øÀàA¾ÍÒÀÀµÓÚÀàBÁË£¬Ò²¾ÍÊÇËµµ±ÀàB²»´æÔÚµÄÊ±ºòÀàA¾ÍÎŞ·¨Ê¹ÓÃÁË¡£
-Ê¹ÓÃÁËIoC£¬ÀàAµ÷ÓÃµÄ½ö½öÊÇÊµÏÖÁË¹¦ÄÜFµÄ½Ó¿ÚµÄÄ³¸öÀà£¬Õâ¸öÀà¿ÉÄÜÊÇÀàB£¬Ò²¿ÉÄÜÊÇÁíÒ»¸öÀàC£¬ÓÉspringµÄÅäÖÃÎÄ¼şÀ´¾ö¶¨¡£ÕâÑù£¬ÀàA¾Í²»ÔÙÒÀÀµÓÚÀàBÁË£¬ñîºÏ¶È½µµÍ£¬ÖØÓÃĞÔÌá¸ßÁË¡£
++ **å †åŒº**ï¼šå­˜å¯¹è±¡ã€‚
 
-### µ¥ÀıÄ£Ê½
++ **æœ¬åœ°æ–¹æ³•æ ˆ**ï¼šC++ nativeæ–¹æ³•è¿è¡Œçš„æ ˆåŒºã€‚
 
-µ¥ÀıµÄ×÷ÓÃ£ºÈ·±£Ò»¸öÀàÖ»ÓĞÒ»¸öÊµÀı£¬ÔÚÕû¸öjvmÖĞ±£³ÖÎ¨Ò»ĞÔ£¬Î¨Ò»µÄÒ»Ğ©×ÊÔ´£¬±ÈÈçÏß³Ì³Ø¿ÉÒÔÓÃµ¥Àı¡£ÓÅµãÊÇÎ¨Ò»ĞÔ£¬²¢ÇÒ¿ÉÒÔÊ¡È¥¶ÔÏó·´¸´µÄ´´½¨ÓëÏú»ÙµÄ¹ı³Ì£¬½ÚÊ¡×ÊÔ´¡£
-ÀÁººÊ½£ºÖ»ÓĞÔÚµ÷ÓÃµÄÊ±ºò²Å³õÊ¼»¯£¬ÕâÑù±È½Ï½ÚÊ¡×ÊÔ´£¬µ«ÊÇµ÷ÓÃµÄÊ±ºòÃ¿´Î¶¼ÒªÅĞ¶ÏÊÇ·ñÒÑ¾­´´½¨¹ıµ¥ÀıÁË¡£
-¶öººÊ½£º³ÌĞòÒ»Æô¶¯¾Í´´½¨ÊµÀı¡£ÕâÑù»á±È½ÏÕ¼×ÊÔ´£¬µ«ÊÇµ÷ÓÃµÄÊ±ºò²»ĞèÒªÅĞ¶ÏÊÇ·ñ´´½¨¹ıµ¥Àı¡£
++ **ç¨‹åºè®¡æ•°å™¨**ï¼šæŒ‡å‘ç¨‹åºå½“å‰è¿è¡Œçš„ä½ç½®ã€‚
 
-### ¹¤³§Ä£Ê½
++ **æ–¹æ³•åŒº**ï¼šJDK7ä¹‹å‰ç§°ä¹‹ä¸ºæ°¸ä¹…ä»£ï¼ˆPermanet Spaceï¼‰ï¼ŒJDK8ä¹‹åæ”¹ä¸ºå…ƒæ•°æ®ç©ºé—´ï¼ˆMeta Spaceï¼‰ï¼šå­˜å‚¨staticé™æ€æ–¹æ³•æˆ–å˜é‡ï¼Œç±»ä¿¡æ¯ï¼ŒClassLoaderï¼Œclassæ–‡ä»¶ï¼Œfinalå¸¸é‡
 
-¹¤³§Ä£Ê½µÄ×÷ÓÃ£ºÒ»ÊÇ·½±ãÎ¬»¤¡£Èç¹ûÒ»·İ´úÂëÀïÓĞºÜ¶ànew²Ù×÷£¬Òª½øĞĞĞŞ¸ÄµÄÊ±ºò£¬´úÂëµÄÃ¿Ò»¸öµØ·½¶¼ÒªĞŞ¸Ä¡£¶ø°Ñnew²Ù×÷·â×°ÔÚ¹¤³§Àï£¬¾ÍÖ»Òª¸ÄÒ»¸öµØ·½ÁË¡£
-                ¶şÊÇ·ûºÏµÍñîºÏµÄÒ»¸ö±à³ÌË¼Ïë£¬±ÈÈçÓĞÁ½·İ´úÂëAºÍB£¬BÏëµ÷ÓÃAµÄÀà£¬¾ÍĞèÒªnewÒ»¸öA£¬ÕâÑù¾Í»áñîºÏÔÚÒ»Æğ¡£µ«ÊÇÈç¹ûÊ¹ÓÃ¹¤³§µÄ»°£¬¶Ôµ÷ÓÃ¹¤³§²¢´«²Î¾Í¿ÉÒÔµÃµ½¾ßÌåµÄ¶ÔÏó¡£
+> æ‰©å±•ï¼šæ ˆåŒºã€æœ¬åœ°æ–¹æ³•æ ˆã€ç¨‹åºè®¡æ•°å™¨æ˜¯çº¿ç¨‹ç§æœ‰çš„ï¼Œæœ‰å¤šå°‘ä¸ªçº¿ç¨‹å°±æœ‰å¤šå°‘ä»½æ ˆåŒºã€‚å †åŒºå’Œæ–¹æ³•åŒºæ˜¯å…¨å±€å…±äº«çš„ã€‚
+>
+> æ‰©å±•ï¼šæ–¹æ³•åŒºä¸æ°¸ä¹…ä»£ä¸å…ƒæ•°æ®ç©ºé—´MetaSpace
+>
+> æ–¹æ³•åŒºå’Œæ°¸ä¹…ä»£çš„å…³ç³»å¾ˆåƒJavaä¸­æ¥å£å’Œç±»çš„å…³ç³»ï¼Œç±»å®ç°äº†æ¥å£ï¼Œè€Œæ°¸ä¹…ä»£å°±æ˜¯HotSpotè™šæ‹Ÿæœºå¯¹è™šæ‹Ÿæœºè§„èŒƒä¸­æ–¹æ³•åŒºçš„ä¸€ç§å®ç°æ–¹å¼ã€‚
+> åœ¨java1.7å¼€å§‹ç§»é™¤è€å¹´ä»£ï¼Œ1.8å½»åº•ç§»é™¤äº†è€å¹´ä»£ï¼Œå–è€Œä»£ä¹‹çš„æ˜¯MetaSpaceã€‚ä¸»è¦åŒºåˆ«æ˜¯MetaSpaceæ”¾åœ¨æœ¬åœ°å†…å­˜ï¼Œå°±ä¸ä¼šå‡ºç°æ°¸ä¹…ä»£OOMå†…å­˜æº¢å‡ºé—®é¢˜ã€‚
+>
+> æ‰©å±•ï¼š[JVMå†…å­˜æ¨¡å‹](https://blog.csdn.net/qzqanzc/article/details/81008598)
 
-### ´úÀíÄ£Ê½
+#### å †åŒºè¯¦è§£
 
-±ÈÈçÎÒ²»Ïë»òÕß²»ÄÜÖ±½Óµ÷ÓÃÄ³¸öÀà£¬¾Í¸øËû·â×°Ò»²ã´úÀí£¬ÎÒÖ±½Óµ÷ÓÃÕâ¸ö´úÀíÀàÀ´ÊµÏÖÏìÓ¦µÄ¹¦ÄÜ¡£ºÃ´¦ÊÇËûÊÇÒ»¸öÖĞ½é£¬ÆÁ±ÎÁËÎ¯ÍĞÀàµÄÏ¸½Ú¡£
-ÁíÍâÈç¹ûÏëÔö¼ÓµãĞÂ¹¦ÄÜ£¬µ«²»ÏëÖ±½ÓĞŞ¸ÄÎ¯ÍĞÀà£¬¿ÉÒÔÔÚ´úÀíÀàÉÏÊµÏÖ¡£
+> ![1608462170499](C:\Users\coco\AppData\Roaming\Typora\typora-user-images\1608462170499.png)
 
-### Ç°ºó¶Ë·ÖÀë
++ **å †åˆ’åˆ†æ¯”ä¾‹**
 
-Ç°ºó¶Ë²»·ÖÀëµÄÇé¿ö¾ÍÊÇ£¬¿Í»§¶Ë·¢Ò»¸öÇëÇó£¬·şÎñ¶Ë×¼±¸ºÃÍêÕûµÄÒ³ÃæºÍÊı¾İ·¢¸ø¿Í»§¶Ë¡£Ã¿´ÎÒ³ÃæºÍÊı¾İ¶¼»á·¢¹ıÀ´£¬´«ÊäµÄÄÚÈİºÜ¶à¡£
-Ç°ºó¶Ë·ÖÀëµÄÇé¿ö¾ÍÊÇ·şÎñ¶ËÖ»Ìá¹©Êı¾İ£¬Ò»°ãµÄ×ö·¨¾ÍÊÇÇ°¶ËÊ¹ÓÃajax£¬ºó¶ËÌá¹©restfulµÄ½Ó¿Ú£¬Êı¾İÒÔjson¸ñÊ½´«Êä¡£
+  **å¹´è½»ä»£**ï¼š1/3çš„å †ç©ºé—´ edenåŒºï¼š8/10 çš„å¹´è½»ä»£ **From**: 1/10 çš„å¹´è½»ä»£ **To**:1/10çš„å¹´è½»ä»£   
 
-### ¶¯¾²·ÖÀë
+  **è€å¹´ä»£**ï¼š 2/3çš„å †ç©ºé—´
 
-ËùÎ½µÄ¶¯¾²·ÖÀë¾ÍÊÇÖ¸Í¼Æ¬£¬css, jsÖ®ÀàµÄ¶¼½»¸ønginxÀ´´¦Àí£¬nginx´¦Àí²»ÁËµÄ£¬±ÈÈçjsp ¾Í½»¸øtomcatÀ´´¦Àí
-ºÃ´¦ÊÇnginx´¦Àí¾²Ì¬ÄÚÈİµÄÍÌÍÂÁ¿ºÜ¸ß£¬±Ètomcat¸ß¶àÁË£¬ÕâÑùÎŞĞÎÖĞÌáÉıÁËĞÔÄÜ¡£ 
++ **å¹´è½»ä»£**ï¼šä¸»è¦æ˜¯ç”¨æ¥å­˜æ”¾æ–°ç”Ÿçš„å¯¹è±¡ã€‚ä¸€èˆ¬å æ®å †çš„1/3ç©ºé—´ã€‚ç”±äºé¢‘ç¹åˆ›å»ºå¯¹è±¡ï¼Œæ‰€ä»¥æ–°ç”Ÿä»£ä¼šé¢‘ç¹è§¦å‘MinorGCè¿›è¡Œåƒåœ¾å›æ”¶ã€‚
 
-### Springboot
+  + EdenåŒºï¼šJavaæ–°å¯¹è±¡çš„å‡ºç”Ÿåœ°ï¼ˆå¦‚æœæ–°åˆ›å»ºçš„å¯¹è±¡å ç”¨å†…å­˜å¾ˆå¤§ï¼Œåˆ™ç›´æ¥åˆ†é…åˆ°è€å¹´ä»£ï¼‰ã€‚å½“EdenåŒºå†…å­˜ä¸å¤Ÿçš„æ—¶å€™å°±ä¼šè§¦å‘MinorGCï¼Œå¯¹æ–°ç”Ÿä»£åŒºè¿›è¡Œä¸€æ¬¡åƒåœ¾å›æ”¶ã€‚
 
-SpringbootÊ¡È¥ÁËSpringMVC·±ËöµÄÅäÖÃ£¬²¢ÇÒÄÚÖÃÁËtomcat£¬Ïàµ±ÓÚÒ»¸ö¼ò»¯¿ª·¢µÄ¿ª·¢»·¾³¡£
+  + ServivorToï¼šä¿ç•™äº†ä¸€æ¬¡MinorGCè¿‡ç¨‹ä¸­çš„å¹¸å­˜è€…ã€‚
 
-### SpringMVC
+  + ServivorFromï¼šä¸Šä¸€æ¬¡GCçš„å¹¸å­˜è€…ï¼Œä½œä¸ºè¿™ä¸€æ¬¡GCçš„è¢«æ‰«æè€…ã€‚
 
- javaÀà¼ÓÔØÆ÷ÓÖ·Ö£º
+  + MinorGCçš„è¿‡ç¨‹ï¼šMinorGCé‡‡ç”¨å¤åˆ¶ç®—æ³•ã€‚é¦–å…ˆï¼ŒæŠŠEdenå’ŒServivorFromåŒºåŸŸä¸­å­˜æ´»çš„å¯¹è±¡å¤åˆ¶åˆ°ServicorToåŒºåŸŸï¼ˆå¦‚æœæœ‰å¯¹è±¡çš„å¹´é¾„ä»¥åŠè¾¾åˆ°äº†è€å¹´çš„æ ‡å‡†ï¼Œåˆ™èµ‹å€¼åˆ°è€å¹´ä»£åŒºï¼‰ï¼ŒåŒæ—¶æŠŠè¿™äº›å¯¹è±¡çš„å¹´é¾„+1ï¼ˆå¦‚æœServicorToä¸å¤Ÿä½ç½®äº†å°±æ”¾åˆ°è€å¹´åŒºï¼‰ï¼›ç„¶åï¼Œæ¸…ç©ºEdenå’ŒServicorFromä¸­çš„å¯¹è±¡ï¼›æœ€åï¼ŒServicorToå’ŒServicorFromäº’æ¢ï¼ŒåŸServicorToæˆä¸ºä¸‹ä¸€æ¬¡GCæ—¶çš„ServicorFromåŒºã€‚
 
-1£©Bootstrap ClassLoader
+  > ![1608462917705](C:\Users\coco\AppData\Roaming\Typora\typora-user-images\1608462917705.png)
 
-¸ºÔğ¼ÓÔØ$JAVA_HOMEÖĞjre/lib/rt.jarÀïËùÓĞµÄclass£¬ÓÉC++ÊµÏÖ£¬²»ÊÇClassLoader×ÓÀà
+  åƒåœ¾åˆ¤æ–­æ¡ä»¶ï¼šæ ¹å¯è¾¾ç®—æ³•ï¼ˆRoot Searchï¼‰å¦‚æœæ ¹æ²¡æœ‰ç›´æ¥å¼•ç”¨æˆ–é—´æ¥å¼•ç”¨ï¼Œå°±åˆ¤æ–­ä¸ºåƒåœ¾ã€‚
 
-2£©Extension ClassLoader
++ **è€å¹´ä»£**ï¼šä¸»è¦å­˜æ”¾åº”ç”¨ç¨‹åºä¸­ç”Ÿå‘½å‘¨æœŸé•¿çš„å†…å­˜å¯¹è±¡ã€‚
 
-¸ºÔğ¼ÓÔØjavaÆ½Ì¨ÖĞÀ©Õ¹¹¦ÄÜµÄÒ»Ğ©jar°ü£¬°üÀ¨$JAVA_HOMEÖĞjre/lib/*.jar»ò-Djava.ext.dirsÖ¸¶¨Ä¿Â¼ÏÂµÄjar°ü
+â€‹    è€å¹´ä»£çš„å¯¹è±¡æ¯”è¾ƒç¨³å®šï¼Œæ‰€ä»¥MajorGCä¸ä¼šé¢‘ç¹æ‰§è¡Œã€‚åœ¨è¿›è¡ŒMajorGCå‰ä¸€èˆ¬éƒ½å…ˆè¿›è¡Œäº†ä¸€æ¬¡MinorGCï¼Œä½¿å¾—æœ‰æ–°ç”Ÿä»£çš„å¯¹è±¡æ™‹èº«å…¥è€å¹´ä»£ï¼Œå¯¼è‡´ç©ºé—´ä¸å¤Ÿç”¨æ—¶æ‰è§¦å‘ã€‚å½“æ— æ³•æ‰¾åˆ°è¶³å¤Ÿå¤§çš„è¿ç»­ç©ºé—´åˆ†é…ç»™æ–°åˆ›å»ºçš„è¾ƒå¤§å¯¹è±¡æ—¶ä¹Ÿä¼šæå‰è§¦å‘ä¸€æ¬¡MajorGCè¿›è¡Œåƒåœ¾å›æ”¶è…¾å‡ºç©ºé—´ã€‚
 
-3£©App ClassLoader
+â€‹    MajorGCé‡‡ç”¨æ ‡è®°â€”æ¸…é™¤ç®—æ³•ï¼šé¦–å…ˆæ‰«æä¸€æ¬¡æ‰€æœ‰è€å¹´ä»£ï¼Œæ ‡è®°å‡ºå­˜æ´»çš„å¯¹è±¡ï¼Œç„¶åå›æ”¶æ²¡æœ‰æ ‡è®°çš„å¯¹è±¡ã€‚MajorGCçš„è€—æ—¶æ¯”è¾ƒé•¿ï¼Œå› ä¸ºè¦æ‰«æå†å›æ”¶ã€‚MajorGCä¼šäº§ç”Ÿå†…å­˜ç¢ç‰‡ï¼Œä¸ºäº†å‡å°‘å†…å­˜æŸè€—ï¼Œæˆ‘ä»¬ä¸€èˆ¬éœ€è¦è¿›è¡Œåˆå¹¶æˆ–è€…æ ‡è®°å‡ºæ¥æ–¹ä¾¿ä¸‹æ¬¡ç›´æ¥åˆ†é…ã€‚
 
-¸ºÔğ¼ÇÔØclasspathÖĞÖ¸¶¨µÄjar°ü¼°Ä¿Â¼ÖĞclass
+â€‹     å½“è€å¹´ä»£ä¹Ÿæ»¡äº†è£…ä¸ä¸‹çš„æ—¶å€™ï¼Œå°±ä¼šæŠ›å‡ºOOMï¼ˆOut of Memoryï¼‰å¼‚å¸¸ã€‚
 
-4£©Custom ClassLoader
++ **æ°¸ä¹…ä»£**ï¼ˆ1.8åºŸå¼ƒï¼‰
 
-ÊôÓÚÓ¦ÓÃ³ÌĞò¸ù¾İ×ÔÉíĞèÒª×Ô¶¨ÒåµÄClassLoader£¬Èçtomcat¡¢jboss¶¼»á¸ù¾İj2ee¹æ·¶×ÔĞĞÊµÏÖClassLoader
+â€‹    æŒ‡å†…å­˜çš„æ°¸ä¹…ä¿å­˜åŒºåŸŸï¼Œä¸»è¦å­˜æ”¾Classå’ŒMetaï¼ˆå…ƒæ•°æ®ï¼‰çš„ä¿¡æ¯,Classåœ¨è¢«åŠ è½½çš„æ—¶å€™è¢«æ”¾å…¥æ°¸ä¹…åŒºåŸŸ. å®ƒå’Œå’Œå­˜æ”¾å®ä¾‹çš„åŒºåŸŸä¸åŒ,GCä¸ä¼šåœ¨ä¸»ç¨‹åºè¿è¡ŒæœŸå¯¹æ°¸ä¹…åŒºåŸŸè¿›è¡Œæ¸…ç†ã€‚æ‰€ä»¥è¿™ä¹Ÿå¯¼è‡´äº†æ°¸ä¹…ä»£çš„åŒºåŸŸä¼šéšç€åŠ è½½çš„Classçš„å¢å¤šè€Œèƒ€æ»¡ï¼Œæœ€ç»ˆæŠ›å‡ºOOMå¼‚å¸¸ã€‚
 
-¼ÓÔØ¹ı³ÌÖĞ»áÏÈ¼ì²éÀàÊÇ·ñ±»ÒÑ¼ÓÔØ£¬¼ì²éË³ĞòÊÇ×Ôµ×ÏòÉÏ£¬´ÓCustom ClassLoaderµ½BootStrap ClassLoaderÖğ²ã¼ì²é£¬Ö»ÒªÄ³¸öclassloaderÒÑ¼ÓÔØ¾ÍÊÓÎªÒÑ¼ÓÔØ´ËÀà£¬±£Ö¤´ËÀàÖ»ËùÓĞClassLoader¼ÓÔØÒ»´Î¡£¶ø¼ÓÔØµÄË³ĞòÊÇ×Ô¶¥ÏòÏÂ£¬Ò²¾ÍÊÇÓÉÉÏ²ãÀ´Öğ²ã³¢ÊÔ¼ÓÔØ´ËÀà¡£
+â€‹    åœ¨Java8ä¸­ï¼Œæ°¸ä¹…ä»£å·²ç»è¢«ç§»é™¤ï¼Œè¢«ä¸€ä¸ªç§°ä¸ºâ€œå…ƒæ•°æ®åŒºâ€ï¼ˆå…ƒç©ºé—´ï¼‰çš„åŒºåŸŸæ‰€å–ä»£ã€‚
 
+â€‹    å…ƒç©ºé—´çš„æœ¬è´¨å’Œæ°¸ä¹…ä»£ç±»ä¼¼ï¼Œéƒ½æ˜¯å¯¹JVMè§„èŒƒä¸­æ–¹æ³•åŒºçš„å®ç°ã€‚ä¸è¿‡å…ƒç©ºé—´ä¸æ°¸ä¹…ä»£ä¹‹é—´æœ€å¤§çš„åŒºåˆ«åœ¨äºï¼šå…ƒç©ºé—´å¹¶ä¸åœ¨è™šæ‹Ÿæœºä¸­ï¼Œè€Œæ˜¯ä½¿ç”¨æœ¬åœ°å†…å­˜ã€‚å› æ­¤ï¼Œé»˜è®¤æƒ…å†µä¸‹ï¼Œå…ƒç©ºé—´çš„å¤§å°ä»…å—æœ¬åœ°å†…å­˜é™åˆ¶ã€‚ç±»çš„å…ƒæ•°æ®æ”¾å…¥ native memory, å­—ç¬¦ä¸²æ± å’Œç±»çš„é™æ€å˜é‡æ”¾å…¥javaå †ä¸­. è¿™æ ·å¯ä»¥åŠ è½½å¤šå°‘ç±»çš„å…ƒæ•°æ®å°±ä¸å†ç”±MaxPermSizeæ§åˆ¶, è€Œç”±ç³»ç»Ÿçš„å®é™…å¯ç”¨ç©ºé—´æ¥æ§åˆ¶.
 
-ÓÉ´Ë¿É¼û£¬»áÊ×ÏÈ°Ñ±£Ö¤³ÌĞòÔËĞĞµÄ»ù´¡ÀàÒ»´ÎĞÔ¼ÓÔØµ½jvmÖĞ¡£¶ø¸ù¾İ×ÊÁÏjava×îÔç¾ÍÊÇÎªÇ¶ÈëÊ½ÏµÍ³¶øÉè¼ÆµÄ£¬ÄÚ´æ±¦¹ó¡£ËùÓĞÈç¹û¿ªÊ¼¾Í°ÑËùÓĞ£¬ÓÃµÄµ½¡¢ÓÃ²»µ½µÄÀà¶¼¼ÓÔØµ½jvmÖĞ£¬ÊÆ±Ø»áÕ¼ÓÃºÜ¶à±¦¹óµÄÄÚ´æ£¬¶øÇÒÓĞĞ©class¿ÉÄÜÑ¹¸ùÔÚÕû¸öÔËĞĞ¹ı³ÌÖĞ¶¼²»»áÊ¹ÓÃ¡£
+â€‹    é‡‡ç”¨å…ƒç©ºé—´è€Œä¸ç”¨æ°¸ä¹…ä»£çš„å‡ ç‚¹åŸå› ï¼šï¼ˆå‚è€ƒï¼šhttp://www.cnblogs.com/paddix/p/5309550.htmlï¼‰
 
+ã€€ã€€1ã€ä¸ºäº†è§£å†³æ°¸ä¹…ä»£çš„OOMé—®é¢˜ï¼Œå…ƒæ•°æ®å’Œclasså¯¹è±¡å­˜åœ¨æ°¸ä¹…ä»£ä¸­ï¼Œå®¹æ˜“å‡ºç°æ€§èƒ½é—®é¢˜å’Œå†…å­˜æº¢å‡ºã€‚
 
-ËùÓĞµÃ³ö½áÂÛ£º
+â€‹		2ã€ç±»åŠæ–¹æ³•çš„ä¿¡æ¯ç­‰æ¯”è¾ƒéš¾ç¡®å®šå…¶å¤§å°ï¼Œå› æ­¤å¯¹äºæ°¸ä¹…ä»£çš„å¤§å°æŒ‡å®šæ¯”è¾ƒå›°éš¾ï¼Œå¤ªå°å®¹æ˜“å‡ºç°æ°¸ä¹…ä»£æº¢å‡ºï¼Œå¤ªå¤§åˆ™å®¹æ˜“å¯¼è‡´è€å¹´ä»£æº¢å‡ºï¼ˆå› ä¸ºå †ç©ºé—´æœ‰é™ï¼Œæ­¤æ¶ˆå½¼é•¿ï¼‰ã€‚
 
-Ò»¸öÓ¦ÓÃ³ÌĞò×ÜÊÇÓÉn¶à¸öÀà×é³É£¬Java³ÌĞòÆô¶¯Ê±£¬²¢²»ÊÇÒ»´Î°ÑËùÓĞµÄÀàÈ«²¿¼ÓÔØºóÔÙÔËĞĞ£¬Ëü×ÜÊÇÏÈ°Ñ±£Ö¤³ÌĞòÔËĞĞµÄ»ù´¡ÀàÒ»´ÎĞÔ¼ÓÔØµ½jvmÖĞ£¬ÆäËüÀàµÈµ½jvmÓÃµ½µÄÊ±ºòÔÙ¼ÓÔØ
+#### ä¸‰ç§GCåŠè§¦å‘
 
-ÖØµã£ºfinalÊÇÔÚ×¼±¸½×¶ÎÊ±¾Í¸³ÖµÁË£¬static×¼±¸½×¶ÎÊ±Êı¾İÊÇÁãÖµ£¬ÔÚ³õÊ¼»¯½×¶Î²Å»á¸³Öµ¡£
++ **minor GC**ï¼šé¢‘ç¹ï¼ŒedenåŒºæ»¡äº†æˆ–newå‡ºæ¥çš„æ–°å¯¹è±¡å¤§äºå‰©ä½™edenåŒºç©ºé—´äº†ï¼Œè§¦å‘minorGCã€‚
 
-²Î¿¼£ºhttps://blog.csdn.net/noaman_wgs/article/details/74489549?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control
++ **major GC**ï¼šæ¬¡æ•°å°‘ï¼Œè€å¹´ä»£æ»¡äº†ï¼Œæˆ–è€…newå‡ºæ¥çš„å¤§å¯¹è±¡å¤§äºå‰©ä½™çš„è€å¹´ä»£ç©ºé—´äº†ï¼Œè§¦å‘majorGCã€‚
+
++ **Full GC**ï¼šminor GC + major GCï¼Œå¼•èµ·æ•´ä¸ªç¨‹åºåœé¡¿ï¼Œä¸“é—¨æ¥è¿›è¡Œåƒåœ¾å›æ”¶ã€‚Full GCå®šä¹‰æ˜¯ç›¸å¯¹æ˜ç¡®çš„ï¼Œå°±æ˜¯é’ˆå¯¹æ•´ä¸ªæ–°ç”Ÿä»£ã€è€ç”Ÿä»£ã€å…ƒç©ºé—´ï¼ˆmetaspaceï¼Œjava8ä»¥ä¸Šç‰ˆæœ¬å–ä»£perm genï¼‰çš„å…¨å±€èŒƒå›´çš„GCï¼›
+  + å¦‚æœåˆ›å»ºä¸€ä¸ªå¤§å¯¹è±¡ï¼ŒedenåŒºä¸­ç©ºé—´ä¸è¶³ï¼Œç›´æ¥ä¿å­˜åˆ°è€å¹´ä»£ä¸­ï¼Œå½“è€å¹´ä»£ç©ºé—´ä¸è¶³æ—¶å€™ï¼Œç›´æ¥è§¦å‘full gc
+  + 
+  + è°ƒç”¨System.gc()æ–¹æ³•
+
+> æ‰©å±•ï¼šJavaä¸­Stop-The-Worldæœºåˆ¶ç®€ç§°STWï¼Œæ˜¯åœ¨æ‰§è¡Œåƒåœ¾æ”¶é›†ç®—æ³•æ—¶ï¼ŒJavaåº”ç”¨ç¨‹åºçš„å…¶ä»–æ‰€æœ‰çº¿ç¨‹éƒ½è¢«æŒ‚èµ·ï¼ˆé™¤äº†åƒåœ¾æ”¶é›†å¸®åŠ©å™¨ä¹‹å¤–ï¼‰ã€‚Javaä¸­ä¸€ç§å…¨å±€æš‚åœç°è±¡ï¼Œå…¨å±€åœé¡¿ï¼Œæ‰€æœ‰Javaä»£ç åœæ­¢ï¼Œnativeä»£ç å¯ä»¥æ‰§è¡Œï¼Œä½†ä¸èƒ½ä¸JVMäº¤äº’ã€‚
+>
+> ![1608465228835](C:\Users\coco\AppData\Roaming\Typora\typora-user-images\1608465228835.png)
+>
+> é“¾æ¥ï¼š[minorGCä¹Ÿä¼šè§¦å‘SWT](https://www.zhihu.com/question/29114369)
+
+#### å¯¹è±¡ç”Ÿæ­»åˆ¤å®š
+
+#### å¯¹è±¡æ™‹å‡
+
+åƒåœ¾å›æ”¶å™¨
+
+JVMè°ƒä¼˜æŒ‡ä»¤
+
+OOM
