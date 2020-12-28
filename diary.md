@@ -19,7 +19,7 @@
 
 + 本职工作，做好。
 
-+ 每天坚持写计划以及总结，一定不能断。
++ 每天坚持写计划以及总结，一定不能断。总结，回顾，日记。
 
 + 在麒麟做服务器OS，华为光模块ATE架构，道通OTX统一测试平台，都是服务端的，因此服务器架构师最符合自己的职业经历，也符合未来的职业规划，因此现在需要朝这个方向努力----服务器架构师！
 
@@ -27,21 +27,21 @@
   比如消息队列MQ，Redis缓存，Zookeeper，微服务SpringCloud等等。
   **先后顺序：**
 
-  1. Redis缓存
+  1. Redis缓存，Java基础
 
-  2. mq消息队列
+  2. mq消息队列，Java基础
 
-  3. Zookeeper服务注册，高可用，分布式锁
+  3. Zookeeper服务注册，高可用，分布式锁，Java基础
 
-  4. tomcat netty编程
+  4. tomcat netty编程，Java基础
 
-  5. Springboot 
+  5. Springboot ，Java基础
 
-  6. SpringCloud底层的epoll原理
+  6. SpringCloud底层的epoll原理，Java基础
 
-  7. 分布式算法raft，paxos等
+  7. 分布式算法raft，paxos等，Java基础
 
-  8. 底层的epoll原理
+  8. 底层的epoll原理，Java基础
 
      链接：[高并发架构](https://doocs.github.io/advanced-java/#/./docs/high-concurrency/redis-cas)
 
@@ -71,18 +71,18 @@
 | 14   | 12.14(1)     | 菜鸟网络interview1                              | zookeeper     |
 | 15   | 12.15(2)     | 理解红黑树，b+树索引                            | zookeeper     |
 | 16   | 12.16(3)     | Java-threadlocal                                | zookeeper     |
-| 17   | 12.17(4)     | 并发编程                                        | zookeeper     |
-| 18   | 12.18(5)     |                                                 | zookeeper     |
-| 19   | 12.19(6)     |                                                 | zookeeper     |
-| 20   | 12.20(7)     |                                                 | zookeeper     |
-| 21   | 12.21(1)     |                                                 | tomcat        |
-| 22   | 12.22(2)     |                                                 | tomcat        |
-| 23   | 12.23(3)     |                                                 | tomcat        |
-| 24   | 12.24(4)     |                                                 | tomcat        |
-| 25   | 12.25(5)     |                                                 | tomcat        |
-| 26   | 12.26(6)     |                                                 | tomcat        |
-| 27   | 12.27(7)     |                                                 | tomcat        |
-| 28   | 12.28(1)     |                                                 | springboot    |
+| 17   | 12.17(4)     | JMM内存模型                                     | zookeeper     |
+| 18   | 12.18(5)     | rocketMQ                                        | zookeeper     |
+| 19   | 12.19(6)     | DDD领域模型                                     | zookeeper     |
+| 20   | 12.20(7)     | 菜鸟网络interview2：神经网络                    | zookeeper     |
+| 21   | 12.21(1)     | GC、JUC                                         | tomcat        |
+| 22   | 12.22(2)     | JUC                                             | tomcat        |
+| 23   | 12.23(3)     | Lamda流式计算                                   | tomcat        |
+| 24   | 12.24(4)     | Idea操作快捷键                                  | tomcat        |
+| 25   | 12.25(5)     | Idea操作快捷键                                  | tomcat        |
+| 26   | 12.26(6)     | HBase                                           | tomcat        |
+| 27   | 12.27(7)     | Hbase                                           | tomcat        |
+| 28   | 12.28(1)     | Hbase                                           | springboot    |
 | 29   | 12.29(2)     |                                                 | springboot    |
 | 30   | 12.30(3)     |                                                 | springboot    |
 | 31   | 12.31(4)     |                                                 | springboot    |
