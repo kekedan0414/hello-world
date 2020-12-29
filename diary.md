@@ -76,13 +76,13 @@
 | 19   | 12.19(6)     | DDD领域模型                                     | zookeeper     |
 | 20   | 12.20(7)     | 菜鸟网络interview2：神经网络                    | zookeeper     |
 | 21   | 12.21(1)     | GC、JUC                                         | tomcat        |
-| 22   | 12.22(2)     |                                                 | tomcat        |
-| 23   | 12.23(3)     |                                                 | tomcat        |
-| 24   | 12.24(4)     |                                                 | tomcat        |
-| 25   | 12.25(5)     |                                                 | tomcat        |
-| 26   | 12.26(6)     |                                                 | tomcat        |
-| 27   | 12.27(7)     |                                                 | tomcat        |
-| 28   | 12.28(1)     |                                                 | springboot    |
+| 22   | 12.22(2)     | JUC                                             | tomcat        |
+| 23   | 12.23(3)     | Lamda流式计算                                   | tomcat        |
+| 24   | 12.24(4)     | Idea操作快捷键                                  | tomcat        |
+| 25   | 12.25(5)     | Idea操作快捷键                                  | tomcat        |
+| 26   | 12.26(6)     | HBase                                           | tomcat        |
+| 27   | 12.27(7)     | Hbase                                           | tomcat        |
+| 28   | 12.28(1)     | Hbase                                           | springboot    |
 | 29   | 12.29(2)     |                                                 | springboot    |
 | 30   | 12.30(3)     |                                                 | springboot    |
 | 31   | 12.31(4)     |                                                 | springboot    |
