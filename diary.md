@@ -83,7 +83,7 @@
 | 26   | 12.26(6)     | HBase                                           | tomcat        |
 | 27   | 12.27(7)     | Hbase                                           | tomcat        |
 | 28   | 12.28(1)     | Hbase                                           | springboot    |
-| 29   | 12.29(2)     |                                                 | springboot    |
+| 29   | 12.29(2)     | 菜鸟3挂，死刑家奴                               | springboot    |
 | 30   | 12.30(3)     |                                                 | springboot    |
 | 31   | 12.31(4)     |                                                 | springboot    |
 | 32   | 01.01(5)     |                                                 | springboot    |
