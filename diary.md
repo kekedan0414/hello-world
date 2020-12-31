@@ -83,9 +83,9 @@
 | 26   | 12.26(6)     | HBase                                           | tomcat        |
 | 27   | 12.27(7)     | Hbase                                           | tomcat        |
 | 28   | 12.28(1)     | Hbase                                           | springboot    |
-| 29   | 12.29(2)     | 菜鸟3挂，死刑家奴                               | springboot    |
-| 30   | 12.30(3)     |                                                 | springboot    |
-| 31   | 12.31(4)     |                                                 | springboot    |
+| 29   | 12.29(2)     | 菜鸟3挂，死刑家奴，要学会说话的艺术             | springboot    |
+| 30   | 12.30(3)     | HDFS                                            | springboot    |
+| 31   | 12.31(4)     | MR，YARN                                        | springboot    |
 | 32   | 01.01(5)     |                                                 | springboot    |
 | 33   | 01.02(6)     |                                                 | springboot    |
 | 34   | 01.03(7)     |                                                 | springboot    |

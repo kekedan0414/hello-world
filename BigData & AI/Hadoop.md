@@ -1,4 +1,4 @@
-## HDFS
+## 一、HDFS
 
 ### HDFS适合场景
 
@@ -92,16 +92,114 @@ fsimage + edits 才是完整的内存中的元数据信息。  （重启的时�
 
 
 
-## MR
+## 二、YARN
 
-MapReduce就是分布式分治的思想。Map分，Reduce来合。MR需要运行在Yarn集群上。
+YARN是一个资源调度平台，负责为运算程序提供服务器运算资源，相当于一个分布式的操作系统平台，而MapReduce等运算程序则相当于运行于操作系统之上的应用程序。
 
-Yarn的角色：
+Yarn是Hadoop2.x版本中的一个新特性。它的出现其实是为了解决第一代MapReduce编程框架的不足，提高集群环境下的资源利用率，这些资源包括内存，磁盘，网络，IO等。Hadoop2.x版本中重新设计的这个Yarn集群，具有更好的扩展性，可用性，可靠性，向后兼容性，以及能支持除MapReduce以外的更多分布式计算程序。
 
-+ ResourceManager
-+ NodeManager
+一句话就是，Yarn有两个功能，资源管理以及作业监控。
+
+### ResourceManager
+
+​	简称RM，是YARN资源控制框架的中心模块，负责集群中所有的资源的统一管理和分配。它接收来自NM(NodeManager)的汇报，给ApplicationMaster分配空闲的Container来运行ApplicationMaster。ResourceManager主要有两部分组成：
+
++ **调度器（Scheduler）**：根据各个NodeManager的资源情况进行资源分配，分配Container。
++ **应用程序管理器（Applications Manager）**：管理所有的应用程序，比如同时提交的两个不同的作业，分别会启动两个不同的ApplicationMaster来管理监控各自的作业情况。
+
+### NodeManager
+
+​	简称NM，NodeManager是ResourceManager在每台机器的上代理，负责容器的管理，并监控他们的资源使用情况（cpu，内存，磁盘及网络等），以及向 ResourceManager提供这些资源使用报告。接收并处理来自ApplicationMaster的启动/停止Container请求。
+
+### ApplicationMaster
+
+简称AM。YARN中每个应用，比如Client每提交一个作业，都会启动一个AM，负责向RM申请资源，请求NM启动container，并告诉container做什么事情。
+
+每个作业只会启动一个AM，这个AM启动在某一个NM上。
+
+### Container
+
+资源容器，YARN中所有的应用都是在container之上运行的。AM也是在container上运行的，不过AM的container是RM申请的。
+
+  （1）  Container是YARN中资源的抽象，它封装了某个节点上一定量的资源（CPU和内存两类资源）。
+
+  （2） Container由ApplicationMaster向ResourceManager申请的，由ResouceManager中的资源调度器异步分配给ApplicationMaster；
+
+   （3）Container的运行是由ApplicationMaster向资源所在的NodeManager发起的，Container运行时需提供内部执行的任务命令（可以是任何命令，比如java、Python、C++进程启动命令均可）以及该命令执行所需的环境变量和外部资源（比如词典文件、可执行文件、jar包等）。
+
+**一个应用程序所需的Container分为两大类，如下：**
+
++ **运行ApplicationMaster的Container**：这是由ResourceManager（向内部的资源调度器）申请和启动的，用户提交应用程序时，可指定唯一的ApplicationMaster所需的资源；
+
++ **运行各类任务的Container**：这是由ApplicationMaster向ResourceManager申请的，并由ApplicationMaster与NodeManager通信以启动之。
+
+以上两类Container可能在任意节点上，它们的位置通常而言是随机的，即ApplicationMaster可能与它管理的任务运行在一个节点上。
+
+### 任务调度流程
+
+1. Client提交计算任务给ResourceManager
+
+2. ResourceManager检查权限以及集群资源情况，然后选择1个NodeManager启动Container，在Container启动ApplicationMaster。
+
+3. ApplicationMaster启动后向ResourceManager的ApplicationsManager注册（这时候ResourceManager就能监控到ApplicationMaster了。）
+
+4. ApplicationMaster向ResourceManager的Scheduler申请计算资源。
+
+5. Scheduler回复ApplicationMaster资源列表，可以在哪些NodeManager在启动多个Container。
+
+6. Applications根据资源列表去找NodeManager，让NodeManager分配资源启动Container
+
+7. Contanier运行MapTask和ReduceTask，执行计算任务。
+
+8. Contanier向ApplicationMaster汇报任务执行情况。
+
+9. ApplicationMaster再向ApplicationsManager汇报执行情况。
+
+10. ApplicationManager返回给客户端执行情况。
+
+    ![hadoop-YARN-workflow](C:\Users\chenmeilan\Desktop\新建文件夹\master\images\hadoop-YARN-workflow.jpg)
+
+### Yarn调度器
+
+当多个作业任务需要执行时，需要Yarn进行调度，有3种调度策略。
+
++ 队列调度器 FIFO Scheduler
+  + 问题：大任务可能占用整个集群，导致小任务阻塞。所以用的比较少。
++ 容量调度器 Capacity Scheduler （默认）
+  + 有多个任务队列
+  + 根据每个任务的体量以及当前机器的剩余资源情况，按比例分配资源。
++ 公平调度器Fair Scheduler
+  + 如果当前只有1个任务，则独占所有资源。当现在有两个任务，则将资源平分。
+
+## 三、MR
+
+MapReduce就是分布式分治的思想。Map分，Reduce来合。
 
 经典案例，WordCount单词统计。
+
+![image-20201231144621878](C:\Users\chenmeilan\AppData\Roaming\Typora\typora-user-images\image-20201231144621878.png)
+
+![image-20201231144907263](C:\Users\chenmeilan\AppData\Roaming\Typora\typora-user-images\image-20201231144907263.png)
+
+1. **输入分片（input split）：**在进行map计算之前，mapreduce会根据输入文件计算输入分片（input split），每个输入分片（input split）针对一个map任务，输入分片（input  split）存储的并非数据本身，而是一个分片长度和一个记录数据的位置的数组，输入分片（input  split）往往和hdfs的block（块）关系很密切，假如我们设定hdfs的块的大小是64mb，如果我们输入有三个文件，大小分别是3mb、65mb和127mb，那么mapreduce会把3mb文件分为一个输入分片（input split），65mb则是两个输入分片（input split）而127mb也是两个输入分片（input  split），换句话说我们如果在map计算前做输入分片调整，例如合并小文件，那么就会有5个map任务将执行，而且每个map执行的数据大小不均，这个也是mapreduce优化计算的一个关键点。
+
+2. **map**阶段：就是程序员编写好的map函数了，因此map函数效率相对好控制，而且一般map操作都是本地化操作也就是在数据存储节点上进行；
+
+3. **combiner**阶段：combiner阶段是程序员可以选择的，combiner其实也是一种reduce操作，因此我们看见WordCount类里是用reduce进行加载的。Combiner是一个本地化的reduce操作，它是map运算的后续操作，主要是在map计算出中间文件前做一个简单的合并重复key值的操作，例如我们对文件里的单词频率做统计，map计算时候如果碰到一个hadoop的单词就会记录为1，但是这篇文章里hadoop可能会出现n多次，那么map输出文件冗余就会很多，因此在reduce计算前对相同的key做一个合并操作，那么文件会变小，这样就提高了宽带的传输效率，毕竟hadoop计算力宽带资源往往是计算的瓶颈也是最为宝贵的资源，但是combiner操作是有风险的，使用它的原则是combiner的输入不会影响到reduce计算的最终输入，例如：如果计算只是求总数，最大值，最小值可以使用combiner，但是做平均值计算使用combiner的话，最终的reduce计算结果就会出错。
+
+4. **shuffle**阶段：将map的输出作为reduce的输入的过程就是shuffle了，这个是mapreduce优化的重点地方。这里我不讲怎么优化shuffle阶段，讲讲shuffle阶段的原理，因为大部分的书籍里都没讲清楚shuffle阶段。Shuffle一开始就是map阶段做输出操作，一般mapreduce计算的都是海量数据，map输出时候不可能把所有文件都放到内存操作，因此map写入磁盘的过程十分的复杂，更何况map输出时候要对结果进行排序，内存开销是很大的，map在做输出时候会在内存里开启一个环形内存缓冲区，这个缓冲区专门用来输出的，默认大小是100mb，并且在配置文件里为这个缓冲区设定了一个阀值，默认是0.80（这个大小和阀值都是可以在配置文件里进行配置的），同时map还会为输出操作启动一个守护线程，如果缓冲区的内存达到了阀值的80%时候，这个守护线程就会把内容写到磁盘上，这个过程叫spill，另外的20%内存可以继续写入要写进磁盘的数据，写入磁盘和写入内存操作是互不干扰的，如果缓存区被撑满了，那么map就会阻塞写入内存的操作，让写入磁盘操作完成后再继续执行写入内存操作，前面我讲到写入磁盘前会有个排序操作，这个是在写入磁盘操作时候进行，不是在写入内存时候进行的，如果我们定义了combiner函数，那么排序前还会执行combiner操作。每次spill操作也就是写入磁盘操作时候就会写一个溢出文件，也就是说在做map输出有几次spill就会产生多少个溢出文件，等map输出全部做完后，map会合并这些输出文件。这个过程里还会有一个Partitioner操作，对于这个操作很多人都很迷糊，其实Partitioner操作和map阶段的输入分片（Input  split）很像，一个Partitioner对应一个reduce作业，如果我们mapreduce操作只有一个reduce操作，那么Partitioner就只有一个，如果我们有多个reduce操作，那么Partitioner对应的就会有多个，Partitioner因此就是reduce的输入分片，这个程序员可以编程控制，主要是根据实际key和value的值，根据实际业务类型或者为了更好的reduce负载均衡要求进行，这是提高reduce效率的一个关键所在。到了reduce阶段就是合并map输出文件了，Partitioner会找到对应的map输出文件，然后进行复制操作，复制操作时reduce会开启几个复制线程，这些线程默认个数是5个，程序员也可以在配置文件更改复制线程的个数，这个复制过程和map写入磁盘过程类似，也有阀值和内存大小，阀值一样可以在配置文件里配置，而内存大小是直接使用reduce的tasktracker的内存大小，复制时候reduce还会进行排序操作和合并文件操作，这些操作完了就会进行reduce计算了。
+
+   > 环形缓冲区：
+   >
+   > 当有大量数据的时候，我们不能存储所有的数据，那么计算机处理数据的时候，只能先处理先来的，那么处理完后呢，就会把数据释放掉，再处理下一个。那么，已经处理的数据的内存就会被浪费掉。因为后来的数据只能往后排队，如过要将剩余的数据都往前移动一次，那么效率就会低下了，肯定不现实，所以，环形队列就出现了。
+   >
+   > 目的：避免频繁的内存创建取消、分配。内存一直只用了一块。
+   >
+   > MapTask将Map结果不断写入到环形缓冲区中，相当于生产者。另一个线程不断的读缓冲区的内容到磁盘上，相当于消费者。到达阈值是80%，消费者开始溢写到磁盘，此时MapTask可以继续输出数据到内存。如果此时生产过快，到了100%，则阻塞，等待消费完成。
+
+5. **reduce**阶段：和map函数一样也是程序员编写的，最终结果是存储在hdfs上的。可以设置多个reduceTask，但MapTask的个数不能手动设定。
+
+   如果是多个ReduceTask，为了解决多个MapTask的数据交给哪一个ReduceTask，就引入了Shuffle中的分区Partitioner概念。一个分区对应一个ReduceTask。分区解决的是map执行结果分配到哪个具体的Reduce处理（分区默认使用Hash分区）。
 
 MR工作三个阶段：
 
@@ -121,33 +219,26 @@ MR工作三个阶段：
     > import org.apache.hadoop.mapreduce.Partitioner;
     > 
     > public class PationOwn extends Partitioner<Text, NullWritable> {
-    >     @Override
-    >     public int getPartition(Text text, NullWritable nullWritable, int i) {
-    >         String[] split = text.toString().split("\t");
-    >         if (Integer.parseInt(split[5]) > 15) {
-    >             return 0;
-    >         } else {
-    >             return 1;
-    >         }
-    >     }
+    >  @Override
+    >  public int getPartition(Text text, NullWritable nullWritable, int i) {
+    >      String[] split = text.toString().split("\t");
+    >      if (Integer.parseInt(split[5]) > 15) {
+    >          return 0;
+    >      } else {
+    >          return 1;
+    >      }
+    >  }
     > }
     > ```
 
   + 排序：按单词长度排序
 
-  + 规约：将相同的数据规约在一起
+  + 规约（Combiner）：MapTask阶段将相同的数据规约在一起，相当于每个节点先局部汇总，然后再发给ReduceTask。减少网络传输，提高性能和效率。
 
-    + 比如hello 1 和 hello 1 规约成 hello 2
+    + 比如hello 1 和 hello 1 规约成 hello 2再发给ReduceTask。（Combiner的父类就是Reducer，是发生在map端的一个小型的reduce）
 
   + 分组:
 
-    经过shuffle后，得到了<K2，V2>.
+    经过shuffle后，得到了<K2，V2>，
 
 + Reduce
-
-
-
-## YARN
-
-
-
