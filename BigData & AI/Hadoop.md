@@ -239,6 +239,7 @@ MapReduce就是分布式分治的思想。Map分，Reduce来合。MR能做什么
      + 设置reduceTask可以提高reduce效率，但设置了多个reduceTask，那么结果会根据reduceTask的数量放入不同文件中。
 
      > ```java
+     > //不使用hash分区，可以自定义分区算法，
      > package pation;
      > 
      > import org.apache.hadoop.io.NullWritable;
@@ -248,12 +249,13 @@ MapReduce就是分布式分治的思想。Map分，Reduce来合。MR能做什么
      > public class PationOwn extends Partitioner<Text, NullWritable> {
      > @Override
      > public int getPartition(Text text, NullWritable nullWritable, int i) {
-     >   String[] split = text.toString().split("\t");
-     >   if (Integer.parseInt(split[5]) > 15) {
-     >       return 0;
-     >   } else {
-     >       return 1;
-     >   }
+     > String[] split = text.toString().split("\t");
+     >     //大于7的
+     > if (Integer.parseInt(split[0]) > 7) {
+     >    return 0;
+     > } else {
+     >    return 1;
+     > }
      > }
      > }
      > ```
