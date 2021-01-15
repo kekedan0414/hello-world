@@ -47,7 +47,7 @@ volitale不保证原子性，10个线程对一个变量++操作1000次，最终�
 
 问题：不使用synchronize和lock，如何保证volitale的原子性？ 答案：因为num++实际上是两个操作，先+1在赋值，解决：变量使用atomic原子类（底层用了CAS）
 
-单例里面加volitale防止指令重排。
+单例里面加volitale防止指令重排，指令重排就是在volitale修饰的变量前后加一个内存屏障，防止与普通变量重排。
 
 > 扩展：反射可以破坏单例。那如何防止？
 >
@@ -56,6 +56,46 @@ volitale不保证原子性，10个线程对一个变量++操作1000次，最终�
 > 
 
 指令重排在并发编程中还有另一个问题，就是多个线程操作相互依赖的变量时，结果可能和顺序执行的预期不符。
+
+
+
+```Java
+    public class SingleTon{
+      private SingleTon(){}
+     
+      private static class SingleTonHoler{
+          //问题1、无法传参给静态内部类。
+          //问题2、可以被反射，反序列化攻击。
+         private static SingleTon INSTANCE = new SingleTon();
+     }
+     
+      public static SingleTon getInstance(){
+        return SingleTonHoler.INSTANCE;
+      }
+    }
+```
+
+静态内部类的优点是：外部类加载时并不需要立即加载内部类，内部类不被加载则不去初始化INSTANCE，故而不占内存。即当SingleTon第一次被加载时，并不需要去加载SingleTonHoler，只有当getInstance()方法第一次被调用时，才会去初始化INSTANCE,第一次调用getInstance()方法会导致虚拟机加载SingleTonHoler类，这种方法不仅能确保线程安全，也能保证单例的唯一性，同时也延迟了单例的实例化。
+
+```java
+//枚举类，推荐  
+public class TestEnumSingleTon{
+    public static void main(String[] args) {
+
+        EnumSingleTon instance = EnumSingleTon.INSTANCE;
+        instance.method();
+    }
+}
+//枚举在java中与普通类一样，都能拥有字段与方法
+public enum EnumSingleTon {
+    INSTANCE;
+    public void method(){
+        System.out.println("hello,EnumSingleTon!");
+    }
+}
+```
+
+
 
 ### 可重入锁
 
@@ -487,7 +527,7 @@ public class Test2 {
        
 ```
 
-结论：**ReentrantReadWriteLock支持锁降级**，上面代码不会产生死锁。这段代码虽然不会导致死锁，但没有正确的释放锁。从写锁降级成读锁，并不会自动释放当前线程获取的写锁，仍然需要显示的释放，否则别的线程永远也获取不到写锁。
+结论：**ReentrantReadWriteLock支持锁降级**（同线程顺序执行的读锁可以获得锁，不同线程的读锁会阻塞），上面代码不会产生死锁。这段代码虽然不会导致死锁，但没有正确的释放锁。从写锁降级成读锁，并不会自动释放当前线程获取的写锁，仍然需要显示的释放，否则别的线程永远也获取不到写锁。
 
 ### Thread、Callable、Runnable
 
@@ -517,7 +557,7 @@ public class Test2 {
 
 ### Thread.sleep()与wait()区别
 
-sleep谁调用谁睡觉，让出CPU给其他线程。如果sleep在同步代码块中，那么当前线会阻塞，但不会释放锁。也就是其他的竞争该锁的线程会等待锁的释放。
+sleep谁调用谁睡觉，让出CPU给其他线程（与之有竞争关系的线程拿不到锁，所以得不到CPU）。如果sleep在同步代码块中，那么当前线会阻塞，但不会释放锁。也就是其他的竞争该锁的线程会等待锁的释放。
 
 wait()挂起当前线程，并释放锁，在同步代码块中执行的话，其他的竞争该锁的线程会得到锁并执行。而wait挂起的线程得等待有notify通知并且其他线程锁释放后，即可以继续执行。
 
@@ -801,6 +841,8 @@ IO密集型：CPU比较空闲，可以适当比当前IO任务线程数多一点�
 
 ### CopyOnWriteArrayList/Set
 
+CopyOnWriteArrayList这是一个ArrayList的线程安全的变体，其原理大概可以通俗的理解为:初始化的时候只有一个容器，很常一段时间，这个容器数据、数量等没有发生变化的时候，大家(多个线程)，都是读取(假设这段时间里只发生读取的操作)同一个容器中的数据，所以这样大家读到的数据都是唯一、一致、安全的，但是后来有人往里面增加了一个数据，这个时候CopyOnWriteArrayList 底层实现添加的原理是先copy出一个容器(可以简称副本)，再往新的容器里添加这个新的数据，最后把新的容器的引用地址赋值给了之前那个旧的的容器地址，但是在添加这个数据的期间，其他线程如果要去读取数据，仍然是读取到旧的容器里的数据。
+
 底层使用的是写时复制技术以及可重入锁：
 
 ```Java
@@ -856,6 +898,11 @@ https://www.cnblogs.com/jing99/p/11319175.html
 ### hashcode 与 equal
 覆盖equals（Object obj）但不覆盖hashCode（）,导致数据不唯一性
 覆盖hashCode方法，但不覆盖equals方法，仍然会导致数据的不唯一性
+
+先判断hashcode是否相等，如果不相等，则放入集合。
+
+如果hashcode相等，再判断equals，如果equals不相等，则放入集合。
+
 https://blog.csdn.net/lijiecao0226/article/details/24609559
 
 ### JAVA-CPU占比高线程堆栈问题定位
