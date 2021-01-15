@@ -86,11 +86,11 @@
 | 29   | 12.29(2)     | 菜鸟3挂，死刑家奴，要学会说话的艺术             | springboot    |
 | 30   | 12.30(3)     | HDFS                                            | springboot    |
 | 31   | 12.31(4)     | MR，YARN                                        | springboot    |
-| 32   | 01.01(5)     |                                                 | springboot    |
-| 33   | 01.02(6)     |                                                 | springboot    |
-| 34   | 01.03(7)     |                                                 | springboot    |
-| 35   | 01.04(1)     |                                                 | springcloud   |
-| 36   | 01.05(2)     |                                                 | springcloud   |
+| 32   | 01.01(5)     | MR                                              | springboot    |
+| 33   | 01.02(6)     | 写简历                                          | springboot    |
+| 34   | 01.03(7)     | 设计模式                                        | springboot    |
+| 35   | 01.04(1)     | 设计模式                                        | springcloud   |
+| 36   | 01.05(2)     | 设计模式                                        | springcloud   |
 | 37   | 01.06(3)     |                                                 | springcloud   |
 | 38   | 01.07(4)     |                                                 | springcloud   |
 | 39   | 01.08(5)     |                                                 | springcloud   |
