@@ -1,4 +1,387 @@
-# JAVA
+# 一、EFFECTIVE JAVA
+
+## 第2章　创建和销毁对象 4
+
+第1条：用静态工厂方法代替构造器 4
+第2条：遇到多个构造器参数时要考虑使用构建器 8
+第3条：用私有构造器或者枚举类型强化Singleton属性 13
+第4条：通过私有构造器强化不可实例化的能力 15
+第5条：优先考虑依赖注入来引用资源 16
+第6条：避免创建不必要的对象 18
+第7条：消除过期的对象引用 20
+第8条：避免使用终结方法和清除方法 23
+第9条：try-with-resources优先于try-finally 27
+
+## 第3章　对于所有对象都通用的方法 30
+
+第10条：覆盖equals时请遵守通用约定 30
+第11条：覆盖equals时总要覆盖hashCode 40
+第12条：始终要覆盖toString 44
+第13条：谨慎地覆盖clone 46
+第14条：考虑实现Comparable接口 53
+
+## 第4章　类和接口 59
+
+第15条：使类和成员的可访问性最小化 59
+第16条：要在公有类而非公有域中使用访问方法 62
+第17条：使可变性最小化 64
+第18条：复合优先于继承 70
+第19条：要么设计继承并提供文档说明，要么禁止继承 75
+第20条：接口优于抽象类 79
+第21条：为后代设计接口 83
+第22条：接口只用于定义类型 85
+第23条：类层次优于标签类 86
+第24条：静态成员类优于非静态成员类 88
+第25条：限制源文件为单个顶级类 91
+
+## 第5章　泛型 93
+
+第26条：请不要使用原生态类型 93
+第27条：消除非受检的警告 97
+第28条：列表优于数组 99
+第29条：优先考虑泛型 102
+第30条：优先考虑泛型方法 106
+第31条：利用有限制通配符来提升API的灵活性 109
+第32条：谨慎并用泛型和可变参数 114
+第33条：优先考虑类型安全的异构容器 118
+
+## 第6章　枚举和注解 123
+
+第34条：用enum代替int常量 123
+第35条：用实例域代替序数 131
+第36条：用EnumSet代替位域 132
+第37条：用EnumMap代替序数索引 134
+第38条：用接口模拟可扩展的枚举 138
+第39条：注解优先于命名模式 140
+第40条：坚持使用Override注解 147
+第41条：用标记接口定义类型 149
+
+## 第7章　Lambda和Stream
+
+第42条 Lambda优先于匿名类 
+
+第43条：方法引用优先于Lambda 154
+第44条：坚持使用标准的函数接口 156
+第45条：谨慎使用Stream 159
+第46条：优先选择Stream中无副作用的函数 164
+第47条：Stream要优先用Collection作为返回类型 168
+
+第48条：谨慎使用Stream并行 172
+
+## 第八章　方法 
+
+### 49条：检查参数的有效性
+
++ 方法中检查有效性，防止传入的参数有null值，引起空指针异常。
++ 阿里巴巴开发手册建议：被调用非常多的方法，不需要做检查，而应该由调用者来做检查。
++ 总结：每次编写方法或构造方法时，都应该考虑对其参数存在哪些限制。 应该记在这些限制，并在方法体的开头使用显式检查来强制执行这些限制。 养成这样做的习惯很重要。 在第一次有效性检查失败时，它所需要的少量工作将会得到对应的回报。
+
+### 50条：必要时进行保护性拷贝
+
++ 多线程可能会修改对象里面的值，导致线程不安全。引用定义为final，但是其他线程还是可以对其指向对象里的属性进行修改。
+
+  ```java
+  public class _50 {
+      public static void main(String[] args) {
+          // Attack the internals of a Period instance
+          Date start = new Date();
+          Date end = new Date();
+          Period p = new Period(start, end);
+  
+          end.setYear(78);  // Modifies internals of p!
+      }
+  }
+  
+  final class Period {
+      private final Date start;
+      private final Date end;
+      /**
+       * @param  start the beginning of the period
+       * @param  end the end of the period; must not precede start
+       * @throws IllegalArgumentException if start is after end
+       * @throws NullPointerException if start or end is null
+       */
+      public Period(Date start, Date end) {
+          if (start.compareTo(end) > 0)
+              throw new IllegalArgumentException(
+                      start + " after " + end);
+          this.start = start;
+          this.end   = end;
+      }
+      
+      public Date start() {return start;}
+  
+      public Date end() {return end;}
+  }
+  ```
+
+### 51条：谨慎设计方法签名
+
++ 方法签名： int add (int ,int)   只包含返回值，方法名称，参数类型
+
++ 仔细选择方法名称，易于理解。
+
++ 一个类不要过多的提供方法，让类变得复杂。
+
++ 参数列表尽量不要过长。目标4个或者更少参数。
+
++ 方法的参数类型选择接口而不是类，例如int add （ Map）而不是 int add （HashMap）
+
++ 与布尔型参数相比，优先使用两个元素枚举类型。更加直观易于理解
+
+  ```java
+  public enum TemperatureScale { FAHRENHEIT, CELSIUS }
+  
+  Thermometer.newInstance(TemperatureScale.CELSIUS)
+  Thermometer.newInstance(true)    
+  ```
+
+### 52条：慎用重载 
+
+```java
+// Broken! - What does this program print?
+
+public class CollectionClassifier {
+
+    public static String classify(Set<?> s) {
+        return "Set";
+    }
+
+    public static String classify(List<?> lst) {
+        return "List";
+    }
+
+    public static String classify(Collection<?> c) {
+        return "Unknown Collection";
+    }
+
+    public static void main(String[] args) {
+        Collection<?>[] collections = {
+            new HashSet<String>(),
+            new ArrayList<BigInteger>(),
+            new HashMap<String, String>().values()
+        };
+
+        for (Collection<?> c : collections)
+            System.out.println(classify(c));
+    }
+}
+//打印全部为"Unknown Collection"
+```
+
+​	对于循环的所有三次迭代，参数的编译时类型是相同的：`Collection<?>`。 运行时类型在每次迭代中都不同，但这不会影响对重载方法的选择。 因为参数的编译时类型是`Collection<?>,`，所以唯一适用的重载是第三个`classify(Collection<?> c)`方法，并且在循环的每次迭代中调用这个重载。
+
+```java
+class Wine {
+    String name() { return "wine"; }
+}
+
+class SparklingWine extends Wine {
+    @Override String name() { return "sparkling wine"; }
+}
+
+class Champagne extends SparklingWine {
+    @Override String name() { return "champagne"; }
+}
+
+public class Overriding {
+    public static void main(String[] args) {
+        List<Wine> wineList = List.of(
+            new Wine(), new SparklingWine(), new Champagne());
+
+        for (Wine wine : wineList)
+            System.out.println(wine.name());
+    }
+
+}
+//打印为 wine，sparkling wine，champagne
+```
+
+​	重载（overloaded）方法之间的选择是静态的，而重写（overridden）方法之间的选择是动态的。根据调用方法的对象的运行时类型，在运行时选择正确版本的重写方法。
+
+### 53条：慎用可变参数
+
+可变参数是一个数组。数组可以为0，也就是调用的时候运行不传入参数。这样调用的时候，运行时才可能出现问题，而不是在编译的时候报错。
+
+```java
+public class _53 {
+    public static void main(String[] args) {
+        System.out.println(sum(1,2,3));  //这种可变参数没问题
+        System.out.println(sum()); 		//这种可变参数没问题
+
+        System.out.println(min(1,2,5));
+        System.out.println(min());  //编译的时候不提示报错，但实际上min应该要传入至少1个参数才合法
+        System.out.println(min1()); //编译的时候就提示报错
+    }
+
+    static int sum(int... arg) {
+        int sum = 0;
+        if (arg.length > 0) {
+            for (int i = 0; i < arg.length; i++) {
+                sum += arg[i];
+            }
+        }
+        return sum;
+    }
+
+    static int min(int... arg) {
+        if (arg.length == 0) {
+            throw new IllegalArgumentException("Too few arguments!");
+        }
+        int min = arg[0];
+        for (int i = 0; i < arg.length; i++) {
+            if (min > arg[i]) {
+                min = arg[i];
+            }
+        }
+        return min;
+    }
+    
+	//建议
+    static int min1(int firstArg, int... arg) {
+        int min = firstArg;
+        if (arg.length > 0) {
+            for (int i = 0; i < arg.length; i++) {
+                if (min > arg[i]) {
+                    min = arg[i];
+                }
+            }
+        }
+        return min;
+    }
+}
+```
+
+**建议：**在性能关键的情况下使用可变参数时要小心。每次调用可变参数方法都会导致数组分配和初始化。如果你从经验上确定负担不起这个成本，但是还需要可变参数的灵活性，那么有一种模式可以让你鱼与熊掌兼得。假设你已确定95％的调用是三个或更少的参数的方法，那么声明该方法的五个重载。每个重载方法包含0到3个普通参数，当参数数量超过3个时，使用一个可变参数方法:
+
+```java
+public void foo() { }
+
+public void foo(int a1) { }
+
+public void foo(int a1, int a2) { }
+
+public void foo(int a1, int a2, int a3) { }
+
+public void foo(int a1, int a2, int a3, int... rest) { }
+```
+
+现在你知道，在所有参数数量超过3个的方法调用中，只有5%的调用需要支付创建数组的成本。
+
+### 54条：返回零长度的数组或者集合，而不是null
+
+看到类似这样的方法并不罕见：
+
+```java
+// Returns null to indicate an empty collection. Don't do this!
+private final List<Cheese> cheesesInStock = ...;
+
+/**
+ * @return a list containing all of the cheeses in the shop,
+ *     or null if no cheeses are available for purchase.
+ */
+public List<Cheese> getCheeses() {
+    return cheesesInStock.isEmpty() ? null
+        : new ArrayList<>(cheesesInStock);
+}
+```
+
+没有理由对没有奶酪(Cheese)可供购买的情况进行特殊处理。这样需要在客户端做额外的代码处理可能为null的返回值，例如:
+
+```java
+List<Cheese> cheeses = shop.getCheeses();
+if (cheeses != null && cheeses.contains(Cheese.STILTON))
+    System.out.println("Jolly good, just the thing.");
+```
+
+在几乎每次使用返回null来代替空集合或数组的方法时，都需要使用这种迂回的方式。 它容易出错，因为编写客户端的程序员可能忘记编写特殊情况代码来处理null返回。
+
+建议1：返回空的集合，而不是返回null
+
+```java
+//The right way to return a possibly empty collection
+public List<Cheese> getCheeses() {
+    return new ArrayList<>(cheesesInStock);
+}
+```
+
+建议2：如果认为返回空集合有性能开销，则可以返回重复的空集合。
+
+```java
+private static final List emptyList = new ArrayList<>(0);
+
+// Optimization - avoids allocating empty collections
+public List<Cheese> getCheeses() {
+    return cheesesInStock.isEmpty() ? Collections.emptyList()
+        : new ArrayList<>(cheesesInStock);
+}
+
+List<Cheese> emptyList() {
+    return emptyList;
+}
+```
+
+对于数组来说也是，不要返回null，而应该返回空数组。
+
+总之，**永远不要返回null来代替空数组或集合**。它使你的API更难以使用，更容易出错，并且没有性能优势。
+
+### 55条：谨慎返回optinal
+
+从 Java 8 引入的一个很有趣的特性是 *Optional*  类。Optional 类主要解决的问题是臭名昭著的空指针异常（NullPointerException）
+
+
+
+第56条：为所有导出的API元素编写文档注释 196
+
+## 第9章　通用编程 202
+
+第57条：将局部变量的作用域最小化 202
+第58条：for-each循环优先于传统的for循环 204
+第59条：了解和使用类库 207
+第60条：如果需要精确的答案，请避免使用float和double 209
+第61条：基本类型优先于装箱基本类型 211
+第62条：如果其他类型更适合，则尽量避免使用字符串 213
+第63条：了解字符串连接的性能 215
+第64条：通过接口引用对象 216
+第65条：接口优先于反射机制 218
+第66条：谨慎地使用本地方法 220
+第67条：谨慎地进行优化 221
+第68条：遵守普遍接受的命名惯例 223
+
+## 第10章　异常 227
+
+第69条：只针对异常的情况才使用异常 227
+第70条：对可恢复的情况使用受检异常，对编程错误使用运行时异常 229
+第71条：避免不必要地使用受检异常 231
+第72条：优先使用标准的异常 232
+第73条：抛出与抽象对应的异常 234
+第74条：每个方法抛出的所有异常都要建立文档 235
+第75条：在细节消息中包含失败-捕获信息 237
+第76条：努力使失败保持原子性 238
+第77条：不要忽略异常 239
+
+## 第11章　并发 241
+
+第78条：同步访问共享的可变数据 241
+第79条：避免过度同步 245
+第80条：executor、task和stream优先于线程 250
+第81条：并发工具优先于wait和notify 251
+第82条：线程安全性的文档化 256
+第83条：慎用延迟初始化 258
+第84条：不要依赖于线程调度器 261
+
+## 第12章　序列化 263
+
+第85条：其他方法优先于Java序列化 263
+第86条：谨慎地实现Serializable接口 266
+第87条：考虑使用自定义的序列化形式 269
+第88条：保护性地编写readObject方法 274
+第89条：对于实例控制，枚举类型优先于readResolve 279
+第90条：考虑用序列化代理代替序列化实例 282
+
+
+
+
 
 ## transient 关键字
 
