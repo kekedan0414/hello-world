@@ -86,21 +86,21 @@
 | 29   | 12.29(2)     | 菜鸟3挂，死刑家奴，要学会说话的艺术             | springboot    |
 | 30   | 12.30(3)     | HDFS                                            | springboot    |
 | 31   | 12.31(4)     | MR，YARN                                        | springboot    |
-| 32   | 01.01(5)     |                                                 | springboot    |
-| 33   | 01.02(6)     |                                                 | springboot    |
-| 34   | 01.03(7)     |                                                 | springboot    |
-| 35   | 01.04(1)     |                                                 | springcloud   |
-| 36   | 01.05(2)     |                                                 | springcloud   |
-| 37   | 01.06(3)     |                                                 | springcloud   |
-| 38   | 01.07(4)     |                                                 | springcloud   |
-| 39   | 01.08(5)     |                                                 | springcloud   |
-| 40   | 01.09(6)     |                                                 | springcloud   |
-| 41   | 01.10(7)     |                                                 | springcloud   |
-| 42   | 01.11(1)     |                                                 | ElasticSearch |
-| 43   | 01.12(2)     |                                                 | ElasticSearch |
-| 44   | 01.13(3)     |                                                 | ElasticSearch |
-| 45   | 01.14(4)     |                                                 | ElasticSearch |
-| 46   | 01.15(5)     |                                                 | ElasticSearch |
+| 32   | 01.01(5)     | MR                                              | springboot    |
+| 33   | 01.02(6)     | 写简历                                          | springboot    |
+| 34   | 01.03(7)     | 写简历                                          | springboot    |
+| 35   | 01.04(1)     | 设计模式                                        | springcloud   |
+| 36   | 01.05(2)     | 设计模式                                        | springcloud   |
+| 37   | 01.06(3)     | 设计模式                                        | springcloud   |
+| 38   | 01.07(4)     | 设计模式                                        | springcloud   |
+| 39   | 01.08(5)     | 动态代理                                        | springcloud   |
+| 40   | 01.09(6)     | 泛型                                            | springcloud   |
+| 41   | 01.10(7)     | 反射                                            | springcloud   |
+| 42   | 01.11(1)     | 阿里开发规范                                    | ElasticSearch |
+| 43   | 01.12(2)     | 阿里开发规范                                    | ElasticSearch |
+| 44   | 01.13(3)     | effective Java try-with-resource、异常          | ElasticSearch |
+| 45   | 01.14(4)     | effective Java  内部类、集合                    | ElasticSearch |
+| 46   | 01.15(5)     | effective Java 枚举、单元测试                   | ElasticSearch |
 | 47   | 01.16(6)     |                                                 | ElasticSearch |
 | 48   | 01.17(7)     |                                                 | ElasticSearch |
 | 49   | 01.19(1)     |                                                 | Kafka         |
