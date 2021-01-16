@@ -1,6 +1,4 @@
-# JAVA
-
-## 并发编程与JUC
+# 并发编程与JUC
 
 ### JMM--java线程内存模型
 
@@ -951,7 +949,7 @@ https://blog.csdn.net/lijiecao0226/article/details/24609559
 
 
 
-## JVM专题
+# JVM专题
 
 ### JVM内存模型
 
@@ -1052,3 +1050,195 @@ https://blog.csdn.net/lijiecao0226/article/details/24609559
 JVM调优指令
 
 OOM
+
+# 泛型
+
+<? extends T> 与 <? super T> 是Java泛型中的通配符（Wildcards）和边界（Bounds）的概念。
+
+树自顶向下，父类在最上面，子类向下生长。
+
+有三个作用：
+
+1、使泛型集合产生父子关系。
+
+2、作为方法参数类型的时候，限定边界
+
+3、PECS法则，生产者extends，消费者super。
+
+生产者集合提供元素给外界（get），但它自己不能消费（也就是不能add新元素）
+
+消费者集合可以吃掉外界给的元素（add），但不能提供给外界元素。
+
+```Java
+public static void main(String[] args) {
+        Stack<Number> stack = new Stack();
+        Iterable<Integer> iInteger = Arrays.asList(new Integer[]{new Integer(1), new Integer(2)});
+        Iterable<Long> iLong = Arrays.asList(new Long[]{new Long(1), new Long(2)});
+        Iterable<Object> iObjects = new ArrayList<>();
+
+        // 1.0、简单示例
+        // push(E e)，相当于 Number e = new Integer(5),  Number e = new Long(5)
+        stack.push(new Integer(5));
+        // E pop()
+        Number number = stack.pop();
+        stack.push(new Long(5));
+        number = stack.pop();
+
+        // 1.1、编译报错，Number 和 Integer有父子关系，但被集合包起来后，就没有父子关系了，
+        // pushAll(Iterable<E> es)
+        stack.pushAll(iInteger);    //error
+
+        // 1.2、接受集合Iterable<Number>与Iterable<Integer>有父子关系，做边界限定。
+        // pushAllES(Iterable<? extends E> es)， 相当于Iterable<? extends E> es = Iterable<Integer> iInteger
+        stack.pushAllES(iInteger);
+        stack.pushAllES(iLong);
+
+        // pushAllESSUPER(Iterable<? super E> es)
+        // Iterable<? super E> es限定es所指的只能是Number及它的父类，下界。
+        stack.pushAllESSUPER(iInteger);    //error
+
+        // 2.1、编译报错，接受集合Iterable<Object>与Iterable<Number>没有父子关系
+        // popAll(Iterable<E> es)
+        stack.popAll(iObjects);    //error
+
+        // 2.2、作用1、有父子关系 CS
+        // popAllES(Iterable<? super E> es)
+        stack.popAllES(iObjects);
+        // 编译报错，作用2、边界限定
+        stack.popAllES(iInteger);    //error
+    
+    
+        /**PECS法则
+         *
+         * */
+        // 3.1 PE法则，不能add数据
+        List<? extends Grand> lists1 = new ArrayList<>();
+        List<? extends Grand> lists2 = new ArrayList<Son>();
+
+        // 可以get数据
+        // extend限定：可以Grand及以上接收，不能用Son接收
+        Grand grand = lists1.get(0);
+        Root root = lists1.get(0);
+        Son son = lists1.get(0);    //error
+
+        // 不能add数据，任何类型都不能!!
+        lists1.add(new Object());    //error
+        lists1.add(new Grand());    //error
+        lists2.add(new Son());    //error
+        lists2.add(new Grand());    //error
+
+
+        // 3.2 CS法则，不能get数据,因为你把数据get到后，用什么类型接收？
+        List<? super Son> lists3 = null;
+
+        // 而object是所有类的父类，可以接收。
+        Grand g1 = lists3.get(0);    //error 
+        Object o = lists3.get(0);
+        // 可以add，但是有限定，注意注意注意，对于List的add而言 只能add子类。 与super还是extends无关。
+        lists3.add(new Son());
+        lists3.add(new Grand());    //error  
+}
+
+class Stack<E> {
+
+    private E e;
+
+    public void push(E e) {this.e}
+
+    public E pop() { return e;}
+
+    public void pushAll(Iterable<E> es) {}
+
+    public void pushAllES(Iterable<? extends E> es) {}
+
+    public void pushAllESSUPER(Iterable<? super E> es) {}
+
+    public void popAll(Iterable<E> es) {}
+
+    public void popAllES(Iterable<? super E> es) {}
+
+}
+
+class Root {}
+class Grand extends Root{}
+class Son extends Grand {}
+class Son1 extends Grand {}
+class Son2 extends Grand {}
+class GrandSonA extends Son{}
+class GrandSonB extends Son{}
+
+```
+
+
+
+# 内部类
+
+理解：可以把内部类看作是外部类的属性。
+
+非静态内部类实例需要有外部类的实例对象。
+
+而静态内部类实例的创建不需要外部类的实例对象就可以创建。
+
+对于这个static的理解：static的inner class，其实就是一个普通的class。
+
+申明内部类的话，就无法使用外部类的属性了。
+
+[思考HashMap中的Node是static内部类，而EntrySet是非static的内部类](https://segmentfault.com/q/1010000016665831?utm_source=tag-newest)
+
+Node申明为static，它只HashMap中一个申明为static的属性，
+
+使用的地方 Node  node1 = new Node ();  //可以在外部类的任意地方new 任意多个Node()，赋值给 node属性。
+
+也可以不加static，这样的话，对于每一个Node，都有一个引用外部类的属性（浪费了存储空间，而且可能引起内存泄漏导致OOM）。
+
+```java
+//内部类， 内存泄漏
+public class _24InnerStaticClass {
+    public static void main(String[] args) {
+        List al = new ArrayList();
+        int counter = 0;
+        while (true) {
+            al.add(new EnclosingClass(1000000).getEnclosedClassObject());
+            System.out.println(counter++);
+        }
+    }
+}
+
+class EnclosingClass {
+    private int[] data;
+
+    public EnclosingClass(int size) {
+        data = new int[size];
+    }
+
+    public class EnclosedClass {} //内部类不加static ，就会可能存在内存泄漏。    
+    
+    EnclosedClass getEnclosedClassObject() {
+        return new EnclosedClass();
+    }
+}
+```
+
+javap剖析：
+
+```Bash
+# 内部类没有加static
+$ javap EnclosingClass\$EnclosedClass.class
+Compiled from "_1constracture.java"
+public class effectivejava.EnclosingClass$EnclosedClass {
+	#//关键：对于非static内部类而言，内部类都有一个属性引用外部类的实例。
+  final effectivejava.EnclosingClass this$0;   
+  public effectivejava.EnclosingClass$EnclosedClass(effectivejava.EnclosingClass);
+}
+
+# 加上static 后，对于static内部类而言，没有引用外部类（只有对象才会有this，类没有this）。
+$ javap EnclosingClass\$EnclosedClass.class
+Compiled from "_24InnerStaticClass.java"
+public class effectivejava.EnclosingClass$EnclosedClass {
+  public effectivejava.EnclosingClass$EnclosedClass();
+}
+
+```
+
+[内部类内存泄漏](https://www.bilibili.com/read/cv5593533)
+
