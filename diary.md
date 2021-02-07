@@ -101,12 +101,12 @@
 | 44   | 01.13(3)     | effective Java try-with-resource、异常          | ElasticSearch |
 | 45   | 01.14(4)     | effective Java  内部类、集合                    | ElasticSearch |
 | 46   | 01.15(5)     | effective Java 枚举、单元测试                   | ElasticSearch |
-| 47   | 01.16(6)     |                                                 | ElasticSearch |
-| 48   | 01.17(7)     |                                                 | ElasticSearch |
-| 49   | 01.19(1)     |                                                 | Kafka         |
-| 50   | 01.20(2)     |                                                 | Kafka         |
-| 51   | 01.21(3)     |                                                 | Kafka         |
-| 52   | 01.22(4)     |                                                 | Kafka         |
+| 47   | 01.16(6)     | effective Java 并发                             | ElasticSearch |
+| 48   | 01.17(7)     | Jvm虚拟机                                       | ElasticSearch |
+| 49   | 01.19(1)     | Jvm虚拟机                                       | Kafka         |
+| 50   | 01.20(2)     | Jvm虚拟机                                       | Kafka         |
+| 51   | 01.21(3)     | ThreadLocal                                     | Kafka         |
+| 52   | 01.22(4)     | 强引用、虚引用，软引用，弱引用                  | Kafka         |
 | 53   | 01.23(5)     |                                                 | Kafka         |
 | 54   | 01.24(6)     |                                                 | Kafka         |
 | 55   | 01.25(7)     |                                                 | Kafka         |

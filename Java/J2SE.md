@@ -1885,7 +1885,16 @@ https://blog.csdn.net/lijiecao0226/article/details/24609559
 
 同样适用于死锁的问题，dead lock
 
-###  java类加载
+# JVM专题
+
+##  类加载机制
+
+类加载器有两大类，一类是Bootstrap根加载器。另一类是继承于ClassLoader抽象类。
+
++ ExtClassLoader-->URLClassLoader-->ClassLoader
++ AppClassLoader-->URLClassLoader-->ClassLoader
++ 自定义ClassLoader-->URLClassLoader-->ClassLoader
++ 类的加载有双亲委派机制，他们属于组合的关系，而非父子继承关系。
 
 1）Bootstrap ClassLoader
 
@@ -1917,26 +1926,69 @@ https://blog.csdn.net/lijiecao0226/article/details/24609559
 
 参考：https://blog.csdn.net/noaman_wgs/article/details/74489549?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control
 
+### 沙箱机制
 
+1.为什么需要沙箱机制？
+ 默认情况下，一个应用程序是可以访问机器上的所有资源的，比如CPU、内存、文件系统、网络等等。
+ 但是这是不安全的，如果随意操作资源，有可能破坏其他应用程序正在使用的资源，或者造成数据泄漏。为了解决这个问题，一般有下面两种解决方案：
+ （1） 为程序分配一个限定权限的账号：利用操作系统的权限管理机制进行限制。
+ （2） 为程序提供一个受限的运行环境：这就是沙箱机制。
 
-# JVM专题
+2.什么是沙箱机制？
+ 如上所述，沙箱就是一个限制应用程序对系统资源的访问的运行环境。
 
-### JVM内存模型
+第一层：类加载器 采用双亲委派模型，确保类不被篡改。
+
+第二层：字节码校验器类字节码被加载后，需要在字节码层面进行检验。
+
+第三层：安全管理器 这一层是交由应用开发者来维护的，开发者可以根据自身需求，制定对应的安全策略
+
+java -Djava.security.manager SandboxTest 开启安全管理器。
+
+写一个my.policy的策略文件开放某个权限：
+
+```bash
+grant {
+	permission java.io.FilePermission "./*", "write";
+}
+```
+
+应用开发者可以针对不同的应用场景进行精细化定制，控制程序对网络、文件、属性等内容的访问权限。
+
+## JVM内存模型
 
 > ![1608456701648](C:\Users\coco\AppData\Roaming\Typora\typora-user-images\1608456701648.png)
 
-#### JVM内存划分
+### JVM内存划分
 
 一个JAVA进程拿到自己可支配的内存时，会将内存分为5个部分：
 
-+ **栈区**：存对象的引用、局部变量。
-
++ **栈区**：存对象的引用、局部变量。每个线程私有。
+  + 栈区最小单位是栈帧，一个栈帧对应一个方法。栈帧里面包括：
+    + 局部变量表（Local Variable Table）
+      + 32位数据（Byte，Boolean，Short，Float，Int）占据一个槽位（包括returnAddress返回地址）。double，long 64位占据2个槽位。
+      + 槽位可以重复利用，比如某些局部变量作用域很小，生命周期很短。
+    + 操作数栈（Oprand Stack），类似于汇编里面的AX累加寄存器，做数值运算的。
+      + 是一个数组，只有入栈和出栈两个操作。
+      + 栈的深度在编译期间就已经确定了。
+      + 32bit的类型占用一个栈单位深度，64bit的类型占用两个栈单位深度
+      + 如果被调用的方法带有返回值的话，其返回值将会被压入当前栈帧的操作数中。并更新PC寄存器中下一条需要执行的字节码指令。
+      + Java虚拟机的解释执行引擎称为“基于栈的执行引擎”，其中所指的“栈”就是操作数栈。由于栈只有入栈出栈两个指令，指令较少，因此编译后的字节码的代码量就会多。
+      + 扩展：像汇编 + X86 CPU 就是基于寄存器的执行引擎，汇编指令多，汇编代码量就少。
+      + 栈的操作数运算最终还是通过CPU计算并得到结果的
+      + 栈顶缓存技术：由于栈在内存中，频繁读取性能不高，因此将栈顶数据缓存在CPU寄存器中，提升效率。
+    + 动态链接（Dynamic Linking）
+      + 每一个class编译以后，都有一个常量池（1.8以后不放在方法区，而是放在堆区）。所有的变量和方法引用都作为符号引用保存在class文件的常量池里，比如：描述一个方法调用了另外的其他方法时，就是通过常量池中指向方法的符号引用来表示，那么动态链接的作用就是为了将这些符号引用转换为调用方法的直接引用。
+    + 返回地址（Return Address）
+      + 方法执行后有两种方式退出，正常遇到return退出和异常未处理退出，正常退出会有返回值，异常退出不会传递返回值。
+      + 当前方法退出所做的操作有：
+        1. 恢复调用方法的局部变量表。
+        2. 如果有返回值的话，则把返回值压入调用方法的栈帧的操作数栈中。
+        3. 调整PC寄存器的值指向调用方法的下一条指令。
 + **堆区**：存对象。
-
+  + 堆区是所有线程共享的，但是有1%的区域是线程私有的，叫TLAB。new对象优先
 + **本地方法栈**：C++ native方法运行的栈区。
-
-+ **程序计数器**：指向程序当前运行的位置。
-
++ **程序计数器**：指向程序当前运行的位置。类似于汇编里面的CS:IP寄存器指针。
 + **方法区**：JDK7之前称之为永久代（Permanet Space），JDK8之后改为元数据空间（Meta Space）：存储static静态方法或变量，类信息，ClassLoader，class文件，final常量
 
 > 扩展：栈区、本地方法栈、程序计数器是线程私有的，有多少个线程就有多少份栈区。堆区和方法区是全局共享的。
@@ -1996,7 +2048,7 @@ https://blog.csdn.net/lijiecao0226/article/details/24609559
 
 #### 三种GC及触发
 
-+ **minor GC**：频繁，eden区满了或new出来的新对象大于剩余eden区空间了，触发minorGC。
++ **minor GC**：频繁，eden区满了或new出来的新对象大于剩余eden区空间了，触发minorGC。80%的对象一般是朝生夕死的，在minorGC就消亡了。minorGC也会导致SWT，但是停顿时间远远不及MajorGC。
 
 + **major GC**：次数少，老年代满了，或者new出来的大对象大于剩余的老年代空间了，触发majorGC。
 
@@ -2013,13 +2065,21 @@ https://blog.csdn.net/lijiecao0226/article/details/24609559
 
 #### 对象生死判定
 
+根可达算法。
+
 #### 对象晋升
+
++ 大对象直接进入老年代。
++ minorGC后新生代空间不足，将新对象直接放入老年代。
++ 动态对象判定：Survivor区年龄相同的对象大于Survivor区的一半大小，则将大于等于这个年龄的所以对象放入老年代。
+
+#### 方法区详解
+
+方法区默认21M，如果类过多，方法区会触发一次GC，并动态调整方法区大小。注意，从磁盘或其他方式加载class到内存后，class的元数据信息存放在MetaSpace，而根据元数据生成的Class类对象存放在堆区。
 
 垃圾回收器
 
 JVM调优指令
-
-OOM
 
 # 泛型
 
