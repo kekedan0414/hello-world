@@ -1511,9 +1511,11 @@ https://blog.csdn.net/lijiecao0226/article/details/24609559
 
 # JVM专题
 
-##  类加载机制
+##  1、类加载机制
 
-类加载器有两大类，一类是Bootstrap根加载器。另一类是继承于ClassLoader抽象类。
+#### 1.1 类加载器分类
+
+类加载器有两大类，一类是Bootstrap引导类加载器，由C/C++实现。另一类是继承于ClassLoader的自定义类。
 
 + ExtClassLoader-->URLClassLoader-->ClassLoader
 + AppClassLoader-->URLClassLoader-->ClassLoader
@@ -1546,11 +1548,26 @@ https://blog.csdn.net/lijiecao0226/article/details/24609559
 
 一个应用程序总是由n多个类组成，Java程序启动时，并不是一次把所有的类全部加载后再运行，它总是先把保证程序运行的基础类一次性加载到jvm中，其它类等到jvm用到的时候再加载
 
+#### 1.2 类加载过程
+
++ **加载Loading**
+
+  将class字节码文件加载到内存中。
+
++ **链接Linking**
+  + 验证：校验字节码是否合法
+  + 准备：为类分配内存。为类变量初始化零值。实例变量不会在这里初始化。
+  + 解析：将常量池的符号引用转为直接引用。
+
++ **初始化Initialization**
+
+  执行类构造器方法clinit() ,不需要自己定义，实际上就是所有static静态变量赋值操作以及static静态代码块合并而来的，也就是说没有静态变量或者static代码块，就不会存在clinit()方法。
+
 重点：final是在准备阶段时就赋值了，static准备阶段时数据是零值，在初始化阶段才会赋值。
 
 参考：https://blog.csdn.net/noaman_wgs/article/details/74489549?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control
 
-### 沙箱机制
+#### 1.3 沙箱机制
 
 1.为什么需要沙箱机制？
  默认情况下，一个应用程序是可以访问机器上的所有资源的，比如CPU、内存、文件系统、网络等等。
@@ -1579,7 +1596,7 @@ grant {
 
 应用开发者可以针对不同的应用场景进行精细化定制，控制程序对网络、文件、属性等内容的访问权限。
 
-## JVM内存模型
+## 2、JVM内存模型
 
 > ![1608456701648](C:\Users\coco\AppData\Roaming\Typora\typora-user-images\1608456701648.png)
 
@@ -1612,7 +1629,7 @@ grant {
 + **堆区**：存对象。
   + 堆区是所有线程共享的，但是有1%的区域是线程私有的，叫TLAB。new对象优先
 + **本地方法栈**：C++ native方法运行的栈区。
-+ **程序计数器**：指向程序当前运行的位置。类似于汇编里面的CS:IP寄存器指针。
++ **程序计数器**：存储程序的下一条指令地址（每个线程都有独一份）。类似于汇编里面的CS:IP寄存器指针。
 + **方法区**：JDK7之前称之为永久代（Permanet Space），JDK8之后改为元数据空间（Meta Space）：存储static静态方法或变量，类信息，ClassLoader，class文件，final常量
 
 > 扩展：栈区、本地方法栈、程序计数器是线程私有的，有多少个线程就有多少份栈区。堆区和方法区是全局共享的。
@@ -1687,9 +1704,15 @@ grant {
 >
 > 链接：[minorGC也会触发SWT](https://www.zhihu.com/question/29114369)
 
-#### 对象生死判定
+#### 根可达算法 
 
-根可达算法。
+垃圾回收判断对象是否是垃圾有两种算法，根可达算法和引用计数算法。引用计数不能解决循环依赖的问题，因此Java用的是GC root根可达。
+就是说某个对象没有被根直接或者间接引用的对象都是垃圾。
+那么哪些对象属于根呢，一句话概括就是堆以外的引用。
+比如常见的有，栈帧中局部变量表的变量，本地方法栈的变量，方法区的静态变量（jdk1.8以后静态变量移到堆区），final修饰的常量。
+另外对于实例变量属不属于GCroot呢，显然是不算GCroot的。  因为实例变量属于堆区的实例，只能算是被GCroot间接引用。
+
+对象的生死判定，也就是判定是否是垃圾。
 
 #### 对象晋升
 
