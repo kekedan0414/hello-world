@@ -1,6 +1,16 @@
 -------------------------------------------------------------------------------------------------------------------
 # Linux基础
 
+**阻塞：** 阻塞调用是指调用结果返回之前，当前线程会被挂起。该进程被标记为睡眠状态并被调度出去。函数只有在得到结果之后才会返回。当socket工作在阻塞模式的时候， 如果没有数据的情况下调用该函数，则当前线程就会被挂起，直到有数据为止。
+
+**非阻塞：** 非阻塞和阻塞的概念相对应，指在不能立刻得到结果之前，该函数不会阻塞当前线程，而会立刻返回。
+
+同步：用户空间主动向内核要数据。分同步阻塞和同步非阻塞。
+
+异步：
+
+[非阻塞阻塞IO](https://blog.csdn.net/okiwilldoit/article/details/51015444?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control)
+
 ### 进程间的通信方式
 
 0号进程->1号内核进程->1号用户进程（init进程）->getty进程->shell进程
