@@ -71,13 +71,13 @@
 
 ## 第8章　方法 
 
-### 49条：检查参数的有效性
+### 49 检查参数的有效性
 
 + 方法中检查有效性，防止传入的参数有null值，引起空指针异常。
 + 阿里巴巴开发手册建议：被调用非常多的方法，不需要做检查，而应该由调用者来做检查。
 + 总结：每次编写方法或构造方法时，都应该考虑对其参数存在哪些限制。 应该记在这些限制，并在方法体的开头使用显式检查来强制执行这些限制。 养成这样做的习惯很重要。 在第一次有效性检查失败时，它所需要的少量工作将会得到对应的回报。
 
-### 50条：必要时进行保护性拷贝
+### 50 必要时进行保护性拷贝
 
 + 多线程可能会修改对象里面的值，导致线程不安全。引用定义为final，但是其他线程还是可以对其指向对象里的属性进行修改。
 
@@ -116,7 +116,7 @@
   }
   ```
 
-### 51条：谨慎设计方法签名
+### 51 谨慎设计方法签名
 
 + 方法签名： int add (int ,int)   只包含返回值，方法名称，参数类型
 
@@ -137,7 +137,7 @@
   Thermometer.newInstance(true)    
   ```
 
-### 52条：慎用重载 
+### 52 慎用重载 
 
 ```java
 // Broken! - What does this program print?
@@ -200,7 +200,7 @@ public class Overriding {
 
 ​	重载（overloaded）方法之间的选择是静态的，而重写（overridden）方法之间的选择是动态的。根据调用方法的对象的运行时类型，在运行时选择正确版本的重写方法。
 
-### 53条：慎用可变参数
+### 53 慎用可变参数
 
 可变参数是一个数组。数组可以为0，也就是调用的时候运行不传入参数。这样调用的时候，运行时才可能出现问题，而不是在编译的时候报错。
 
@@ -269,7 +269,7 @@ public void foo(int a1, int a2, int a3, int... rest) { }
 
 现在你知道，在所有参数数量超过3个的方法调用中，只有5%的调用需要支付创建数组的成本。
 
-### 54条：返回零长度的数组或者集合，而不是null
+### 54 返回零长度的数组或者集合，而不是null
 
 看到类似这样的方法并不罕见：
 
@@ -326,7 +326,7 @@ List<Cheese> emptyList() {
 
 **总结：永远不要返回null来代替空数组或集合**。它使你的API更难以使用，更容易出错，并且没有性能优势。
 
-### 55条：谨慎返回optinal
+### 55 谨慎返回optinal
 
 Optional类是Java8为了解决null值判断问题，借鉴google guava类库的Optional类而引入的一个同名Optional类，使用Optional类可以避免显式的null值判断（null的防御性检查），避免null导致的NPE（NullPointerException）。总而言之，就是对控制的一个判断，为了避免空指针异常。
 
@@ -371,7 +371,7 @@ public class executor {
 
 **总结：**尽量不要将optional用作返回值以外的任何其他用途
 
-### 56条：为所有导出的API元素编写文档注释
+### 56 为所有导出的API元素编写文档注释
 
 以下以Option类的javadoc来示例如何编写javadoc
 
@@ -447,7 +447,7 @@ public class Exception extends Throwable {
 
 ## 第9章　通用编程
 
-### 57条：将局部变量的作用域最小化
+### 57 将局部变量的作用域最小化
 
 + 要使局部变量的作用域最小化，最有力的方法就是在第一次要使用它的地方进行声明。
 
@@ -477,7 +477,7 @@ public class Exception extends Throwable {
   }
   ```
 
-### 58条：for-each循环优先于传统的for循环
+### 58 for-each循环优先于传统的for循环
 
 ```java
 // The preferred idiom for iterating over collections and arrays
@@ -491,15 +491,15 @@ for (Element e : elements) {
 + 删除元素，需要用Iterator。
 + 集合中的元素调整
 
-### 59条：了解和使用类库
+### 59 了解和使用类库
 
 不重复造轮子。建议每个程序员都应该熟悉java.lang、java.util。
 
-### 60条：如果需要精确的答案，请避免使用float和double
+### 60 如果需要精确的答案，请避免使用float和double
 
 float和double都有误差，要求精度用BigDicemal。
 
-### 61条：基本类型优先于装箱基本类型
+### 61 基本类型优先于装箱基本类型
 
 ```java
 /**
@@ -530,42 +530,430 @@ public class Main {
 
 总结：在有的选的情况下，有限考虑基本类型。
 
-### 62条：如果其他类型更适合，则尽量避免使用字符串
+### 62 如果其他类型更适合，则尽量避免使用字符串
 
 
 
-第63条：了解字符串连接的性能 215
-第64条：通过接口引用对象 216
-第65条：接口优先于反射机制 218
-第66条：谨慎地使用本地方法 220
-第67条：谨慎地进行优化 221
-第68条：遵守普遍接受的命名惯例 223
+### 63 了解字符串连接的性能
 
-## 第10章　异常 227
+```java
+// Inappropriate use of string concatenation - Performs poorly!
+public String statement() {
+    String result = "";
+    for (int i = 0; i < numItems(); i++)
+        result += lineForItem(i);  // String concatenation
+    return result;
+}
 
-第69条：只针对异常的情况才使用异常 227
-第70条：对可恢复的情况使用受检异常，对编程错误使用运行时异常 229
-第71条：避免不必要地使用受检异常 231
-第72条：优先使用标准的异常 232
-第73条：抛出与抽象对应的异常 234
-第74条：每个方法抛出的所有异常都要建立文档 235
-第75条：在细节消息中包含失败-捕获信息 237
-第76条：努力使失败保持原子性 238
-第77条：不要忽略异常 239
+public String statement() {
+    StringBuilder b = new StringBuilder(numItems() * LINE_WIDTH);
+    for (int i = 0; i < numItems(); i++)
+        b.append(lineForItem(i));
+    return b.toString();
+}
+```
+
+第二个方法的速度是第一个方法的6.5倍。由于第一种方法在项目数量上是平方级增长的，而第二种方法是线性的，所以随着项目数量的增加，性能差异会变得越来越大。注意，第二个方法预先分配了一个足够大的StringBuilder来保存整个结果，从而消除了自动增长的需要。即使使用默认大小的StringBuilder，它仍然比第一个方法快5.5倍。
+
+除非性能无关紧要，否则**不要使用字符串连接操作符组合多个字符串**。而是使用StringBuilder的append方法。
+
+### 64 通过接口引用对象
+
+```java
+// Good - uses interface as type
+Set<Son> sonSet = new LinkedHashSet<>();
+
+// Bad - uses class as type!
+LinkedHashSet<Son> sonSet = new LinkedHashSet<>();
+```
+
++ 如果不存在适当的接口，则通过类而不是接口引用对象是完全合适的。
+
++ 没有适当接口类型的第二种情况是属于框架的对象，其基本类型是类而不是接口。 如果一个对象属于这样一个基于类的框架，最好用相关的基类来引用它，它通常是抽象类，而不是它的实现类。 许多java.io包下的类（如OutputStream）都属于此类。
+
++ 没有适当接口类型的最后一种情况是实现接口的类，但也提供了在接口中找不到的额外方法——例如，PriorityQueue具有Queue接口上不存在的comparator方法。 只有当程序依赖于额外的方法时，才应该使用这样的类来引用它的实例，这种情况应该是非常少见的。
+
+### 65 接口优先于反射机制
+
+给定一个Class对象，可以获得Constructor，Method和Field实例，
+
+- 失去了编译时类型检查的所有好处，包括异常检查。如果一个程序试图通过反射调用一个不存在的或不可访问的方法，会在运行时失败，除非采取了特殊的预防措施。
+
+- 执行反射访问所需的代码笨拙而冗长。写起来很乏味，读起来很困难。
+
+- 性能受损。反射方法调用比普通方法调用慢得多。到底慢了多少还很难说，因为有很多因素在起作用。在我的机器上，调用一个没有输入参数和返回int类型的方法时，反射方法执行要比普通方法慢11倍。
+
+如果编写的程序必须在编译时处理未知的类，则应该尽可能只使用反射实例化对象，并使用在编译时已知的接口或父类访问对象。
+
+提问：反射为什么慢？
+
+### 66 谨慎地使用本地方法
+
+Java Native Interface（JNI）允许Java程序调用本地方法（native methods），这些方法是用本地编程语言（如C或C ++）编写的方法。不建议用本地方法来提升性能， 因为他有诸多弊端。
+
++ 可移植性差，内存不安全，难以调试，难以阅读。
+
+### 67 谨慎地进行优化
+
++ 努力编写好的程序，而不是快的程序。
+
+### 68 遵守普遍接受的命名惯例
+
+| 标识符类型 |                       示例                       |
+| ---------- | :----------------------------------------------: |
+| 包名或模块 | org.junit.jupiter.api, com.google.common.collect |
+| 类或接口   |  Stream, FutureTask, LinkedHashMap, HttpClient   |
+| 方法或属性 |            remove, groupingBy, getCrc            |
+| 常量属性   |           MIN_VALUE, NEGATIVE_INFINITY           |
+| 局部变量   |                i, denom, houseNum                |
+| 类型参数   |          T, E, K, V, X, R, U, V, T1, T2          |
+
+## 第10章　异常
+
+### Exception与RuntimeException区别
+
+- **Exception**：在程序中必须使用try...catch进行处理。 不用trycatch或者throws抛出的话，编译不通过。
+- **RuntimeException**：可以不使用try...catch进行处理，但是如果有异常产生，则异常将由JVM进行处理。
+      不用trycatch的话，出错直接终止程序。一般建议用trycatch捕获。
+
+继承Exception还是继承RuntimeException是由异常本身的特点决定的，而不是由是否是自定义的异常决定的。
+例如我要写一个java api，这个api中会调用一个极其操蛋的远端服务，这个远端服务经常超时和不可用。
+所以我决定以抛出自定义异常的形式向所有调用这个api的开发人员周知这一操蛋的现实，让他们在调用这个api时务必考虑到远端服务不可用时应该执行的补偿逻辑（比如尝试调用另一个api）。
+此时自定义的异常类就应继承Exception，这样其他开发人员在调用这个api时就会收到编译器大大的红色报错：【你没处理这个异常！】，强迫他们处理。又如，我要写另一个api，
+这个api会访问一个非常非常稳定的远端服务，除非有人把远端服务的机房炸了，否则这个服务不会出现不可用的情况。
+而且即便万一这种情况发生了，api的调用者除了记录和提示错误之外也没有别的事情好做。但出于某种不可描述的蛋疼原因，我还是决定要定义一个异常对象描述“机房被炸”这一情况，
+
+那么此时定义的异常类就应继承RuntimeException，因为我的api的调用者们没必要了解这一细微的细节，把这一异常交给统一的异常处理层去处理就好了。
+
+### 69 只针对异常的情况才使用异常
+
+只在发生异常的情况下才使用try catch，而不是用它来做其他用途，比如流程控制：
+
+```java
+// 这里就是用try catch来做流程控制。catch里面什么都不写，程序继续运行。
+// Horrible abuse of exceptions. Don't ever do this!
+try {
+    int i = 0;
+    while(true)
+        range[i++].climb();
+} catch (ArrayIndexOutOfBoundsException e) {
+}
+```
+
+基于异常的循环不仅混淆了代码的目的，降低了代码的性能，而且不能保证它能正常工作。如果循环中存在bug，使用异常进行流控制可以掩盖该bug，从而大大增加调试过程的复杂性。
+
+### 70 对可恢复的情况使用受检异常，对编程错误使用运行时异常
+
+Java提供了三种可抛出异常对象:
+
++ 已检查异常（ checked exceptions）
+
++ 运行时异常（runtime exceptions）
++ 虚拟机错误（errors）
+
+使用规则：
+
++ **运行时异常**和**虚拟机错误**。它们在行为上是一样的:都是可抛出的，通常不应该被捕获。如果程序抛出未检查的异常或错误，通常情况下是无法恢复的，继续执行的话弊大于利。如果程序没有捕捉到这样的可抛出的异常，会导致当前**线程挂起或停止**（而不是程序退出），并发出适当的错误消息。
+
++ **已检查异常**，对于可以合理地预期调用者将从中恢复的条件，使用已检查异常。通过抛出一个已检查的异常，可以强制调用者在catch子句中处理异常，或者将其传播出去。
+
+  ```java
+  public class _70 {
+      public static void main(String[] args) throws InterruptedException {
+          
+          String fileName = getFileName();
+  
+          new Thread(() -> {
+              //空指针，运行时异常，程序不应该去捕获它，因为它属于程序错误（程序员未检查传入的是否是空指针）
+              String fileName1 = getFileName().toString();
+          },"thread 1").start();
+  
+  
+          new Thread(() -> {
+              try {
+                  // 方法里面主动抛出异常。如果文件不存在，应该怎么处理，需要由应用程序来决定，属于受检异常。
+                  OutputStream outputStream = new FileOutputStream("/path/file");
+                  // 抛出IO异常
+                  outputStream.write(5);
+  
+              } catch (FileNotFoundException e) {
+                  // 主动处理
+                  System.out.println("文件不存在！");
+              } catch (IOException e) {
+                  System.out.println("读写错误！");
+              }
+          },"thread 2").start();
+  
+          //尽管两个子线程都出现了异常，但主线程不会退出
+          while (true) {
+              Thread.sleep(1000);
+              System.out.println("hello,world!");
+          }
+  
+      }
+  
+      public static  String getFileName() {
+          return null;
+      }
+  }
+  
+  输出如下：
+  // Exception in thread "thread 1" java.lang.NullPointerException
+  //	 at com.cocoegg.effectivejava._70.lambda$main$0(_70.java:15)
+  //	 at java.lang.Thread.run(Thread.java:748)
+  // 文件不存在！
+  // hello,world!
+  // hello,world!
+  ......
+  
+  // OutputStream源码：
+  
+      public FileOutputStream(File file, boolean append)
+          throws FileNotFoundException
+      {
+          String name = (file != null ? file.getPath() : null);
+          SecurityManager security = System.getSecurityManager();
+          if (security != null) {
+              security.checkWrite(name);
+          }
+          if (name == null) {
+              throw new NullPointerException();//主动抛出异常，但方法上并没有throws该异常类型。
+          }
+          if (file.isInvalid()) {
+              throw new FileNotFoundException("Invalid file path"); //主动抛出异常
+          }
+          this.fd = new FileDescriptor();
+          fd.attach(this);
+          this.append = append;
+          this.path = name;
+  
+          open(name, append);
+      }
+  
+  ```
+
+### 71 避免不必要地使用受检异常
+
++ 在API中过度使用检查异常会使它们使用起来不那么令人愉快。 如果方法抛出检查异常，则调用它的代码必须在一个或多个catch块中处理它们，或者声明抛出它们并向上传播。 无论哪种方式，它都会给API的使用者带来负担。
+
++ 思考一个问题：如果你写一个API，抛出一个异常，你不知道应该抛出受检异常还是运行时异常。那么你想想，API的调用者有没有更好的办法处理这个异常。如果有，就定义为受检异常。如果没有，则定义为运行时异常。
+
+
+
+### 72 优先使用标准的异常
+
+重用标准异常有几个好处。其中最主要的是，它使你的API更容易学习和使用，因为它符合程序员已经熟悉的既定约定。其次，使用你的API的程序更容易阅读，因为它们不会因为不熟悉的异常而混乱。
+
+**不要直接重用Exception、RuntimeException、Throwable或Error**。将这些类视为抽象类。你不能对这些异常进行可靠的测试，因为它们是方法可能抛出的其他异常的父类。
+
+此表总结了最常见的重用异常:
+
+| 异常                            | 使用场景                                       |
+| ------------------------------- | ---------------------------------------------- |
+| IllegalArgumentException        | 不合适的非null参数值                           |
+| IllegalStateException           | 方法调用状态不适合的对象                       |
+| NullPointerException            | 再禁止使用null的情况下参数值为null             |
+| IndexOutOfBoundsException       | 索引参数值越界                                 |
+| ConcurrentModificationException | 在禁止并发修改对象的地方检测到该对象被并发修改 |
+| UnsupportedOperationException   | 对象不支持方法                                 |
+
+### 73 抛出与抽象对应的异常
+
+当一个方法抛出一个与它所执行的任务没有明显关联的异常时，这是令人不安的。
+
+为了避免这个问题，上层（higher layers）应该捕获低层（ lower-level ）的异常，并在它们的位置抛出可以用上层级别（higher-level ）抽象来解释的异常。这个习语被称为异常转译:
+
+```java
+// Exception Translation
+try {
+    ... // Use lower-level abstraction to do our bidding
+} catch (LowerLevelException e) {
+    throw new HigherLevelException(...);
+}
+```
+
+以下的异常转转译的示例是来自AbstractSequentialList类，该类是List接口的骨架实现（skeletal implementation ）。 在此示例中，异常转译由`List <E>`接口中的get方法规范强制要求的：
+
+```java
+/**
+ * Returns the element at the specified position in this list.
+ * @throws IndexOutOfBoundsException if the index is out of range
+ *         ({@code index <  0 || index >= size()}).
+ */
+public E get(int index) {
+    ListIterator<E> i = listIterator(index);
+    try {
+        return i.next();
+    } catch (NoSuchElementException e) {
+        throw new IndexOutOfBoundsException("Index: " + index);
+    }
+}
+```
+
+ArrayList的get，add都是抛出IndexOutOfBoundsException运行时异常，所以其他的List的get，add都最好抛出与方法相关的异常，而不是奇奇怪怪的异常。
+
+### 74 每个方法抛出的所有异常都要建立文档
+
+始终单独声明检查异常，并使用Javadoc `@throw`标签，精确地记录每次抛出异常的条件。不要使用“快捷方式”声明一个方法抛出它可以抛出的多个异常类的超类。作为一个极端的例子，不要声明公共方法抛出`Exception`类，或者更糟，抛出`Throwable`类。除了拒绝向方法的用户提供关于它能够抛出的异常的任何指导之外，这样的声明还极大地阻碍了方法的使用，因为它极大掩盖了可能在相同上下文中抛出的任何其他异常。这个建议的一个例外情况是main方法，它可以安全地声明为抛出`Exception`类，因为它只被虚拟机调用。
+
++ 使用Javadoc @throw标签记录方法可以抛出的每个异常，
+
++ 但是不要对未检查的异常在方法上使用throws关键字。
+
+### 75 在细节消息中包含失败-捕获信息
+
++ 冗长的描述失败信息是多余的；可以通过阅读文档和源代码来收集信息。
++ 信息内容远比可读性重要。
+
+### 76 努力使失败保持原子性
+
+某个方法抛出异常，应该让它的状态保持在进入方法前的状态。
+
+### 77 不要忽略异常
+
+虽然这一建议似乎显而易见，但它经常被违反，因此值得重复提及。当API的设计人员声明一个抛出异常的方法时，他们试图告诉你一些事情。不要忽忽略它！在方法调用的周围加上一条try语句，其catch块为空，这样就很容易忽略了异常：
+
+```java
+// Empty catch block ignores exception - Highly suspect!
+try {
+    ...
+} catch (SomeException e) {
+}
+```
+
+**空的catch块违背了异常的初衷**，而异常的目的是强迫处理异常情况。用空catch块忽略它将导致程序在错误面前默默地执行下去。然后，程序可能会在未来的任意时间失败，在代码中与问题根源没有明显关系的某个点上。
 
 ## 第11章　并发 241
 
-第78条：同步访问共享的可变数据 241
-第79条：避免过度同步 245
-第80条：executor、task和stream优先于线程 250
-第81条：并发工具优先于wait和notify 251
-第82条：线程安全性的文档化 256
-第83条：慎用延迟初始化 258
-第84条：不要依赖于线程调度器 261
+### 78 同步访问共享的可变数据
+
++ 同步的一个作用：加锁互斥。
+
++ 第二个作用：保证可见性。如果没有同步，一个线程的更改可能对其他线程不可见。同步不仅阻止线程观察处于不一致状态的对象，而且确保每个进入同步方法或块的线程都能看到由同一锁保护的所有之前修改的效果。
+
+```java
+// Broken! - How long would you expect this program to run?
+public class StopThread {
+    private static boolean stopRequested;
+
+    public static void main(String[] args)
+            throws InterruptedException {
+        Thread backgroundThread = new Thread(() -> {
+            int i = 0;
+            while (!stopRequested)
+                i++;
+        });
+        backgroundThread.start();
+        TimeUnit.SECONDS.sleep(1);
+        stopRequested = true;
+    }
+}
+```
+
+你可能希望这个程序运行大约一秒钟，之后主线程将stoprequired设置为true，从而导致后台线程的循环终止。然而，在我的机器上，程序永远不会终止：后台线程永远循环!
+
+解决方案1
+
+```java
+// Properly synchronized cooperative thread termination
+public class StopThread {
+    private static boolean stopRequested;
+
+    private static synchronized void requestStop() {
+        stopRequested = true;
+    }
+
+    private static synchronized boolean stopRequested() {
+        return stopRequested;
+    }
+
+    public static void main(String[] args)
+            throws InterruptedException {
+        Thread backgroundThread = new Thread(() -> {
+            int i = 0;
+            while (!stopRequested())
+                i++;
+        });
+
+        backgroundThread.start();
+        TimeUnit.SECONDS.sleep(1);
+        requestStop();
+    }
+}
+```
+
+解决方案2
+
+```java
+// Cooperative thread termination with a volatile field
+public class StopThread {
+    private static volatile boolean stopRequested;
+
+    public static void main(String[] args)
+            throws InterruptedException {
+        Thread backgroundThread = new Thread(() -> {
+            int i = 0;
+            while (!stopRequested)
+                i++;
+        });
+        backgroundThread.start();
+        TimeUnit.SECONDS.sleep(1);
+        stopRequested = true;
+    }
+}
+```
+
+注意：volatile不保证原子性。
+
+### 79 避免过度同步
+
++ **为了避免活性失败和安全性失败，永远不要在同步方法或代码块中将控制权交给客户端**。换句话说，在同步区域内，不要调用设计为被重写的方法，或者由客户端以函数对象的形式提供的方法(条目 24)。从具有同步区域的类的角度来看，这种方法是外外来的（alien）。类不知道该方法做什么，也无法控制它。根据外来方法的作用，从同步区域调用它可能会导致异常、死锁或数据损坏。
++ 应该在同步区域内做尽可能少的工作。
+
+[同步可以防止其他线程删除集合的元素，但不能防止线程本身删除数据，因此，不能把线程内部数据的控制权交给调用者](https://blog.csdn.net/anialy/article/details/39141871)
+
+为了防止concurrentModificationException，可以使用CopyOnWriteArrayList，写时复制数组。但是效率低。
+
+
+
+### 80 executor、task和stream优先于线程
+
++  不仅应该避免编写自己的工作队列，而且通常应该避免直接使用线程。 
++ 多使用ThreadPoolExecutor以实现最大程度的控制。
++ 由ForkJoinTask实例表示的fork-join任务可以拆分为较小的子任务，而包含ForkJoinPool的线程不仅处理这些任务，而且还“彼此”窃取“任务”以确保所有线程都保持忙碌，从而导致更高的任务 CPU利用率，更高的吞吐量和更低的延迟。 编写和调优fork-join任务很棘手。 并行流（Parallel streams）（条目 48）是在fork-join池之上编写的，假设它们适合当前的任务，那么你可以轻松地利用它们的性能优势。
+
+### 81 并发工具优先于wait和notify
+
+与java.util.concurrent提供的高级语言相比，直接使用wait和notify就像在“并发汇编语言”中编程一样。**在新代码中基本上不存在使用wait和notify的理由**。
+
+
+
+### 82 线程安全性的文档化
+
+```java
+private final Object lock = new Object();
+```
+
++ 锁定属性（lock field）应始终声明为final。
+
+### 83 慎用延迟初始化
+
++ 与大多数优化一样，延迟初始化的最佳建议是“除非需要，否则不要这样做”
+
++ 如果一定要使用延迟加载，双重校验 + volatile
+
+### 84 不要依赖于线程调度器
+
+当许多线程可以运行时，线程调度器（thread scheduler）决定哪些线程可以运行以及运行多长时间。任何合理的操作系统都会尝试公平地做出这个决定，但是策略可能会有所不同。因此，编写良好的程序不应该依赖于此策略的细节。**任何依赖线程调度器来保证正确性或性能的程序都可能是不可移植的**。
+
+不要依赖`Thread.yield`方法或线程优先级。 
 
 ## 第12章　序列化 263
 
-第85条：其他方法优先于Java序列化 263
+### 85 其他方法优先于Java序列化
+
+总之，序列化是危险的，应该避免。如果从头开始设计一个系统，可以使用跨平台的结构化数据表示，如JSON或protobuf。
+
 第86条：谨慎地实现Serializable接口 266
 第87条：考虑使用自定义的序列化形式 269
 第88条：保护性地编写readObject方法 274
@@ -1435,6 +1823,11 @@ CopyOnWriteArrayList这是一个ArrayList的线程安全的变体，其原理大
             lock.unlock();
         }
     }
+
+	// 取数据不加锁。  
+    public E get(int index) {
+        return get(getArray(), index);
+    }
 ```
 
 HashSet底层就是使用的HashMap，只是使用了它的Key。
@@ -1491,23 +1884,6 @@ https://blog.csdn.net/lijiecao0226/article/details/24609559
 4、 执行jstack <pid> | grep -A 10  -i <thread id>   查看该线程的10行堆栈信息，-i 忽略16进制的大小写问题
 
 同样适用于死锁的问题，dead lock
-
-### Exception与RuntimeException区别
-
-+ **Exception**：在程序中必须使用try...catch进行处理。 不用trycatch或者throws抛出的话，编译不通过。
-+ **RuntimeException**：可以不使用try...catch进行处理，但是如果有异常产生，则异常将由JVM进行处理。
-      不用trycatch的话，出错直接终止程序。一般建议用trycatch捕获。
-
-继承Exception还是继承RuntimeException是由异常本身的特点决定的，而不是由是否是自定义的异常决定的。
-例如我要写一个java api，这个api中会调用一个极其操蛋的远端服务，这个远端服务经常超时和不可用。
-所以我决定以抛出自定义异常的形式向所有调用这个api的开发人员周知这一操蛋的现实，让他们在调用这个api时务必考虑到远端服务不可用时应该执行的补偿逻辑（比如尝试调用另一个api）。
-此时自定义的异常类就应继承Exception，这样其他开发人员在调用这个api时就会收到编译器大大的红色报错：【你没处理这个异常！】，强迫他们处理。又如，我要写另一个api，
-这个api会访问一个非常非常稳定的远端服务，除非有人把远端服务的机房炸了，否则这个服务不会出现不可用的情况。
-而且即便万一这种情况发生了，api的调用者除了记录和提示错误之外也没有别的事情好做。但出于某种不可描述的蛋疼原因，我还是决定要定义一个异常对象描述“机房被炸”这一情况，
-
-那么此时定义的异常类就应继承RuntimeException，因为我的api的调用者们没必要了解这一细微的细节，把这一异常交给统一的异常处理层去处理就好了。
-
-
 
 # JVM专题
 
