@@ -151,7 +151,7 @@ select缺点：
 
 （4）select返回回来的fd集合只保留有数据到达的fd，因此每次调用select，fdset集合不可重用。
 
-![1607827545012](C:\Users\coco\AppData\Roaming\Typora\typora-user-images\1607827545012.png)
+![1607827545012](../images/1607827545012.png)
 
 
 
@@ -161,7 +161,7 @@ poll解决了select的哪些问题：
 
 2、pollfd里有个events和revents两个变量，解决了fd重用性的问题。
 
-![1607827944957](C:\Users\coco\AppData\Roaming\Typora\typora-user-images\1607827944957.png)
+![1607827944957](../images/1607827944957.png)
 
 
 
@@ -175,7 +175,7 @@ epoll高效的本质在于：
 - 使用红黑树存储fd，以及对应的回调函数，其插入，查找，删除的性能不错，相比于hash，不必预先分配很多的空间
 - epoll_wait 返回就绪列表的值
 
-![1607828966593](C:\Users\coco\AppData\Roaming\Typora\typora-user-images\1607828966593.png)
+![1607828966593](../images/1607828966593.png)
 
 ### 写时复制：
 
