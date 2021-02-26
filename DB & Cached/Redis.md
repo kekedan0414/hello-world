@@ -122,7 +122,7 @@ QUEUED
 2) (integer 10)
 ```
 
-![image-20201202174957981](C:\Users\chenmeilan\AppData\Roaming\Typora\typora-user-images\image-20201202174957981.png)
+![image-20201202174957981](../images/image-20201202174957981.png)
 
 + 扩展 
 
@@ -140,7 +140,7 @@ QUEUED
 
     + 配置文件中的save规则
 
-      > ![image-20201202191857120](C:\Users\chenmeilan\AppData\Roaming\Typora\typora-user-images\image-20201202191857120.png)
+      > ![image-20201202191857120](../images/image-20201202191857120.png)
 
     + flushall
 
@@ -169,7 +169,7 @@ QUEUED
 
 + aof与rdb都存在的情况下的数据恢复
 
-  > ![image-20201202193748892](C:\Users\chenmeilan\AppData\Roaming\Typora\typora-user-images\image-20201202193748892.png)
+  > ![image-20201202193748892](../images/image-20201202193748892.png)
 
 + 建议：
   
