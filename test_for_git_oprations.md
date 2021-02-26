@@ -1,4 +1,3 @@
 测试git操作
 
-111333
-new coco
+1. 修改后是否都必须git add ？
