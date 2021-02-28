@@ -35,6 +35,11 @@ public class _7 {
         System.out.println(reverse1(-321));
     }
 
+    /**
+     * 方法1，使用long，最后返回的时候转换为int
+     * @param x
+     * @return
+     */
     public static int reverse(int x) {
         long rev = 0;
         while (x != 0) {
@@ -44,12 +49,31 @@ public class _7 {
         return (int )rev == rev ? (int)rev : 0;
     }
 
+    public static int reverse_0(int x) {
+        long rev = 0;
+        while (x != 0) {
+            rev = rev * 10 + x % 10;
+            x /= 10;
+        }
+        return (int)rev == rev ? (int)rev : 0;
+    }
+
     public static int reverse1(int x) {
         int rev = 0;
         while (x != 0) {
             int tmp = 10 * rev + x % 10;
             if ((tmp - x%10) / 10 != rev) return 0;
             rev = tmp;
+            x /= 10;
+        }
+        return rev;
+    }
+
+    public static int reverse1_0(int x) {
+        int rev = 0;
+        while (x != 0) {
+            int tmp = 10 * rev + x % 10;
+            if (rev == (tmp - x % 10) / 10) return 0;
             x /= 10;
         }
         return rev;

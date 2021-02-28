@@ -22,7 +22,7 @@ package com.lettcode;
  */
 public class _26 {
     public static void main(String[] args) {
-        System.out.println(removeDuplicates(new int[]{0, 0, 1, 1, 1, 2, 2, 3, 3, 4}));
+        System.out.println(removeDuplicates_0(new int[]{0, 0, 1, 1, 1, 2, 2, 3, 3, 4}));
     }
 
     public static int removeDuplicates(int[] nums) {
@@ -37,5 +37,15 @@ public class _26 {
         return i + 1;
     }
 
+    private static int removeDuplicates_0(int[] nums) {
+        if (nums.length <= 1) return nums.length;
+        int i = 0;
+        for (int j = 0; j < nums.length; j++) {
+            if (nums[i] != nums[j]) {
+                nums[++i] = nums[j];
+            }
+        }
+        return i + 1;
+    }
 
 }

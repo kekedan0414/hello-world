@@ -23,7 +23,7 @@ package com.lettcode;
 
 public class _21 {
 
-    class ListNode {
+     static class ListNode {
         int val;
         ListNode next;
         ListNode() {}
@@ -40,10 +40,28 @@ public class _21 {
     }
 
     public static void main(String[] args) {
+        ListNode l1 = new ListNode(1);
+        ListNode l11 = new ListNode(2);
+        l1.next = l11;
+        ListNode l12 = new ListNode(4);
+        l11.next = l12;
+
+        ListNode l2 = new ListNode(1);
+        ListNode l21 = new ListNode(3);
+        l2.next = l21;
+        ListNode l22 = new ListNode(4);
+        l21.next = l22;
+
+        //System.out.println(mergeTwoLists_0(l1,l2));
+        ListNode l = mergeTwoLists_0(l1,l2);
+        while (l.next != null) {
+            System.out.println(l.val);
+            l = l.next;
+        }
 
     }
 
-    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+    public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
 
         ListNode prehead = new ListNode(-1);
         ListNode pre = prehead;
@@ -60,5 +78,23 @@ public class _21 {
         pre.next = l1 == null ? l2 : l1;
 
         return prehead.next;
+    }
+
+    public static ListNode mergeTwoLists_0(ListNode l1, ListNode l2) {
+        ListNode preHead = new ListNode(-1);
+        ListNode pre = preHead;
+        while (l1 != null && l2 != null) {
+            if (l1.val <= l2.val) {
+                pre.next = l1;
+                l1 = l1.next;
+            } else {
+                pre.next = l2;
+                l2 = l2.next;
+            }
+            pre = pre.next;
+        }
+        pre.next = l1 == null ? l2 : l1;
+
+        return preHead.next;
     }
 }

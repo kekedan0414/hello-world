@@ -20,7 +20,7 @@ package com.lettcode;
  */
 public class _14 {
     public static void main(String[] args) {
-        System.out.println(longestCommonPrefix(new String[]{"123", "123", "212"}));
+        System.out.println(longestCommonPrefix1_0(new String[]{"123", "", "212"}));
     }
 
     //投机取巧
@@ -47,6 +47,19 @@ public class _14 {
             char c = strs[0].charAt(i);
             for (int j = 1; j < count; j++) {
                 if (strs[j].length() < i + 1 ||  c != strs[j].charAt(i)) {
+                    return strs[0].substring(0,i);
+                }
+            }
+        }
+        return strs[0];
+    }
+
+    public static String longestCommonPrefix1_0(String[] strs) {
+        if (strs == null || strs.length == 0) return "";
+
+        for (int i = 0; i < strs[0].length(); i++) {
+            for (int j = 1; j < strs.length; j++) {
+                if (strs[j].length() < i + 1 || strs[0].charAt(i) != strs[j].charAt(i)) {
                     return strs[0].substring(0,i);
                 }
             }

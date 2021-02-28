@@ -46,5 +46,17 @@ public class _9 {
         return t==rev;
 
     }
+
+    public static boolean isPalindrome_0(int x) {
+        if (x < 0) return false;
+        if (x == 0) return true;
+        int rev = 0;
+        int t = x;
+        while (x > 0) {
+            rev = 10 * rev + x % 10 ;
+            x = x / 10;
+        }
+        return t == rev;
+    }
 }
 
