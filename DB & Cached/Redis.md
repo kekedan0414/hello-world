@@ -4,7 +4,7 @@
 
 **扩展 :** 数据操作的速度
 
-> ![1607081345017](C:\Users\coco\AppData\Roaming\Typora\typora-user-images\1607081345017.png)
+> ![1607081345017](..\images\1607081345017.png)
 
 ### redis具体的应用场景
 

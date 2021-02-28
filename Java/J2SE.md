@@ -1974,7 +1974,7 @@ grant {
 
 ## 2、JVM内存模型
 
-> ![1608456701648](C:\Users\coco\AppData\Roaming\Typora\typora-user-images\1608456701648.png)
+> ![1608456701648](../images/1608456701648.png)
 
 ### JVM内存划分
 
@@ -2019,7 +2019,7 @@ grant {
 
 #### 堆区详解
 
-> ![1608462170499](C:\Users\coco\AppData\Roaming\Typora\typora-user-images\1608462170499.png)
+> ![1608462170499](../images/1608462170499.png)
 
 + **堆划分比例**
 
@@ -2037,7 +2037,7 @@ grant {
 
   + MinorGC的过程：MinorGC采用复制算法。首先，把Eden和ServivorFrom区域中存活的对象复制到ServicorTo区域（如果有对象的年龄以及达到了老年的标准，则赋值到老年代区），同时把这些对象的年龄+1（如果ServicorTo不够位置了就放到老年区）；然后，清空Eden和ServicorFrom中的对象；最后，ServicorTo和ServicorFrom互换，原ServicorTo成为下一次GC时的ServicorFrom区。
 
-  > ![1608462917705](C:\Users\coco\AppData\Roaming\Typora\typora-user-images\1608462917705.png)
+  > ![1608462917705](../images/1608462917705.png)
 
   垃圾判断条件：根可达算法（Root Search）如果根没有直接引用或间接引用，就判断为垃圾。
 
@@ -2076,7 +2076,7 @@ grant {
 
 > 扩展：Java中Stop-The-World机制简称STW，是在执行垃圾收集算法时，Java应用程序的其他所有线程都被挂起（除了垃圾收集帮助器之外）。Java中一种全局暂停现象，全局停顿，所有Java代码停止，native代码可以执行，但不能与JVM交互。
 >
-> ![1608465228835](C:\Users\coco\AppData\Roaming\Typora\typora-user-images\1608465228835.png)
+> ![1608465228835](../images/1608465228835.png)
 >
 > 链接：[minorGC也会触发SWT](https://www.zhihu.com/question/29114369)
 
