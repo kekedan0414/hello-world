@@ -2,6 +2,9 @@
 
 spring IOC，控制反转：使用依赖注入
 http://www.mamicode.com/info-detail-2691212.html
+
+https://www.zhihu.com/question/23277575/answer/169698662
+
 工厂设计模式 : Spring使用工厂模式通过 BeanFactory、ApplicationContext 创建 bean 对象。
 
 代理设计模式 : Spring AOP 功能的实现。
