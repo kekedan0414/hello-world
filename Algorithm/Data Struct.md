@@ -74,6 +74,8 @@
 
 #### 3.3.2、二叉树（Binary Tree）
 
+[如何写递归](https://lyl0724.github.io/2020/01/25/1/)
+
 #### 3.3.3、真二叉树（Proper Binary Tree）
 
 所有节点的度都要么为0，要么为2。
