@@ -72,6 +72,38 @@ smoke free zone == no smoking zone
 
 
 
+passion 强烈的情感。耶稣受难记
+
+cross 十字军，穿过。
+
+cruise 巡航，巡游艇
+
+crucial 至关重要的，面临抉择的路口
+
+vital 生死攸关的，没有就死了（vitamin）
+
+essential 重要的，本质
+
+angle 角度，钓鱼，（间接迂回地）谋取，
+
+ankle 脚踝
+
+anchor 锚 （带角的东西），危险时可以依靠的人或者物。
+
+hard 牢固的，standard 牢固的屹立不倒的旗帜。引申为标准，准则。
+
+custom 风俗，
+
+customs 海关。全世界第一个海关：希腊，外地人过来赚钱需要先收费，形成了习俗。
+
+customer 顾客（习惯的人，老主顾）
+
+costume 戏装
+
+
+
+
+
 # 新概念英语
 
 ## Lesson 1  A puma at large
