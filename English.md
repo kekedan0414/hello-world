@@ -118,39 +118,27 @@ costume 戏装
 
 美洲狮是一种体形似猫的大动物，产于美洲。
 
-puma is a large ,cat like animal which origin from America.
-
-pumas are large, cat-like animals which are found of America.
+Pumas are  large, cat-like animals which are found of America.
 
 当伦敦动物园接到报告说，在伦敦以南 45 英里处发现 一只美洲狮时，这些报告并没有受到重视。
 
-When reports came into London zoos that a puma was spotted by fourty-five miles away from south London, the report was not  concert.
-
-When reports came into London Zoo that a wildly puma have been spotted forty-five miles south of London, they were not taken seriously.
+When reports came into London Zoo, A wild puma had been spotted forty-five miles south of London, they were not taken seriously.
 
 可是，随着证据越来越多，动物园的专家们感到有必要进行一 番调查，因为凡是声称见到过美洲狮的人们所描述的情况竟是出奇地相似。 
 
-but, with evidences became obviously, the expert of the Zoo oblighted to investigate, for the people who have seen the cat-like animal was similar.
-
-However, with the evidences began to accumulate, experts from the Zoo felt obliged to investigate, for the descriptions given by people who cliam**ed** have seen the puma  were extraordinarily similar.
+Howere, as the evidence began to accumulate, experts from the Zoo felt obliged to investigate, for the descriptions given by people who claimed to have seen the puma were extraordinarily similar.
 
 搜寻美洲狮的工作是从一座小村庄开始的。 
 
-The search was beginning from a small village.
-
-The hunt for the puma began in a small village
+the hunt for the puma began in a small village
 
 那里的一位妇女在采摘黑莓时的看见“一只大猫”， 离她 仅 5 码远，她刚看见它，它就立刻逃走了。
 
-where a women was picking blackberries saw a big cat just five yards away from her and run away imediately when she saw it.
-
-where a women picking blackberries saw a big cat olny five yards away from her. It immediately run away when she saw it. 
+When a women picking blackberries saw a big cat only five yards away from her. It ran away immediately when she saw it.
 
 专家证实，美洲狮非被逼得走投无路，是决不会伤人的。
 
-the expert confirmed , puma are not harm to people unless it is cornerd.
-
-and experts confirmed that a puma will not attack a human being unless it is cornered.
+experts confirmed that A puma will not attack a human being unless it is cornered.
 
 事实上搜寻工作很困难，因为常常是早晨在甲地发现那只美洲狮，晚上却在 20 英里外的乙地发现它的踪迹。 
 
